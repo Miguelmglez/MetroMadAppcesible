@@ -1,7 +1,10 @@
-package com.example.miguel.urjctfgappmetromad;
+package com.miguel.metromadappcesible.activities;
+
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+
+
 
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;

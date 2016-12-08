@@ -4,7 +4,7 @@
     android:id="@+id/activity_routes"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-       tools:context="com.example.miguel.urjctfgappmetromad.RoutesActivity"
+       tools:context="com.miguel.metromadappcesible.activities.RoutesActivity"
     android:paddingLeft="16dp"
     android:paddingRight="16dp">
 

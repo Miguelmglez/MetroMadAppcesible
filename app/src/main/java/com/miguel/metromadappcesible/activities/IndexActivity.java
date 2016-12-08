@@ -1,8 +1,10 @@
-package com.example.miguel.urjctfgappmetromad;
+package com.miguel.metromadappcesible.activities;
+
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+
 
 public class IndexActivity extends AppCompatActivity {
 
