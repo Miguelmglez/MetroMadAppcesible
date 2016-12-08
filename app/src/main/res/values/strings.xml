@@ -1,3 +1,29 @@
 <resources>
-    <string name="app_name">MetroMadAppcesible</string>
+    <string name="app_name">Metro Madrid Appcesible</string>
+    <string name="button_route_en">Find your route</string>
+    <string name="button_route_es">Calcula tu ruta</string>
+    <string name="index_title">Metro de Madrid</string>
+    <string name="origin_en">From: </string>
+    <string name="origin_es">Origen: </string>
+    <string name="destination_en">To: </string>
+    <string name="destination_es">Destino: </string>
+    <string name="example_en">For example... Atocha</string>
+    <string name="example_es">Por ejemplo... Atocha</string>
+    <string name="example2_en">For example... Opera</string>
+    <string name="example2_es">Por ejemplo... Opera</string>
+    <string name="radioButton1_en">Less changes</string>
+    <string name="radioButton1_es">Menos transbordos</string>
+    <string name="radioButton2_en">Less stations</string>
+    <string name="radioButton2_es">Menos estaciones</string>
+    <string name="buttonGo_en">GO!</string>
+    <string name="buttonGo_es">CALCULAR</string>
+    <string name="buttonRouteDetails_en">Route details</string>
+    <string name="buttonRouteDetails_es">Detalles de la ruta</string>
+    <string name="buttonReturnToMap_en">RETURN TO MAP</string>
+    <string name="buttonReturnToMap_eS">VOLVER AL MAPA</string>
+    <string name="buttonNewRoute_en">NEW ROUTE</string>
+    <string name="buttonNewRoute_es">NUEVO TRAYECTO</string>
+    <string name="buttonExit_en">EXIT</string>
+    <string name="buttonExit_es">SALIR</string>
 </resources>
+
