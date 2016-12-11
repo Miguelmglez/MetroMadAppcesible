@@ -24,10 +24,12 @@
         <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
         <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
+
         <activity android:name=".RoutesActivity" />
         <activity android:name=".MapsActivity" />
         <activity android:name=".SolutionActivity" />
         <activity android:name=".DetailsActivity" />
+        <activity android:name="com.miguel.metromadappcesible.TEST"></activity>
     </application>
 
 </manifest>

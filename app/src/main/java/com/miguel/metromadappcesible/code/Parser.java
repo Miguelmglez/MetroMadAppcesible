@@ -45,7 +45,8 @@ public class Parser {
                     String accesibleStr = eElement.getElementsByTagName("ont:isAccessible").item(0).getTextContent();
                     if (accesibleStr.equalsIgnoreCase("true")) {
                         accesible = true;
-                    } else {
+                    }
+                    else{
                         accesible = false;
                     }
                     System.out.println("Nombre : " + nombreEstacion);
@@ -55,7 +56,7 @@ public class Parser {
                     if (nNodeAux.getNodeType() == Node.ELEMENT_NODE) {
                         String lineaStr = eElement.getElementsByTagName("geo:name").item(0).getTextContent();
                         String[] lineaAux = lineaStr.split(" ");
-                        String lineaFinal = lineaAux[0];
+                        String lineaFinal= lineaAux[0];
                         String localizacion = eElement.getElementsByTagName("cal:location").item(0).getTextContent();
                         String[] localizacionAux = localizacion.split(" ");
                         String latitudStr = localizacionAux[0];
@@ -63,7 +64,6 @@ public class Parser {
                         latitud = Double.parseDouble(latitudStr);
                         longitud = Double.parseDouble(longitudStr);
                         linea = Integer.valueOf(lineaFinal);
-                        /*
                         System.out.println("Línea : " + lineaFinal);
                         System.out.println("LATITUD : " + latitudStr);
                         System.out.println("LONGITUD : " + longitudStr);
@@ -71,16 +71,15 @@ public class Parser {
                         System.out.println("LONGITUD --- Float : " + Float.parseFloat(longitudStr));
                         System.out.println("LATITUD  --- Double: " + latitud);
                         System.out.println("LONGITUD --- Double: " + longitud);
-                        */
                     }
 
-                    Estacion estacionNueva = new Estacion(linea, nombreEstacion, latitud, longitud, accesible);
-                    metroMadrid.aniadirEstacion(estacionNueva);
-                    listaEstaciones.add(estacionNueva);
+                    Estacion estacionAux = new Estacion(linea, nombreEstacion, latitud, longitud, accesible);
+                    metroMadrid.aniadirEstacion(estacionAux);
+                    listaEstaciones.add(estacionAux);
                     // System.out.println(metroMadrid.mapaEstaciones.get(estacionAux.nombre).toString());
                 }
             }
-        } catch (Exception e) {
+        }catch(Exception e){
             e.printStackTrace();
         }
         /* Para comprobar las estaciones y sus correspondencias
@@ -95,13 +94,9 @@ public class Parser {
         metroMadrid.aniadirContiguas(listaEstaciones);
         metroMadrid.completarContiguas(metroMadrid.mapaEstaciones);
         metroMadrid.aniadirCorrespondencias(listaEstaciones);
-
-
-
-        /* ---- Para ver el recorrido de la ruta encontrada y sus transbordos
         Estacion e1 = metroMadrid.mapaEstaciones.get("Estrella").get(0);
         Estacion e2 = metroMadrid.mapaEstaciones.get("Metropolitano").get(0);
-
+        metroMadrid.mapaEstaciones.get(e1);
         ArrayList<Estacion> visitadasOrigen = new ArrayList<>();
         ArrayList<Estacion> visitadasDestino = new ArrayList<>();
         ArrayList<Estacion> listaOrigen = metroMadrid.listaAccesibles(e1,visitadasOrigen);
@@ -116,7 +111,6 @@ public class Parser {
         }
         boolean transbordos = false;
         ArrayList rutaFinal = metroMadrid.mejorCamino(listaOrigen,listaDestino,transbordos);
-
         for (int i = 0; i<rutaFinal.size();i++){
             Conexion c = (Conexion) rutaFinal.get(i);
             if (c.getEstacionDestino().getNombre().equals(c.getEstacionOrigen().getNombre())){
@@ -127,17 +121,14 @@ public class Parser {
             }
         }
         System.out.print(rutaFinal.size());
-        */
-
-        /* ---- Para calcular una ruta
-
+        /*
         Estacion laGranja = metroMadrid.mapaEstaciones.get("Avenida de America").get(0);
         Estacion elCasar = metroMadrid.mapaEstaciones.get("Portazgo").get(0);
         DijkstraShortestPath dijkstra = new DijkstraShortestPath(metroMadrid.grafoEstaciones,laGranja,elCasar);
         ArrayList ruta = (ArrayList)dijkstra.getPathEdgeList();
         System.out.print(ruta.size());
 */
-        /* ---- Para ver las correspondencias de cada estación
+        /*
         System.out.println();
         System.out.println();
         System.out.println();
@@ -167,7 +158,9 @@ public class Parser {
                 }
                 System.out.println("---------------------------");
             } */
+
     }
-    }
+}
+
 
 

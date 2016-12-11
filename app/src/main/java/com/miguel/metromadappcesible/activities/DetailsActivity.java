@@ -15,11 +15,11 @@ public class DetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_details);
     }
     public void routes (View v){
-        setContentView(R.layout.activity_solution);
+        Intent intent = new Intent(this, RoutesActivity.class);
+        startActivity(intent);
     }
     public void map (View v){
-        Intent intent = new Intent(this, MapsActivity.class);
-        startActivity(intent);
+        setContentView(R.layout.activity_solution);
     }
     public void dropView (View v){
         this.finish();
