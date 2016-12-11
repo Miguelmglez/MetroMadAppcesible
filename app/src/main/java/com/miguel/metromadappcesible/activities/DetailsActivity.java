@@ -15,8 +15,7 @@ public class DetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_details);
     }
     public void routes (View v){
-        Intent intent = new Intent(this, RoutesActivity.class);
-        startActivity(intent);
+        setContentView(R.layout.activity_solution);
     }
     public void map (View v){
         Intent intent = new Intent(this, MapsActivity.class);
