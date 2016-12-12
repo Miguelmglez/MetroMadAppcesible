@@ -29,7 +29,6 @@
         <activity android:name=".MapsActivity" />
         <activity android:name=".SolutionActivity" />
         <activity android:name=".DetailsActivity" />
-        <activity android:name="com.miguel.metromadappcesible.TEST"></activity>
     </application>
 
 </manifest>

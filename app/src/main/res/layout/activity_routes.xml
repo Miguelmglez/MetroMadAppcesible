@@ -29,7 +29,10 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:textColor="@android:color/black"
-        android:hint="@string/example2_en"/>
+        android:hint="@string/example2_en"
+        android:textColorLink="@android:color/holo_green_dark"
+        android:textColorHighlight="@android:color/holo_green_dark"
+        android:textCursorDrawable="@android:color/holo_green_dark" />
 
     <RadioGroup
         android:layout_width="match_parent"
@@ -50,11 +53,13 @@
             android:checked="true"
             android:visibility="visible"
             android:layout_marginTop="40dp"
-            android:textColorLink="@android:color/holo_red_dark"
+            android:textColorLink="@android:color/holo_green_dark"
             android:textSize="18sp"
             android:textStyle="normal|bold"
             android:layout_marginLeft="10dp"
-            android:textCursorDrawable="@android:color/holo_green_light" />
+            android:textCursorDrawable="@android:color/holo_green_light"
+
+            android:buttonTint="@android:color/holo_green_dark" />
 
         <RadioButton
             android:text="@string/radioButton2_en"
@@ -67,10 +72,10 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="40dp"
             android:layout_marginLeft="30dp"
-            android:textColorLink="@android:color/holo_red_dark"
             android:textSize="18sp"
             android:layout_weight="0.24"
-            android:textStyle="normal|bold"/>
+            android:textStyle="normal|bold"
+            android:buttonTint="@android:color/holo_green_dark" />
 
     </RadioGroup>
 
@@ -94,7 +99,9 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginBottom="15dp"
-        android:hint="@string/example_en"/>
+        android:hint="@string/example_en"
+        android:textColorLink="@android:color/holo_green_dark"
+        android:textCursorDrawable="@android:color/holo_green_dark" />
 
     <TextView
         android:text="@string/origin_en"
@@ -115,7 +122,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="24dp"
         android:textColorLink="@android:color/holo_green_light"
-        app:buttonTint="@android:color/black" />
+        android:buttonTint="@android:color/holo_green_dark" />
 
     <ImageButton
         android:layout_width="wrap_content"
@@ -133,7 +140,6 @@
         app:srcCompat="@mipmap/disabled"
         android:id="@+id/buttonDisabled"
         android:background="@android:color/holo_green_light"
-        android:onClick="none"
         android:layout_marginTop="30dp"
         android:layout_marginLeft="34dp"
         android:layout_marginStart="34dp"
@@ -154,7 +160,8 @@
         android:layout_marginEnd="7dp"
         android:textColorHighlight="@android:color/holo_green_light"
         android:textColorLink="@android:color/holo_green_light"
-        app:buttonTint="@android:color/black" />
+        android:buttonTint="@android:color/holo_green_dark"
+        android:checked="true" />
 
     <ImageButton
         android:layout_width="wrap_content"
@@ -180,6 +187,6 @@
         android:layout_marginLeft="7dp"
         android:layout_marginStart="7dp"
         android:textColorLink="@android:color/holo_green_light"
-        android:backgroundTint="@android:color/black" />
+        android:buttonTint="@android:color/holo_green_dark" />
 
 </RelativeLayout>

@@ -11,18 +11,6 @@
     tools:context="com.miguel.metromadappcesible.activities.DetailsActivity">
 
     <Button
-        android:text="@string/buttonNewRoute_en"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/button4"
-        android:layout_marginBottom="25dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:background="@android:color/holo_green_light"
-        android:onClick="routes" />
-    <Button
         android:text="@string/buttonExit_en"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -33,27 +21,42 @@
         android:layout_alignParentEnd="true"
         style="@style/Widget.AppCompat.Button.Colored"
         android:background="@android:color/holo_red_dark"
-        android:onClick="map"/>
+        android:onClick="dropView"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:id="@+id/textRuta"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:scrollbars="vertical"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/button5"
+        android:layout_marginBottom="10dp" />
 
     <Button
         android:text="@string/buttonReturnToMap_en"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/button3"
-        android:layout_marginBottom="12dp"
-        android:layout_above="@+id/button4"
+        android:onClick="map"
         android:layout_centerHorizontal="true"
-        android:onClick="dropView"/>
+        android:layout_alignBottom="@+id/button5"
+        android:layout_below="@+id/textRuta" />
 
-    <TextView
-        android:text="TextView"
+    <Button
+        android:text="@string/buttonNewRoute_en"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:id="@+id/button4"
+        android:layout_marginBottom="14dp"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:background="@android:color/holo_green_light"
+        android:onClick="routes"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="7dp"
-        android:layout_marginStart="7dp"
-        android:id="@+id/textRuta" />
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>

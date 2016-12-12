@@ -37,7 +37,7 @@ public class MapsActivity extends AppCompatActivity {
         //GeoPoint startPoint = new GeoPoint(myLocationLat,myLocationLong);
         //GeoPoint myPoint = myLocationOverlay.getMyLocation();
         myMapController = (MapController) myOpenMapView.getController();
-        myMapController.setZoom(17);
+        myMapController.setZoom(18);
 
 
         myMapController.animateTo(location);

@@ -128,7 +128,7 @@ public class Metro {
         }
     }
 
-    protected ArrayList<Estacion> listaAccesibles(Estacion estacion, ArrayList<Estacion> visitadas) {
+    public ArrayList<Estacion> listaAccesibles(Estacion estacion, ArrayList<Estacion> visitadas) {
         ArrayList<Estacion> resultado = new ArrayList<>();
         ArrayList<Estacion> aux = new ArrayList<>();
         ArrayList<Estacion> aux2 = new ArrayList<>();
