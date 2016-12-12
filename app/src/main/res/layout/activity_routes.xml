@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_routes"
     android:layout_width="match_parent"
@@ -8,24 +9,6 @@
     android:paddingLeft="16dp"
     android:paddingRight="16dp">
 
-
-    <CheckBox
-        android:text="CheckBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/checkBox"
-        android:layout_alignLeft="@+id/button2"
-        android:layout_alignStart="@+id/button2"
-        android:id="@+id/checkBox2" />
-
-    <CheckBox
-        android:text="CheckBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/checkBox2"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:id="@+id/checkBox3" />
 
     <TextView
         android:text="@string/destination_en"
@@ -70,7 +53,8 @@
             android:textColorLink="@android:color/holo_red_dark"
             android:textSize="18sp"
             android:textStyle="normal|bold"
-            android:layout_marginLeft="10dp" />
+            android:layout_marginLeft="10dp"
+            android:textCursorDrawable="@android:color/holo_green_light" />
 
         <RadioButton
             android:text="@string/radioButton2_en"
@@ -101,16 +85,6 @@
         android:layout_centerHorizontal="true"
         android:onClick="solution" />
 
-    <CheckBox
-        android:text="CheckBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/checkBox"
-        android:layout_above="@+id/textView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="54dp" />
-
     <AutoCompleteTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -132,5 +106,80 @@
         android:layout_above="@+id/autoCompleteTextView6"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/checkboxBlindess"
+        android:layout_below="@+id/buttonDisabled"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:textColorLink="@android:color/holo_green_light"
+        app:buttonTint="@android:color/black" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@mipmap/blindness"
+        android:id="@+id/buttonBlindness"
+        android:background="@android:color/holo_green_light"
+        android:layout_alignTop="@+id/buttonDisabled"
+        android:layout_centerHorizontal="true"
+        android:clickable="false" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@mipmap/disabled"
+        android:id="@+id/buttonDisabled"
+        android:background="@android:color/holo_green_light"
+        android:onClick="none"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="34dp"
+        android:layout_marginStart="34dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:clickable="false" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/checkboxDisability"
+        android:layout_alignBaseline="@+id/checkboxBlindess"
+        android:layout_alignBottom="@+id/checkboxBlindess"
+        android:layout_alignRight="@+id/buttonDisabled"
+        android:layout_alignEnd="@+id/buttonDisabled"
+        android:layout_marginRight="7dp"
+        android:layout_marginEnd="7dp"
+        android:textColorHighlight="@android:color/holo_green_light"
+        android:textColorLink="@android:color/holo_green_light"
+        app:buttonTint="@android:color/black" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@mipmap/deafness"
+        android:id="@+id/buttonDeafness"
+        android:background="@android:color/holo_green_light"
+        android:layout_alignTop="@+id/buttonBlindness"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="31dp"
+        android:layout_marginEnd="31dp"
+        android:clickable="false" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/checkboxDeafness"
+        android:layout_alignBaseline="@+id/checkboxBlindess"
+        android:layout_alignBottom="@+id/checkboxBlindess"
+        android:layout_alignLeft="@+id/buttonDeafness"
+        android:layout_alignStart="@+id/buttonDeafness"
+        android:layout_marginLeft="7dp"
+        android:layout_marginStart="7dp"
+        android:textColorLink="@android:color/holo_green_light"
+        android:backgroundTint="@android:color/black" />
 
 </RelativeLayout>

@@ -7,18 +7,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.miguel.metromadappcesible.code.Metro;
+import com.miguel.metromadappcesible.code.Parser;
 
 import java.io.File;
 
 public class IndexActivity extends AppCompatActivity {
-    public static Metro miMetro = new Metro();
-    File inputFile = new File("/mnt/sdcard/metro.xml");
-    @Override
+
+    public static File xml = new File("mnt/sdcard/metro.xml");
+    public static Parser parser = new Parser();
+    public static Metro miMetro = parser.parsearMetro(xml);
+
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_index);
-     //   this.miMetro = this.miMetro.nuevoMetroMadrid(inputFile, miMetro);
+        System.out.println(miMetro.getListaNombreEstaciones());
 
     }
     public void map (View v){

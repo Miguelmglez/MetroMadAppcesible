@@ -22,6 +22,30 @@ public class Metro {
 
     }
 
+    public HashMap<String, ArrayList<Estacion>> getMapaEstaciones() {
+        return mapaEstaciones;
+    }
+
+    public void setMapaEstaciones(HashMap<String, ArrayList<Estacion>> mapaEstaciones) {
+        this.mapaEstaciones = mapaEstaciones;
+    }
+
+    public WeightedMultigraph<Estacion, Conexion> getGrafoEstaciones() {
+        return grafoEstaciones;
+    }
+
+    public void setGrafoEstaciones(WeightedMultigraph<Estacion, Conexion> grafoEstaciones) {
+        this.grafoEstaciones = grafoEstaciones;
+    }
+
+    public ArrayList<String> getListaNombreEstaciones() {
+        return listaNombreEstaciones;
+    }
+
+    public void setListaNombreEstaciones(ArrayList<String> listaNombreEstaciones) {
+        this.listaNombreEstaciones = listaNombreEstaciones;
+    }
+
     protected Estacion aniadirEstacion(Estacion e) {
         this.grafoEstaciones.addVertex(e);
         if (this.mapaEstaciones.containsKey(e.getNombre())) {
