@@ -24,7 +24,7 @@ public class IndexActivity extends AppCompatActivity {
 
     }
     public void map (View v){
-        Intent intent = new Intent(this, MapsActivity.class);
+        Intent intent = new Intent(IndexActivity.this, MapsActivity.class);
         startActivity(intent);
     }
 

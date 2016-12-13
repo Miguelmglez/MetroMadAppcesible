@@ -161,8 +161,8 @@ public class Metro {
                 Estacion destino = listaEstacionesDestino.get(j);
                 DijkstraShortestPath dijkstra = new DijkstraShortestPath(this.grafoEstaciones, origen, destino);
                 aux = (ArrayList) dijkstra.getPathEdgeList();
-                int contadorTransbordos =0;
                 if (transbordos){
+                    int contadorTransbordos =0;
                     for (int x=0; x<aux.size();x++){
                         Conexion c = (Conexion) aux.get(x);
                         if (c.getEstacionDestino().getNombre().equals(c.getEstacionOrigen().getNombre())){
@@ -183,11 +183,13 @@ public class Metro {
                 if (auxTransbordos.getRuta() == null) {
                     auxTransbordos = r;
                 }
-                if (auxTransbordos.getTransbordos() > r.getTransbordos()){
+                if (auxTransbordos.getTransbordos() > r.getTransbordos()) {
                     auxTransbordos = r;
-                } else if (auxTransbordos.getTransbordos() == r.getTransbordos()) {
-                    if (auxTransbordos.getRuta().size()>r.getRuta().size()){
-                        auxTransbordos = r;
+                } else {
+                    if (auxTransbordos.getTransbordos() == r.getTransbordos()) {
+                        if (auxTransbordos.getRuta().size() > r.getRuta().size()) {
+                            auxTransbordos = r;
+                        }
                     }
                 }
                 resultadoRuta = auxTransbordos.getRuta();
@@ -206,6 +208,7 @@ public class Metro {
         ArrayList rutaFinal = this.mejorCamino(listaOrigen,listaDestino,transbordos);
         return rutaFinal;
     }
+
     /*
     private ArrayList<Estacion> siguienteHastaAccesible(Estacion estacion) {
         ArrayList<Estacion> diferencia = new ArrayList();
