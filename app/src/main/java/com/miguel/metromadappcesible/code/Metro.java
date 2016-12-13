@@ -5,6 +5,7 @@ import org.jgrapht.graph.WeightedMultigraph;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 
 /**
  * Created by MMG on 18-10-16.
@@ -15,6 +16,8 @@ public class Metro {
     HashMap<String, ArrayList<Estacion>> mapaEstaciones;
     WeightedMultigraph<Estacion, Conexion> grafoEstaciones;
     ArrayList<String> listaNombreEstaciones = new ArrayList<>();
+
+
     public Metro() {
         this.mapaEstaciones = new HashMap<String, ArrayList<Estacion>>() {
         };
@@ -26,24 +29,12 @@ public class Metro {
         return mapaEstaciones;
     }
 
-    public void setMapaEstaciones(HashMap<String, ArrayList<Estacion>> mapaEstaciones) {
-        this.mapaEstaciones = mapaEstaciones;
-    }
-
     public WeightedMultigraph<Estacion, Conexion> getGrafoEstaciones() {
         return grafoEstaciones;
     }
 
-    public void setGrafoEstaciones(WeightedMultigraph<Estacion, Conexion> grafoEstaciones) {
-        this.grafoEstaciones = grafoEstaciones;
-    }
-
     public ArrayList<String> getListaNombreEstaciones() {
         return listaNombreEstaciones;
-    }
-
-    public void setListaNombreEstaciones(ArrayList<String> listaNombreEstaciones) {
-        this.listaNombreEstaciones = listaNombreEstaciones;
     }
 
     protected Estacion aniadirEstacion(Estacion e) {
@@ -74,7 +65,8 @@ public class Metro {
     private Estacion aniadirSiguiente(Estacion siguiente, Estacion actual) {
         if (siguiente.getLinea() == actual.getLinea()) {
             actual.setEstacionSiguiente(siguiente);
-            Conexion c = new Conexion(actual, siguiente);
+            // Conexion c = new Conexion(actual, siguiente);
+            // this.grafoEstaciones.addEdge(siguiente, actual, c);
         } else {
             actual.setEstacionSiguiente(null);
         }
@@ -128,50 +120,32 @@ public class Metro {
         }
     }
 
-    public ArrayList<Estacion> listaAccesibles(Estacion estacion, ArrayList<Estacion> visitadas) {
+    public ArrayList<Estacion> accesibleList(Estacion estacion, LinkedList estacionesContiguas, ArrayList<Estacion> visitadas) {
         ArrayList<Estacion> resultado = new ArrayList<>();
-        ArrayList<Estacion> aux = new ArrayList<>();
-        ArrayList<Estacion> aux2 = new ArrayList<>();
         ArrayList<Estacion> correspondencias = this.mapaEstaciones.get(estacion.getNombre());
         for (int i = 0; i < correspondencias.size(); i++) {
-            visitadas.add(correspondencias.get(i));
-            if (correspondencias.get(i).isAccesible()) {
-                resultado.add(correspondencias.get(i));
-            }
-            if (correspondencias.get(i).estacionAnterior != null) {
-                if (!(visitadas.contains(correspondencias.get(i).estacionAnterior))) {
-                    aux.add(correspondencias.get(i).estacionAnterior);
+            if (!visitadas.contains(correspondencias.get(i))) {
+                if (correspondencias.get(i).estacionAnterior != null) {
+                    estacionesContiguas.addLast(correspondencias.get(i).estacionAnterior);
                 }
-            }
-            if (correspondencias.get(i).estacionSiguiente != null) {
-                if(!(visitadas.contains(correspondencias.get(i).estacionSiguiente))) {
-                    aux.add(correspondencias.get(i).estacionSiguiente);
+                if (correspondencias.get(i).estacionSiguiente != null) {
+                    estacionesContiguas.addLast(correspondencias.get(i).estacionSiguiente);
                 }
+                if (correspondencias.get(i).isAccesible()) {
+                    resultado.add(correspondencias.get(i));
+                }
+                visitadas.add(correspondencias.get(i));
             }
         }
         if (resultado.size() == 0) {
-            for (int i = 0; i < aux.size(); i++) {
-                if (resultado.size()==0) {
-                    resultado = listaAccesibles(aux.get(i),visitadas);
+            for (int i=0; i<estacionesContiguas.size();i++){
+                if (!visitadas.contains(estacionesContiguas.get(i))) {
+                    resultado = this.accesibleList((Estacion) estacionesContiguas.get(i), estacionesContiguas, visitadas);
+                }
+                if (resultado.size()!=0){
+                    return resultado;
                 }
             }
-            if (resultado.size() == 0) {
-                for (int i = 0; i<aux.size(); i++) {
-                    ArrayList auxIzq = this.anteriorHastaAccesible(aux.get(i));
-                    ArrayList auxDer = this.siguienteHastaAccesible(aux.get(i));
-                    if (auxIzq.size() < aux2.size()) {
-                        aux2 = auxIzq;
-                    }
-                    if (auxDer.size() < aux2.size()) {
-                        aux2 = auxDer;
-                    }
-                }
-                resultado.add(aux2.get(aux2.size()-1));
-                for(int i=0; i<this.mapaEstaciones.get(resultado.get(0).getNombre()).size();i++){
-                resultado.add(this.mapaEstaciones.get(aux2.get(aux2.size()-1).getNombre()).get(i));
-                }
-            }
-
         }
         return resultado;
     }
@@ -221,6 +195,18 @@ public class Metro {
         }
         return resultadoRuta;
     }
+
+    public ArrayList calcularCaminoDefinitivo (Estacion origen, Estacion destino, boolean transbordos){
+        ArrayList<Estacion> visitadasOrigen = new ArrayList<>();
+        ArrayList<Estacion> visitadasDestino = new ArrayList<>();
+        LinkedList<Estacion> porVisitarOrigen = new LinkedList<>();
+        LinkedList<Estacion> porVisitarDestino = new LinkedList<>();
+        ArrayList<Estacion> listaOrigen = this.accesibleList(origen,porVisitarOrigen,visitadasOrigen);
+        ArrayList<Estacion> listaDestino = this.accesibleList(destino,porVisitarDestino,visitadasDestino);
+        ArrayList rutaFinal = this.mejorCamino(listaOrigen,listaDestino,transbordos);
+        return rutaFinal;
+    }
+    /*
     private ArrayList<Estacion> siguienteHastaAccesible(Estacion estacion) {
         ArrayList<Estacion> diferencia = new ArrayList();
         diferencia.add(estacion);
@@ -249,12 +235,58 @@ public class Metro {
         }
         return diferencia;
     }
-    public ArrayList calcularCaminoDefinitivo (Estacion origen, Estacion destino, boolean transbordos){
-        ArrayList<Estacion> visitadasOrigen = new ArrayList<>();
-        ArrayList<Estacion> visitadasDestino = new ArrayList<>();
-        ArrayList<Estacion> listaOrigen = this.listaAccesibles(origen,visitadasOrigen);
-        ArrayList<Estacion> listaDestino = this.listaAccesibles(destino,visitadasDestino);
-        ArrayList rutaFinal = this.mejorCamino(listaOrigen,listaDestino,transbordos);
-        return rutaFinal;
+    */
+    /*
+    public ArrayList<Estacion> listaAccesibles(Estacion estacion, ArrayList<Estacion> visitadas) {
+        ArrayList<Estacion> resultado = new ArrayList<>();
+        ArrayList<Estacion> aux = new ArrayList<>();
+        ArrayList<Estacion> aux2 = new ArrayList<>();
+        ArrayList<Estacion> correspondencias = this.mapaEstaciones.get(estacion.getNombre());
+        for (int i = 0; i < correspondencias.size(); i++) {
+            visitadas.add(correspondencias.get(i));
+            if (correspondencias.get(i).isAccesible()) {
+                resultado.add(correspondencias.get(i));
+            }
+        }
+        for (int i = 0; i < correspondencias.size(); i++) {
+            if (correspondencias.get(i).estacionAnterior != null) {
+                if (!(visitadas.contains(correspondencias.get(i).estacionAnterior))) {
+                    aux.add(correspondencias.get(i).estacionAnterior);
+                }
+            }
+            if (correspondencias.get(i).estacionSiguiente != null) {
+                if (!(visitadas.contains(correspondencias.get(i).estacionSiguiente))) {
+                    aux.add(correspondencias.get(i).estacionSiguiente);
+                }
+            }
+        }
+
+        if (resultado.size() == 0) {
+            for (int i = 0; i < aux.size(); i++) {
+                if (resultado.size()==0) {
+                    resultado = listaAccesibles(aux.get(i),visitadas);
+                }
+            }
+
+            if (resultado.size() == 0) {
+                for (int i = 0; i<aux.size(); i++) {
+                    ArrayList auxIzq = this.anteriorHastaAccesible(aux.get(i));
+                    ArrayList auxDer = this.siguienteHastaAccesible(aux.get(i));
+                    if (auxIzq.size() < aux2.size()) {
+                        aux2 = auxIzq;
+                    }
+                    if (auxDer.size() < aux2.size()) {
+                        aux2 = auxDer;
+                    }
+                }
+                resultado.add(aux2.get(aux2.size()-1));
+                for(int i=0; i<this.mapaEstaciones.get(resultado.get(0).getNombre()).size();i++){
+                resultado.add(this.mapaEstaciones.get(aux2.get(aux2.size()-1).getNombre()).get(i));
+                }
+            }
+
+        }
+        return resultado;
     }
+*/
 }

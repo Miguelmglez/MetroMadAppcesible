@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.miguel.metromadappcesible.code.Estacion;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import static com.miguel.metromadappcesible.activities.IndexActivity.miMetro;
 
@@ -56,8 +57,8 @@ public class RoutesActivity extends AppCompatActivity {
             } else {
                 this.transbordos = true;
             }
-            estacionAccesibleOrigen = miMetro.listaAccesibles(estacionOrigenSeleccionada,new ArrayList<Estacion>()).get(0);
-            estacionAccesibleDestino = miMetro.listaAccesibles(estacionDestinoSeleccionada,new ArrayList<Estacion>()).get(0);
+            estacionAccesibleOrigen = miMetro.accesibleList(estacionOrigenSeleccionada,new LinkedList(),new ArrayList<Estacion>()).get(0);
+            estacionAccesibleDestino = miMetro.accesibleList(estacionDestinoSeleccionada,new LinkedList(),new ArrayList<Estacion>()).get(0);
             rutaFinal = miMetro.calcularCaminoDefinitivo(estacionOrigenSeleccionada,estacionDestinoSeleccionada,transbordos);
             Intent intent = new Intent(this, SolutionActivity.class);
             startActivity(intent);
