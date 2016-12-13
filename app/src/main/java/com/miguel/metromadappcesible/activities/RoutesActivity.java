@@ -1,11 +1,13 @@
 package com.miguel.metromadappcesible.activities;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.InputType;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.RadioButton;
@@ -40,10 +42,23 @@ public class RoutesActivity extends AppCompatActivity {
         ArrayAdapter adapter2 = new ArrayAdapter(this,android.R.layout.simple_list_item_1,estacionesMetro);
         text.setAdapter(adapter);
         text.setThreshold(1);
-        text.setInputType(InputType.TYPE_NULL);
+        text.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+                InputMethodManager in = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                in.hideSoftInputFromWindow(arg1.getApplicationWindowToken(), 0);
+            }
+        });
         text1.setAdapter(adapter2);
         text1.setThreshold(1);
-        text1.setInputType(InputType.TYPE_NULL);
+        text1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+                InputMethodManager in = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                in.hideSoftInputFromWindow(arg1.getApplicationWindowToken(), 0);
+            }
+        });
     }
     public void solution (View v){
         RadioButton opcionEstaciones = (RadioButton)findViewById(R.id.radioButton2);
@@ -67,7 +82,6 @@ public class RoutesActivity extends AppCompatActivity {
             Toast.makeText(RoutesActivity.this,"You must choose two valid stations",Toast.LENGTH_LONG).show();
         }
     }
-
 
 
 
