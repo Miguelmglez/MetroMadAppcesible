@@ -1,11 +1,16 @@
 package com.miguel.metromadappcesible.activities;
 
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Toast;
 
 import com.miguel.metromadappcesible.code.Metro;
 import com.miguel.metromadappcesible.code.Parser;
@@ -38,6 +43,12 @@ public class IndexActivity extends AppCompatActivity {
         File file = createFileFromInputStream(inputStream);
             Parser parser = new Parser();
             miMetro = parser.parsearMetro(file);
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},1);
+        }else {
+            Intent intent = new Intent(IndexActivity.this, MapsActivity.class);
+            startActivity(intent);
+        }
     }
     private File createFileFromInputStream(InputStream inputStream) {
         try{
@@ -58,8 +69,31 @@ public class IndexActivity extends AppCompatActivity {
         return null;
     }
     public void map (View v){
-        Intent intent = new Intent(IndexActivity.this, MapsActivity.class);
-        startActivity(intent);
+
+    }
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case 1: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // permission was granted, yay! Do the
+                    // contacts-related task you need to do.
+                    Intent intent = new Intent(IndexActivity.this, MapsActivity.class);
+                    startActivity(intent);
+                } else {
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                    Toast.makeText(IndexActivity.this, "Metro Madrid Appcesible needs this permission to work.", Toast.LENGTH_LONG).show();
+
+                    Intent intent = new Intent(IndexActivity.this, MainActivity.class);
+                    startActivity(intent);
+                }
+                return;
+            }
+
+            // other 'case' lines to check for other
+            // permissions this app might request
+        }
     }
 
 }
