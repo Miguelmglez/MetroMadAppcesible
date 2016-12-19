@@ -10,6 +10,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.CheckBox;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
@@ -64,22 +65,29 @@ public class RoutesActivity extends AppCompatActivity {
         RadioButton opcionEstaciones = (RadioButton)findViewById(R.id.radioButton2);
         ESTACION_ORIGEN = text.getText().toString();
         ESTACION_DESTINO = text1.getText().toString();
-        if (estacionesMetro.contains(ESTACION_ORIGEN) && (estacionesMetro.contains(ESTACION_DESTINO))) {
-            estacionOrigenSeleccionada = miMetro.getMapaEstaciones().get(ESTACION_ORIGEN).get(0);
-            estacionDestinoSeleccionada = miMetro.getMapaEstaciones().get(ESTACION_DESTINO).get(0);
-            if (opcionEstaciones.isChecked()) {
-                this.transbordos = false;
+        CheckBox checkBlindness = (CheckBox) findViewById(R.id.checkboxBlindess);
+        CheckBox checkDeafness = (CheckBox) findViewById(R.id.checkboxDeafness);
+        CheckBox checkDisability = (CheckBox) findViewById(R.id.checkboxDisability);
+        if (checkBlindness.isActivated()||checkDeafness.isChecked()||checkDisability.isChecked()) {
+            if (estacionesMetro.contains(ESTACION_ORIGEN) && (estacionesMetro.contains(ESTACION_DESTINO))) {
+                estacionOrigenSeleccionada = miMetro.getMapaEstaciones().get(ESTACION_ORIGEN).get(0);
+                estacionDestinoSeleccionada = miMetro.getMapaEstaciones().get(ESTACION_DESTINO).get(0);
+                if (opcionEstaciones.isChecked()) {
+                    this.transbordos = false;
+                } else {
+                    this.transbordos = true;
+                }
+                estacionAccesibleOrigen = miMetro.accesibleList(estacionOrigenSeleccionada, new LinkedList(), new ArrayList<Estacion>()).get(0);
+                estacionAccesibleDestino = miMetro.accesibleList(estacionDestinoSeleccionada, new LinkedList(), new ArrayList<Estacion>()).get(0);
+                rutaFinal = miMetro.calcularCaminoDefinitivo(estacionOrigenSeleccionada, estacionDestinoSeleccionada, transbordos);
+                Intent intent = new Intent(this, SolutionActivity.class);
+                startActivity(intent);
             } else {
-                this.transbordos = true;
+                Toast.makeText(RoutesActivity.this, "You must choose two valid stations", Toast.LENGTH_LONG).show();
             }
-            estacionAccesibleOrigen = miMetro.accesibleList(estacionOrigenSeleccionada,new LinkedList(),new ArrayList<Estacion>()).get(0);
-            estacionAccesibleDestino = miMetro.accesibleList(estacionDestinoSeleccionada,new LinkedList(),new ArrayList<Estacion>()).get(0);
-            rutaFinal = miMetro.calcularCaminoDefinitivo(estacionOrigenSeleccionada,estacionDestinoSeleccionada,transbordos);
-            Intent intent = new Intent(this, SolutionActivity.class);
-            startActivity(intent);
         }
         else{
-            Toast.makeText(RoutesActivity.this,"You must choose two valid stations",Toast.LENGTH_LONG).show();
+            Toast.makeText(RoutesActivity.this, "You must choose at least one disability option", Toast.LENGTH_LONG).show();
         }
     }
 

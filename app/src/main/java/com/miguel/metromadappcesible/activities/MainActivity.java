@@ -38,7 +38,8 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent);
                 } else {
                     Toast.makeText(MainActivity.this, "Metro Madrid Appcesible needs this permission to work.", Toast.LENGTH_LONG).show();
-                    this.finish();
+                    Intent intent = new Intent(MainActivity.this, MainActivity.class);
+                    startActivity(intent);
                 }
                 return;
             }
