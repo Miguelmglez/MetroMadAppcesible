@@ -92,7 +92,7 @@ public class Parser {
         }
         */
             metroMadrid.aniadirContiguas(listaEstaciones);
-            metroMadrid.completarContiguas(metroMadrid.mapaEstaciones);
+            metroMadrid.completarContiguas();
             metroMadrid.aniadirCorrespondencias(listaEstaciones);
 
             /*

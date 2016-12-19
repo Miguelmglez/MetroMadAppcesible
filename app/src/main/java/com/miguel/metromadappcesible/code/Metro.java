@@ -84,7 +84,7 @@ public class Metro {
         }
     }
 
-    protected void completarContiguas(HashMap<String, ArrayList<Estacion>> mapaEstaciones) {
+    protected void completarContiguas() {
         ArrayList<Estacion> puertaDelSurLista = this.mapaEstaciones.get("Puerta del Sur");
         int aux = 0;
         for (int i = 0; i < puertaDelSurLista.size(); i++) {
