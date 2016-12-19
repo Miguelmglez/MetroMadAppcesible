@@ -3,6 +3,7 @@
     <string name="button_route_en">Find your route</string>
     <string name="button_route_es">Calcula tu ruta</string>
     <string name="index_title">Metro de Madrid</string>
+    <string name="index_title3">Appcesible</string>
     <string name="origin_en">From: </string>
     <string name="origin_es">Origen: </string>
     <string name="destination_en">To: </string>
