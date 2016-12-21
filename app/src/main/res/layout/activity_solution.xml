@@ -14,7 +14,7 @@ tools:context="com.miguel.metromadappcesible.activities.SolutionActivity">
     android:text="@string/buttonRouteDetails_en"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/findRouteButton"
+    android:id="@+id/routeDetailsButton"
     android:layout_weight="1"
     android:textSize="18sp"
     style="@style/Widget.AppCompat.Button"
@@ -26,18 +26,4 @@ tools:context="com.miguel.metromadappcesible.activities.SolutionActivity">
     android:layout_alignParentLeft="true"
     android:layout_alignParentStart="true"/>
 
-<ImageButton
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    app:srcCompat="@drawable/ic_menu_compass"
-    android:layout_marginRight="24dp"
-    android:layout_marginEnd="24dp"
-    android:layout_marginBottom="46dp"
-    android:id="@+id/locationButton2"
-    android:background="@android:color/transparent"
-    android:onClick="locateMe"
-    android:visibility="visible"
-    android:layout_above="@+id/findRouteButton"
-    android:layout_alignParentRight="true"
-    android:layout_alignParentEnd="true" />
 </RelativeLayout>

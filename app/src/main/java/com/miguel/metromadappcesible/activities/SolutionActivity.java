@@ -5,13 +5,16 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 
 import org.osmdroid.api.IGeoPoint;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
@@ -19,6 +22,8 @@ import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapController;
 import org.osmdroid.views.MapView;
 
+import static com.miguel.metromadappcesible.activities.RoutesActivity.estacionAccesibleOrigen;
+import static com.miguel.metromadappcesible.activities.RoutesActivity.rutaFinal;
 
 public class SolutionActivity extends AppCompatActivity {
     private MapView myOpenMapView;
@@ -29,19 +34,29 @@ public class SolutionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_solution);
+        Button imageButton = (Button) findViewById(R.id.routeDetailsButton);
+        imageButton.setBackgroundColor(Color.CYAN);
         myOpenMapView = (MapView)findViewById(R.id.mapSolution);
         myOpenMapView.setTileSource(TileSourceFactory.MAPNIK);
         myOpenMapView.setMultiTouchControls(true);
         myOpenMapView.setUseDataConnection(true);
-
-        GeoPoint location = new GeoPoint(40.37018451188382,-3.6134711039363103);
+        GeoPoint origen = new GeoPoint(estacionAccesibleOrigen.getLatitud(),estacionAccesibleOrigen.getLongitud());
         myMapController = (MapController) myOpenMapView.getController();
         myMapController.setZoom(18);
-        myMapController.animateTo(location);
-        myMapController.setCenter(location);
+        myMapController.animateTo(origen);
+        myMapController.setCenter(origen);
+        imageButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                Button imageButton = (Button) findViewById(R.id.routeDetailsButton);
+                imageButton.setBackgroundColor(Color.RED);
+                return false;
+            }
+        });
+
     }
     public void details (View v){
-        Intent intent = new Intent(this, DetailsActivity.class);
+                Intent intent = new Intent(this, DetailsActivity.class);
         startActivity(intent);
     }
     public void locateMe(View v) {

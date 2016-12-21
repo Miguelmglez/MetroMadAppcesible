@@ -48,7 +48,8 @@ public class MainActivity extends AppCompatActivity {
             // permissions this app might request
         }
     }
-    public void index (View v){
-
+    public void map (View v){
+        Intent intent = new Intent(MainActivity.this, MapsActivity.class);
+        startActivity(intent);
     }
 }

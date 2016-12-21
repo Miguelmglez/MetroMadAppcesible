@@ -69,7 +69,8 @@ public class IndexActivity extends AppCompatActivity {
         return null;
     }
     public void map (View v){
-
+        Intent intent = new Intent(IndexActivity.this, MapsActivity.class);
+        startActivity(intent);
     }
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {

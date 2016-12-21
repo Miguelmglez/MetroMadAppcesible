@@ -5,6 +5,7 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -15,7 +16,10 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import org.osmdroid.api.IGeoPoint;
@@ -41,6 +45,8 @@ public class MapsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+        Button imageButton = (Button) findViewById(R.id.findRouteButton);
+        imageButton.setBackgroundColor(Color.GREEN);
         myOpenMapView = (MapView) findViewById(R.id.map);
         myOpenMapView.setTileSource(TileSourceFactory.MAPNIK);
         myOpenMapView.setUseDataConnection(true);
@@ -53,18 +59,26 @@ public class MapsActivity extends AppCompatActivity {
             return;
         }
         locationGPS = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        locationGPS = this.damePuntoNuevo(locationGPS);
         IGeoPoint punto = new GeoPoint(locationGPS.getLatitude(),locationGPS.getLongitude());
         myMapController = (MapController) myOpenMapView.getController();
         myMapController.setZoom(18);
         myMapController.setCenter(punto);
         myMapController.animateTo(punto);
+        imageButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                Button imageButton = (Button) findViewById(R.id.findRouteButton);
+                imageButton.setBackgroundColor(Color.RED);
+                return false;
+            }
+        });
     }
 
     public void routes(View v) {
         Intent intent = new Intent(this, RoutesActivity.class);
         startActivity(intent);
     }
-
     public void locateMe(View v) {
         locationGPS = this.damePuntoNuevo(locationGPS);
         IGeoPoint punto = new GeoPoint(locationGPS.getLatitude(), locationGPS.getLongitude());

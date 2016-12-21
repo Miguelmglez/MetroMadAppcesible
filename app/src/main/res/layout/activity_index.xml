@@ -10,22 +10,18 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.miguel.metromadappcesible.activities.IndexActivity"
-    android:background="@drawable/metro_madrid_actualizado">
+    android:background="@drawable/planometromadridesquematico_opt">
 
-    <TextView
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/index_title3"
-        android:layout_marginBottom="87dp"
-        android:id="@+id/textView2"
-        android:textSize="36sp"
-        android:textColor="@android:color/black"
-        android:textAlignment="center"
-        android:fontFamily="sans-serif"
-        android:textStyle="normal|bold"
-        android:background="@android:color/background_light"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        app:srcCompat="@drawable/arrow2"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/imageView2"
+        android:background="@android:color/transparent"
+        android:clickable="true"
+        android:onClick="map" />
 
     <TextView
         android:text="@string/index_title"
@@ -36,10 +32,28 @@
         android:fontFamily="sans-serif"
         android:textColor="@android:color/black"
         android:textStyle="normal|bold"
-        android:textSize="36sp"
+        android:textSize="44sp"
         android:textAlignment="center"
-        android:layout_marginTop="54dp"
         android:background="@android:color/background_light"
+        android:backgroundTint="@android:color/transparent"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/index_title3"
+        android:id="@+id/textView2"
+        android:textSize="44sp"
+        android:textColor="@android:color/black"
+        android:textAlignment="center"
+        android:fontFamily="sans-serif"
+        android:textStyle="normal|bold"
+        android:background="@android:color/background_light"
+        android:backgroundTint="@android:color/transparent"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="56dp" />
+
 </RelativeLayout>
