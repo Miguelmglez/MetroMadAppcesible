@@ -41,7 +41,6 @@ public class SolutionActivity extends AppCompatActivity {
     private MapController myMapController;
     public Location locationGPS;
     public LocationManager locationManager;
-    private ArrayList<GeoPoint> coordenadasSolucion = new ArrayList<>();
     private LocationListener locationListener;
     private Marker myPositionMarker;
 
@@ -149,7 +148,7 @@ public class SolutionActivity extends AppCompatActivity {
         estacionOrigen.setIcon(getResources().getDrawable(R.drawable.metro_mad));
         estacionOrigen.setTitle(descripcionOrigen);
         myOpenMapView.getOverlays().add(estacionOrigen);
-        coordenadasSolucion.add(coordenadasOrigen);
+
         for (int i = 0; i < rutaFinal.size(); i++) {
             Conexion c = (Conexion) rutaFinal.get(i);
             Marker estacion = new Marker(myOpenMapView);
@@ -188,7 +187,6 @@ public class SolutionActivity extends AppCompatActivity {
             estacion.setIcon(getResources().getDrawable(R.drawable.metro_mad));
             estacion.setTitle(descripcionEstacion);
             myOpenMapView.getOverlays().add(estacion);
-            coordenadasSolucion.add(coordenadasEstacion);
         }
     }
 
