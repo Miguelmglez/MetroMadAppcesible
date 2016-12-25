@@ -20,7 +20,7 @@ import static com.miguel.metromadappcesible.activities.RoutesActivity.rutaFinal;
 
 public class DetailsActivity extends AppCompatActivity {
     public int transbordos =0 ;
-    public static String reciente;
+    public String reciente;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

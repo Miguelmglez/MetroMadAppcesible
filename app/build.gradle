@@ -20,6 +20,12 @@ android {
     }
 
 }
+repositories {
+    mavenCentral()
+    flatDir {
+        dirs 'libs'
+    }
+}
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
@@ -32,6 +38,9 @@ dependencies {
     compile files('libs/jgrapht-demo-0.9.1.jar')
     compile files('libs/jgrapht-ext-0.9.1.jar')
     compile files('libs/jgraphx-2.0.0.1.jar')
+    compile(name:'osmbonuspack_v6.0', ext:'aar')
     compile 'org.osmdroid:osmdroid-android:5.5:release@aar'
     compile 'org.slf4j:slf4j-android:1.6.1-RC1'
+
+
 }

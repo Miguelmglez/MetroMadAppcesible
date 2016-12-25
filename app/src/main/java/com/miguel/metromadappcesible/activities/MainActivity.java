@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
         else {
                 Intent intent = new Intent(MainActivity.this, IndexActivity.class);
                 startActivity(intent);
+            this.finish();
         }
     }
 
@@ -36,10 +37,12 @@ public class MainActivity extends AppCompatActivity {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Intent intent = new Intent(MainActivity.this, IndexActivity.class);
                     startActivity(intent);
+                    this.finish();
                 } else {
                     Toast.makeText(MainActivity.this, "Metro Madrid Appcesible needs this permission to work.", Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(MainActivity.this, MainActivity.class);
                     startActivity(intent);
+                    this.finish();
                 }
                 return;
             }
@@ -51,5 +54,6 @@ public class MainActivity extends AppCompatActivity {
     public void map (View v){
         Intent intent = new Intent(MainActivity.this, MapsActivity.class);
         startActivity(intent);
+        this.finish();
     }
 }

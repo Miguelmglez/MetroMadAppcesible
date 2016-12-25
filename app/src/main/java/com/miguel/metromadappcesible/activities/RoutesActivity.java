@@ -68,7 +68,7 @@ public class RoutesActivity extends AppCompatActivity {
         CheckBox checkBlindness = (CheckBox) findViewById(R.id.checkboxBlindess);
         CheckBox checkDeafness = (CheckBox) findViewById(R.id.checkboxDeafness);
         CheckBox checkDisability = (CheckBox) findViewById(R.id.checkboxDisability);
-        if (checkBlindness.isActivated()||checkDeafness.isChecked()||checkDisability.isChecked()) {
+        if (checkBlindness.isChecked()||checkDeafness.isChecked()||checkDisability.isChecked()) {
             if (estacionesMetro.contains(ESTACION_ORIGEN) && (estacionesMetro.contains(ESTACION_DESTINO))) {
                 estacionOrigenSeleccionada = miMetro.getMapaEstaciones().get(ESTACION_ORIGEN).get(0);
                 estacionDestinoSeleccionada = miMetro.getMapaEstaciones().get(ESTACION_DESTINO).get(0);

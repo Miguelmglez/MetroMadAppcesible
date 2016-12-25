@@ -25,5 +25,31 @@ tools:context="com.miguel.metromadappcesible.activities.SolutionActivity">
     android:layout_alignParentBottom="true"
     android:layout_alignParentLeft="true"
     android:layout_alignParentStart="true"/>
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_menu_compass"
+        android:layout_marginRight="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="46dp"
+        android:id="@+id/locationButton"
+        android:background="@android:color/transparent"
+        android:visibility="visible"
+        android:onClick="locateMe"
+        android:layout_above="@+id/routeDetailsButton"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_menu_mylocation"
+        android:layout_marginLeft="33dp"
+        android:layout_marginStart="33dp"
+        android:id="@+id/imageButton"
+        android:background="@android:color/transparent"
+        android:layout_alignTop="@+id/locationButton"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:onClick="centroMapaOrigen" />
 </RelativeLayout>

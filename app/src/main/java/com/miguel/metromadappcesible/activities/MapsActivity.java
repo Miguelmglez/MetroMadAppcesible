@@ -5,34 +5,38 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+
 import android.graphics.Color;
-import android.location.Address;
-import android.location.Geocoder;
+
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+
 import android.support.v7.app.AppCompatActivity;
-import android.util.DisplayMetrics;
-import android.util.Log;
+
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.Toast;
 
-import org.osmdroid.api.IGeoPoint;
+
+import com.miguel.metromadappcesible.code.Estacion;
+
+
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapController;
 import org.osmdroid.views.MapView;
-import org.osmdroid.views.overlay.ScaleBarOverlay;
-import org.osmdroid.views.overlay.gestures.RotationGestureOverlay;
 
-import java.io.IOException;
-import java.util.List;
-import java.util.Locale;
+import org.osmdroid.views.overlay.Marker;
+
+
+
+import java.util.ArrayList;
+
+import static com.miguel.metromadappcesible.activities.IndexActivity.miMetro;
+
 
 public class MapsActivity extends AppCompatActivity {
 
@@ -40,6 +44,8 @@ public class MapsActivity extends AppCompatActivity {
     public LocationManager locationManager;
     private MapView myOpenMapView;
     private MapController myMapController;
+    private Marker myPositionMarker;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +57,24 @@ public class MapsActivity extends AppCompatActivity {
         myOpenMapView.setTileSource(TileSourceFactory.MAPNIK);
         myOpenMapView.setUseDataConnection(true);
         myOpenMapView.setMultiTouchControls(true);
+        this.pintaEstaciones();
+
+        myPositionMarker = new Marker(myOpenMapView);
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        LocationListener locationListener = new LocationListener() {
+            public void onLocationChanged(Location location) {
+                GeoPoint changedPoint = new GeoPoint(location.getLatitude(),location.getLongitude());
+                myPositionMarker.setPosition(changedPoint);
+            }
+
+            public void onStatusChanged(String provider, int status, Bundle extras) {}
+
+            public void onProviderEnabled(String provider) {}
+
+            public void onProviderDisabled(String provider) {}
+        };
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 200, 1, locationListener);
+
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
@@ -60,11 +83,21 @@ public class MapsActivity extends AppCompatActivity {
         }
         locationGPS = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         locationGPS = this.damePuntoNuevo(locationGPS);
-        IGeoPoint punto = new GeoPoint(locationGPS.getLatitude(),locationGPS.getLongitude());
+        GeoPoint punto = new GeoPoint(locationGPS.getLatitude(), locationGPS.getLongitude());
         myMapController = (MapController) myOpenMapView.getController();
-        myMapController.setZoom(18);
+        myMapController.setZoom(16);
         myMapController.setCenter(punto);
         myMapController.animateTo(punto);
+
+
+        myPositionMarker.setPosition(punto);
+        myPositionMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+        myPositionMarker.setIcon(getResources().getDrawable(R.drawable.person));
+        myPositionMarker.setTitle("Hey! You are here!");
+        myOpenMapView.getOverlays().add(myPositionMarker);
+
+
+
         imageButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -78,16 +111,19 @@ public class MapsActivity extends AppCompatActivity {
     public void routes(View v) {
         Intent intent = new Intent(this, RoutesActivity.class);
         startActivity(intent);
+        Button imageButton = (Button) findViewById(R.id.findRouteButton);
+        imageButton.setBackgroundColor(Color.GREEN);
     }
     public void locateMe(View v) {
         locationGPS = this.damePuntoNuevo(locationGPS);
-        IGeoPoint punto = new GeoPoint(locationGPS.getLatitude(), locationGPS.getLongitude());
+        GeoPoint punto = new GeoPoint(locationGPS.getLatitude(), locationGPS.getLongitude());
         myMapController = (MapController) myOpenMapView.getController();
-        myMapController.setZoom(18);
+        myMapController.setZoom(16);
         myMapController.setCenter(punto);
         myMapController.animateTo(punto);
+        myPositionMarker.setPosition(punto);
     }
-    public Location damePuntoNuevo(Location puntoAntiguo){
+    private Location damePuntoNuevo(Location puntoAntiguo){
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return puntoAntiguo;
         }
@@ -95,7 +131,7 @@ public class MapsActivity extends AppCompatActivity {
             return puntoAntiguo;
         }
 
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, new LocationListener() {
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 200, 1, new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
             }
@@ -112,4 +148,40 @@ public class MapsActivity extends AppCompatActivity {
         locationGPS = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         return locationGPS;
     }
+    private void pintaEstaciones (){
+        for (int i = 0; i< miMetro.getListaNombreEstaciones().size();i++){
+            Marker estacion = new Marker(myOpenMapView);
+            String nombreEstacion = miMetro.getListaNombreEstaciones().get(i);
+            ArrayList<Estacion> correspondencias = miMetro.getMapaEstaciones().get(nombreEstacion);
+            GeoPoint coordenadasEstacion = new GeoPoint(correspondencias.get(0).getLatitud(),correspondencias.get(0).getLongitud());
+            String descripcionEstacion = "Station: " + nombreEstacion.toUpperCase() + "\n" +"\n" + "Lines : " ;
+            descripcionEstacion = descripcionEstacion + "\n";
+            for (int j = 0; j<correspondencias.size();j++){
+                if (j == 0) {
+                }
+                else{
+                    descripcionEstacion = descripcionEstacion + " - ";
+                }
+                if (correspondencias.get(j).getLinea()==50){
+                    descripcionEstacion = descripcionEstacion + "R";
+                }
+                else{
+                    descripcionEstacion = descripcionEstacion + String.valueOf(correspondencias.get(j).getLinea());
+
+                }
+                if (correspondencias.get(j).isAccesible()){
+                    descripcionEstacion = descripcionEstacion + " (Accesible) ";
+                }
+                else{
+                    descripcionEstacion = descripcionEstacion + " (Not Accesible) ";
+                }
+            }
+            estacion.setPosition(coordenadasEstacion);
+            estacion.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+            estacion.setIcon(getResources().getDrawable(R.drawable.metro_mad));
+            estacion.setTitle(descripcionEstacion);
+            myOpenMapView.getOverlays().add(estacion);
+        }
+    }
+
 }

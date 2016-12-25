@@ -29,9 +29,6 @@ public class Metro {
         return mapaEstaciones;
     }
 
-    public WeightedMultigraph<Estacion, Conexion> getGrafoEstaciones() {
-        return grafoEstaciones;
-    }
 
     public ArrayList<String> getListaNombreEstaciones() {
         return listaNombreEstaciones;

@@ -92,9 +92,16 @@ public class IndexActivity extends AppCompatActivity {
                 return;
             }
 
-            // other 'case' lines to check for other
-            // permissions this app might request
+
         }
+    }
+
+    @Override
+    public void onBackPressed(){
+        Intent thisIntent = this.getIntent();
+        thisIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        this.finish();
+
     }
 
 }
