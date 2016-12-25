@@ -18,6 +18,10 @@ import android.support.v7.app.AppCompatActivity;
 
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 
 
@@ -36,6 +40,7 @@ import org.osmdroid.views.overlay.Marker;
 import java.util.ArrayList;
 
 import static com.miguel.metromadappcesible.activities.IndexActivity.miMetro;
+import static com.miguel.metromadappcesible.activities.RoutesActivity.estacionAccesibleOrigen;
 
 
 public class MapsActivity extends AppCompatActivity {
@@ -45,14 +50,27 @@ public class MapsActivity extends AppCompatActivity {
     private MapView myOpenMapView;
     private MapController myMapController;
     private Marker myPositionMarker;
-
-
+    private AutoCompleteTextView textEstacion;
+    ArrayList<String> estacionesMetro = miMetro.getListaNombreEstaciones();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         Button imageButton = (Button) findViewById(R.id.findRouteButton);
         imageButton.setBackgroundColor(Color.GREEN);
+        textEstacion=(AutoCompleteTextView)findViewById(R.id.autoCompleteTextViewLookStation);
+        ArrayAdapter adapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,estacionesMetro);
+        textEstacion.setAdapter(adapter);
+        textEstacion.setThreshold(1);
+        textEstacion.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+                InputMethodManager in = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                in.hideSoftInputFromWindow(arg1.getApplicationWindowToken(), 0);
+                String estacion = textEstacion.getText().toString();
+                focusOnStation(this, estacion);
+            }
+        });
         myOpenMapView = (MapView) findViewById(R.id.map);
         myOpenMapView.setTileSource(TileSourceFactory.MAPNIK);
         myOpenMapView.setUseDataConnection(true);
@@ -85,7 +103,7 @@ public class MapsActivity extends AppCompatActivity {
         locationGPS = this.damePuntoNuevo(locationGPS);
         GeoPoint punto = new GeoPoint(locationGPS.getLatitude(), locationGPS.getLongitude());
         myMapController = (MapController) myOpenMapView.getController();
-        myMapController.setZoom(16);
+        myMapController.setZoom(17);
         myMapController.setCenter(punto);
         myMapController.animateTo(punto);
 
@@ -118,7 +136,7 @@ public class MapsActivity extends AppCompatActivity {
         locationGPS = this.damePuntoNuevo(locationGPS);
         GeoPoint punto = new GeoPoint(locationGPS.getLatitude(), locationGPS.getLongitude());
         myMapController = (MapController) myOpenMapView.getController();
-        myMapController.setZoom(16);
+        myMapController.setZoom(17);
         myMapController.setCenter(punto);
         myMapController.animateTo(punto);
         myPositionMarker.setPosition(punto);
@@ -182,6 +200,12 @@ public class MapsActivity extends AppCompatActivity {
             estacion.setTitle(descripcionEstacion);
             myOpenMapView.getOverlays().add(estacion);
         }
+    }
+    private void focusOnStation(AdapterView.OnItemClickListener v, String estacion){
+        Estacion estacionSeleccionada = miMetro.getMapaEstaciones().get(estacion).get(0);
+        GeoPoint coordenadasEstacionSeleccionada = new GeoPoint(estacionSeleccionada.getLatitud(), estacionSeleccionada.getLongitud());
+        myMapController.setCenter(coordenadasEstacionSeleccionada);
+        myMapController.animateTo(coordenadasEstacionSeleccionada);
     }
 
 }

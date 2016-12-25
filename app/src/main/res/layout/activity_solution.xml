@@ -1,30 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:id="@+id/activity_solution"
-android:layout_width="fill_parent"
-android:layout_height="fill_parent"
-tools:context="com.miguel.metromadappcesible.activities.SolutionActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_solution"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    tools:context="com.miguel.metromadappcesible.activities.SolutionActivity">
     <org.osmdroid.views.MapView android:id="@+id/mapSolution"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-<Button
-    android:text="@string/buttonRouteDetails_en"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:id="@+id/routeDetailsButton"
-    android:layout_weight="1"
-    android:textSize="18sp"
-    style="@style/Widget.AppCompat.Button"
-    android:background="@android:color/holo_blue_bright"
-    android:visibility="visible"
-    android:onClick="details"
-    android:textStyle="normal|bold"
-    android:layout_alignParentBottom="true"
-    android:layout_alignParentLeft="true"
-    android:layout_alignParentStart="true"/>
+    <Button
+        android:text="@string/buttonRouteDetails_en"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/routeDetailsButton"
+        android:layout_weight="1"
+        android:textSize="18sp"
+        style="@style/Widget.AppCompat.Button"
+        android:background="@android:color/holo_blue_bright"
+        android:visibility="visible"
+        android:onClick="details"
+        android:textStyle="normal|bold"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

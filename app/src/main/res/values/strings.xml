@@ -26,8 +26,8 @@
     <string name="buttonNewRoute_es">NUEVO TRAYECTO</string>
     <string name="buttonExit_en">EXIT</string>
     <string name="buttonExit_es">SALIR</string>
-
-
+    <string name="lookStation_en">Find a station ...</string>
+    <string name="lookStation_es">Buscar una estación ...</string>
     <string name="button_send">SEND</string>
     <string name="edit_message">Enter a message</string>
 </resources>

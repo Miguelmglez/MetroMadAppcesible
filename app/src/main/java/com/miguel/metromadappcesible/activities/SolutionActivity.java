@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -18,20 +17,16 @@ import android.view.View;
 import android.widget.Button;
 
 import com.miguel.metromadappcesible.code.Conexion;
-import com.miguel.metromadappcesible.code.Estacion;
 
 import org.osmdroid.api.IGeoPoint;
-import org.osmdroid.bonuspack.overlays.GroundOverlay;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapController;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
-import org.osmdroid.views.overlay.PathOverlay;
 import org.osmdroid.views.overlay.Polyline;
 
 import java.util.ArrayList;
-
 
 import static com.miguel.metromadappcesible.activities.RoutesActivity.estacionAccesibleOrigen;
 import static com.miguel.metromadappcesible.activities.RoutesActivity.rutaFinal;
@@ -57,7 +52,7 @@ public class SolutionActivity extends AppCompatActivity {
         locationGPS = this.damePuntoNuevo(locationGPS);
         GeoPoint origen = new GeoPoint(estacionAccesibleOrigen.getLatitud(), estacionAccesibleOrigen.getLongitud());
         myMapController = (MapController) myOpenMapView.getController();
-        myMapController.setZoom(15);
+        myMapController.setZoom(17);
         myMapController.animateTo(origen);
         myMapController.setCenter(origen);
         this.pintaRuta();
@@ -92,7 +87,7 @@ public class SolutionActivity extends AppCompatActivity {
         locationGPS = this.damePuntoNuevo(locationGPS);
         IGeoPoint punto = new GeoPoint(locationGPS.getLatitude(), locationGPS.getLongitude());
         myMapController = (MapController) myOpenMapView.getController();
-        myMapController.setZoom(15);
+        myMapController.setZoom(17);
         myMapController.setCenter(punto);
         myMapController.animateTo(punto);
     }
@@ -195,21 +190,32 @@ public class SolutionActivity extends AppCompatActivity {
             Conexion c = (Conexion) rutaFinal.get(i);
             Polyline linea = new Polyline();
             ArrayList<GeoPoint> puntos = new ArrayList();
-            if (c.getEstacionOrigen().getNombre().equals(c.getEstacionDestino().getNombre())) {
-                linea.setColor(Color.RED);
-                linea.setTitle("CHANGE");
-                linea.setEnabled(true);
-            } else {
-                linea.setColor(Color.GREEN);
-            }
             GeoPoint punto1 = new GeoPoint(c.getEstacionOrigen().getLatitud(), c.getEstacionOrigen().getLongitud());
             GeoPoint punto2 = new GeoPoint(c.getEstacionDestino().getLatitud(), c.getEstacionDestino().getLongitud());
+            if (c.getEstacionOrigen().getNombre().equals(c.getEstacionDestino().getNombre())) {
+                Conexion auxAnterior = (Conexion) rutaFinal.get(i-1);
+                Conexion auxSiguiente = (Conexion) rutaFinal.get(i+1);
+                if (auxAnterior.getEstacionOrigen().getNombre().equals(c.getEstacionOrigen().getNombre())){
+                    punto1.setCoords(auxAnterior.getEstacionOrigen().getLatitud(),auxAnterior.getEstacionOrigen().getLongitud());
+                }
+                else{
+                    punto1.setCoords(auxAnterior.getEstacionDestino().getLatitud(),auxAnterior.getEstacionDestino().getLongitud());
+                }
+                if (auxSiguiente.getEstacionOrigen().getNombre().equals(c.getEstacionOrigen().getNombre())){
+                    punto2.setCoords(auxSiguiente.getEstacionDestino().getLatitud(),auxSiguiente.getEstacionDestino().getLongitud());
+                }
+                else{
+                    punto2.setCoords(auxSiguiente.getEstacionOrigen().getLatitud(),auxSiguiente.getEstacionOrigen().getLongitud());
+                }
+                i++;
+            }
             puntos.add(punto1);
             puntos.add(punto2);
             linea.setPoints(puntos);
             linea.setWidth(20);
             linea.setVisible(true);
             linea.setGeodesic(true);
+            linea.setColor(Color.RED);
             myOpenMapView.getOverlays().add(linea);
         }
     }
