@@ -3,6 +3,6 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="textRuta">16dp</dimen>
-    <dimen name="margenRadioButton">30dp</dimen>
-    <dimen name="paddingRutas">15dp</dimen>
+    <dimen name="margenRadioButton">0dp</dimen>
+    <dimen name="paddingRutas">10dp</dimen>
 </resources>

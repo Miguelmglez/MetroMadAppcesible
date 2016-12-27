@@ -5,13 +5,13 @@
     android:id="@+id/activity_routes"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-       tools:context="com.miguel.metromadappcesible.activities.RoutesActivity"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp">
+    tools:context="com.miguel.metromadappcesible.activities.RoutesActivity"
+    android:paddingLeft="@dimen/paddingRutas"
+    android:paddingRight="@dimen/paddingRutas">
 
 
     <TextView
-        android:text="@string/destination_en"
+        android:text="@string/destination"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/textView3"
@@ -29,59 +29,15 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:textColor="@android:color/black"
-        android:hint="@string/example2_en"
+        android:hint="@string/example2"
         android:textColorLink="@android:color/holo_green_dark"
         android:textColorHighlight="@android:color/holo_green_dark"
         android:inputType="textNoSuggestions"
-        android:textCursorDrawable="@android:color/holo_green_dark" />
-
-    <RadioGroup
-        android:layout_width="match_parent"
-        android:weightSum="1"
-        android:checkedButton="@+id/radioButton"
-        android:baselineAligned="false"
-        android:orientation="horizontal"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/autoCompleteTextView7"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
-
-        <RadioButton
-            android:text="@string/radioButton1_en"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/radioButton"
-            android:checked="true"
-            android:visibility="visible"
-            android:layout_marginTop="40dp"
-            android:textColorLink="@android:color/holo_green_dark"
-            android:textSize="18sp"
-            android:textStyle="normal|bold"
-            android:layout_marginLeft="10dp"
-            android:textCursorDrawable="@android:color/holo_green_light"
-
-            android:buttonTint="@android:color/holo_green_dark" />
-
-        <RadioButton
-            android:text="@string/radioButton2_en"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/radioButton2"
-            android:visibility="visible"
-            android:requiresFadingEdge="vertical"
-            android:layout_alignTop="@+id/radioGroup2"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="40dp"
-            android:layout_marginLeft="30dp"
-            android:textSize="18sp"
-            android:layout_weight="0.24"
-            android:textStyle="normal|bold"
-            android:buttonTint="@android:color/holo_green_dark" />
-
-    </RadioGroup>
+        android:textCursorDrawable="@android:color/holo_green_dark"
+        android:textSize="18sp" />
 
     <Button
-        android:text="@string/buttonGo_en"
+        android:text="@string/buttonGo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/button2"
@@ -100,13 +56,13 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_marginBottom="15dp"
-        android:hint="@string/example_en"
+        android:hint="@string/example"
         android:inputType="textNoSuggestions"
         android:textColorLink="@android:color/holo_green_dark"
         android:textCursorDrawable="@android:color/holo_green_dark" />
 
     <TextView
-        android:text="@string/origin_en"
+        android:text="@string/origin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/textView"
@@ -190,5 +146,62 @@
         android:layout_marginStart="7dp"
         android:textColorLink="@android:color/holo_green_light"
         android:buttonTint="@android:color/holo_green_dark" />
+
+    <TextView
+        android:text="@string/routeCriteria"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView8"
+        android:layout_below="@+id/autoCompleteTextView7"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textStyle="normal|bold"
+        android:textColor="@android:color/black"
+        android:paddingTop="20dp" />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:weightSum="1"
+        android:checkedButton="@+id/radioButton"
+        android:baselineAligned="false"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/autoCompleteTextView7"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="18dp">
+
+        <RadioButton
+            android:text="@string/radioButton1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/radioButton"
+            android:checked="true"
+            android:visibility="visible"
+            android:layout_marginTop="40dp"
+            android:textColorLink="@android:color/holo_green_dark"
+            android:textSize="@dimen/textRuta"
+            android:textStyle="normal|bold"
+            android:textCursorDrawable="@android:color/holo_green_light"
+
+            android:buttonTint="@android:color/holo_green_dark"
+            android:layout_marginRight="10dp" />
+
+        <RadioButton
+            android:text="@string/radioButton2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/radioButton2"
+            android:visibility="visible"
+            android:requiresFadingEdge="vertical"
+            android:layout_alignTop="@+id/radioGroup2"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp"
+            android:layout_marginLeft="@dimen/margenRadioButton"
+            android:textSize="@dimen/textRuta"
+            android:textStyle="normal|bold"
+            android:buttonTint="@android:color/holo_green_dark" />
+
+    </RadioGroup>
 
 </RelativeLayout>

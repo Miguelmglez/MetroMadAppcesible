@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">Metro Madrid Appcesible</string>
+    <string name="button_route">Calcula tu ruta</string>
+    <string name="index_title">Metro de Madrid</string>
+    <string name="index_title3">Appcesible</string>
+    <string name="origin">Origen: </string>
+    <string name="destination">Destino: </string>
+    <string name="example">Por ejemplo... Atocha</string>
+    <string name="example2">Por ejemplo... Opera</string>
+    <string name="radioButton1">Menos transbordos</string>
+    <string name="radioButton2">Menos paradas</string>
+    <string name="buttonGo">CALCULAR</string>
+    <string name="buttonRouteDetails">Detalles de la ruta</string>
+    <string name="buttonReturnToMap">VOLVER AL MAPA</string>
+    <string name="buttonNewRoute">NUEVO TRAYECTO</string>
+    <string name="buttonExit">SALIR</string>
+    <string name="lookStation">Buscar una estación...</string>
+    <string name="routeCriteria">Criterio de ruta:  </string>
+    <string name="tituloEstaciones">"Ruta accesible entre las estaciones: " </string>
+    <string name="infoLine">Línea </string>
+    <string name="estacion">La estación </string>
+    <string name="noAccesible"> NO es accesible. Se ha recalculado la ruta con la estación accesible más cercana.</string>
+    <string name="inicio">Inicio:</string>
+    <string name="transbordo">TRANSBORDO EN : </string>
+    <string name="totalEstaciones">Número de estaciones:  </string>
+    <string name="totalTransbordos">Número de transbordos:  </string>
+    <string name="textPerson">¡Estás aquí!</string>
+    <string name="estacionNoAccesible">(No Accesible)</string>
+    <string name="estacionAccesible">(Accesible)</string>
+    <string name="estacionSinArticulo">Estación : </string>
+    <string name="errorValidStations">Debes seleccionar dos estaciones válidas</string>
+    <string name="errorValidDisability">Debes seleccionar al menos un tipo de discapacidad</string>
+    <string name="changeStation">Transbordo desde la línea</string>
+    <string name="toLine">a la línea</string>
+</resources>
+

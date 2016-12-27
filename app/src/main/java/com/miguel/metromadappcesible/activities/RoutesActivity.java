@@ -28,15 +28,17 @@ public class RoutesActivity extends AppCompatActivity {
     public static boolean transbordos = true;
     public static String ESTACION_ORIGEN ;
     public static String ESTACION_DESTINO;
-    public Estacion estacionOrigenSeleccionada;
-    public Estacion estacionDestinoSeleccionada;
+    public static Estacion estacionOrigenSeleccionada;
+    public static Estacion estacionDestinoSeleccionada;
     public static ArrayList rutaFinal;
     public static Estacion estacionAccesibleOrigen;
     public static Estacion estacionAccesibleDestino;
 
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_routes);
+
         text=(AutoCompleteTextView)findViewById(R.id.autoCompleteTextView6);
         text1= (AutoCompleteTextView)findViewById(R.id.autoCompleteTextView7);
         ArrayAdapter adapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,estacionesMetro);
@@ -62,6 +64,8 @@ public class RoutesActivity extends AppCompatActivity {
         });
     }
     public void solution (View v){
+        String errorEstaciones = getResources().getString(R.string.errorValidStations);
+        String errorDisability = getResources().getString(R.string.errorValidDisability);
         RadioButton opcionEstaciones = (RadioButton)findViewById(R.id.radioButton2);
         ESTACION_ORIGEN = text.getText().toString();
         ESTACION_DESTINO = text1.getText().toString();
@@ -83,11 +87,11 @@ public class RoutesActivity extends AppCompatActivity {
                 Intent intent = new Intent(this, SolutionActivity.class);
                 startActivity(intent);
             } else {
-                Toast.makeText(RoutesActivity.this, "You must choose two valid stations", Toast.LENGTH_LONG).show();
+                Toast.makeText(RoutesActivity.this, errorEstaciones, Toast.LENGTH_LONG).show();
             }
         }
         else{
-            Toast.makeText(RoutesActivity.this, "You must choose at least one disability option", Toast.LENGTH_LONG).show();
+            Toast.makeText(RoutesActivity.this, errorDisability, Toast.LENGTH_LONG).show();
         }
     }
 

@@ -8,54 +8,59 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:weightSum="2"
     tools:context="com.miguel.metromadappcesible.activities.DetailsActivity">
 
-    <Button
-        android:text="@string/buttonExit_en"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/button5"
-        android:layout_alignBaseline="@+id/button4"
-        android:layout_alignBottom="@+id/button4"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:background="@android:color/holo_red_dark"
-        android:onClick="dropView"/>
-
     <TextView
-        android:layout_width="wrap_content"
+        android:text="@string/tituloEstaciones"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:id="@+id/textRuta"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:scrollbars="vertical"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_above="@+id/button5"
-        android:layout_marginBottom="10dp" />
+        android:id="@+id/textViewBetween2Stations"
+        android:textColor="@android:color/black" />
 
-    <Button
-        android:text="@string/buttonReturnToMap_en"
-        android:layout_width="wrap_content"
+    <TextView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/button3"
-        android:onClick="map"
-        android:layout_centerHorizontal="true"
-        android:layout_alignBottom="@+id/button5"
-        android:layout_below="@+id/textRuta" />
+        android:id="@+id/textViewIsAccesible"
+        android:layout_below="@+id/textViewBetween2Stations"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textColor="@android:color/holo_red_dark"
+        android:textStyle="normal|bold" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textRuta"
+        android:scrollbars="vertical"
+        android:textColor="@android:color/black"
+        android:layout_below="@+id/textViewIsAccesible"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_above="@+id/button" />
 
     <Button
-        android:text="@string/buttonNewRoute_en"
-        android:layout_width="wrap_content"
+        android:text="@string/buttonNewRoute"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/button4"
-        android:layout_marginBottom="14dp"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:background="@android:color/holo_green_light"
+        android:background="@android:color/holo_blue_dark"
         android:onClick="routes"
+        android:layout_weight="1"
         android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:text="@string/buttonReturnToMap"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/button"
+        android:onClick="map"
+        android:layout_above="@+id/button4"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 

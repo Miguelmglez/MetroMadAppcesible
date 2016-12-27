@@ -85,8 +85,9 @@ public class SolutionActivity extends AppCompatActivity {
 
     public void locateMe(View v) {
         locationGPS = this.damePuntoNuevo(locationGPS);
-        IGeoPoint punto = new GeoPoint(locationGPS.getLatitude(), locationGPS.getLongitude());
+        GeoPoint punto = new GeoPoint(locationGPS.getLatitude(), locationGPS.getLongitude());
         myMapController = (MapController) myOpenMapView.getController();
+        myPositionMarker.setPosition(punto);
         myMapController.setZoom(17);
         myMapController.setCenter(punto);
         myMapController.animateTo(punto);
@@ -128,15 +129,19 @@ public class SolutionActivity extends AppCompatActivity {
     }
 
     private void pintaEstaciones() {
+        String estacionSinArticulo = getResources().getString(R.string.estacionSinArticulo);
+        String lineas = getResources().getString(R.string.infoLine);
+        String change = getResources().getString(R.string.changeStation);
+        String toLine = getResources().getString(R.string.toLine);
         String reciente = estacionAccesibleOrigen.getNombre();
         String descripcionEstacion;
         Marker estacionOrigen = new Marker(myOpenMapView);
         GeoPoint coordenadasOrigen = new GeoPoint(estacionAccesibleOrigen.getLatitud(), estacionAccesibleOrigen.getLongitud());
-        String descripcionOrigen = "Station : " + estacionAccesibleOrigen.getNombre() + "\n";
+        String descripcionOrigen = estacionSinArticulo +" : " + estacionAccesibleOrigen.getNombre() + "\n";
         if (estacionAccesibleOrigen.getLinea() == 50) {
-            descripcionOrigen = descripcionOrigen + "Line: R";
+            descripcionOrigen = descripcionOrigen + lineas +" : R";
         } else {
-            descripcionOrigen = descripcionOrigen + "Line: " + estacionAccesibleOrigen.getLinea();
+            descripcionOrigen = descripcionOrigen + lineas +" : " + estacionAccesibleOrigen.getLinea();
         }
         estacionOrigen.setPosition(coordenadasOrigen);
         estacionOrigen.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
@@ -152,27 +157,27 @@ public class SolutionActivity extends AppCompatActivity {
             if (c.getEstacionDestino().getNombre().equals(c.getEstacionOrigen().getNombre())) {
                 Conexion auxAnterior = (Conexion) rutaFinal.get(i - 1);
                 Conexion auxSiguiente = (Conexion) rutaFinal.get(i + 1);
-                descripcionEstacion = "Station : " + c.getEstacionOrigen().getNombre().toUpperCase() + "\n";
-                descripcionEstacion = descripcionEstacion + "\n" + "Change from line " + auxAnterior.getEstacionDestino().getLinea() + " to line " + auxSiguiente.getEstacionOrigen().getLinea();
+                descripcionEstacion = estacionSinArticulo+" " + c.getEstacionOrigen().getNombre().toUpperCase() + "\n";
+                descripcionEstacion = descripcionEstacion + "\n" + change +" " + auxAnterior.getEstacionDestino().getLinea() + " "+toLine+" " + auxSiguiente.getEstacionOrigen().getLinea();
                 coordenadasEstacion.setCoords(c.getEstacionOrigen().getLatitud(), c.getEstacionOrigen().getLongitud());
             } else {
                 if (reciente.equals(c.getEstacionOrigen().getNombre())) {
-                    descripcionEstacion = "Station : " + c.getEstacionDestino().getNombre().toUpperCase() + "\n";
+                    descripcionEstacion = estacionSinArticulo+" " + c.getEstacionDestino().getNombre().toUpperCase() + "\n";
                     coordenadasEstacion.setCoords(c.getEstacionDestino().getLatitud(), c.getEstacionDestino().getLongitud());
                     if (c.getEstacionDestino().getLinea() == 50) {
-                        descripcionEstacion = descripcionEstacion + "Line: R";
+                        descripcionEstacion = descripcionEstacion + lineas +" : R";
                     } else {
-                        descripcionEstacion = descripcionEstacion + "Line: " + c.getEstacionDestino().getLinea();
+                        descripcionEstacion = descripcionEstacion + lineas +" : " + c.getEstacionDestino().getLinea();
                     }
                     reciente = c.getEstacionDestino().getNombre();
 
                 } else if (reciente.equals(c.getEstacionDestino().getNombre())) {
-                    descripcionEstacion = "Station : " + c.getEstacionOrigen().getNombre().toUpperCase() + "\n";
+                    descripcionEstacion = estacionSinArticulo+" " + c.getEstacionOrigen().getNombre().toUpperCase() + "\n";
                     coordenadasEstacion.setCoords(c.getEstacionOrigen().getLatitud(), c.getEstacionOrigen().getLongitud());
                     if (c.getEstacionOrigen().getLinea() == 50) {
-                        descripcionEstacion = descripcionEstacion + "Line: R";
+                        descripcionEstacion = descripcionEstacion + lineas +" : R";
                     } else {
-                        descripcionEstacion = descripcionEstacion + "Line: " + c.getEstacionOrigen().getLinea();
+                        descripcionEstacion = descripcionEstacion + lineas +" : " + c.getEstacionOrigen().getLinea();
                     }
                     reciente = c.getEstacionOrigen().getNombre();
                 }

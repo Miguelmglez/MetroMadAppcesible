@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
     <Button
-        android:text="@string/button_route_en"
+        android:text="@string/button_route"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/findRouteButton"
@@ -28,7 +28,7 @@
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_menu_compass"
+        app:srcCompat="@drawable/ic_menu_mylocation"
         android:layout_marginRight="24dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="46dp"
@@ -41,17 +41,27 @@
         android:layout_alignParentEnd="true" />
 
     <AutoCompleteTextView
-        android:hint="@string/lookStation_en"
+        android:hint="@string/lookStation"
         android:textColor="@android:color/black"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColorLink="@android:color/holo_green_dark"
+        android:textCursorDrawable="@android:color/holo_green_dark"
+        android:background="#ffffff"
+        android:id="@+id/autoCompleteTextViewLookStation"
+        android:inputType="textNoSuggestions"
+        android:textSize="20sp"
+        android:paddingLeft="30dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="?android:attr/actionModeWebSearchDrawable"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:textColorLink="@android:color/holo_green_dark"
-        android:textCursorDrawable="@android:color/holo_green_dark"
-        android:background="@android:color/darker_gray"
-        android:id="@+id/autoCompleteTextViewLookStation"
-        android:inputType="textNoSuggestions"
-        android:textSize="24sp" />
+        android:id="@+id/imageView" />
 </RelativeLayout>
