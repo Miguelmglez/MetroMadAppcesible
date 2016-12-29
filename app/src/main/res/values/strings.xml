@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">Metro Madrid Appcesible</string>
+    <string name="app_name">METRO MADRID APPCESIBLE</string>
     <string name="button_route">Find your route</string>
     <string name="index_title">Metro Madrid</string>
-    <string name="index_title3">Appcesible</string>
+    <string name="index_title3">Appcessible</string>
     <string name="origin">From: </string>
     <string name="destination">To: </string>
     <string name="example">For example... Atocha</string>
@@ -19,14 +19,14 @@
     <string name="tituloEstaciones">"Accesible route between:" </string>
     <string name="infoLine">Line </string>
     <string name="estacion">Station  </string>
-    <string name="noAccesible">  is NOT accesible. Route has been recalculated with the nearest accesible station.</string>
+    <string name="noAccesible">   is NOT accessible. Nearest accessible station </string>
     <string name="inicio">Start:</string>
     <string name="transbordo">CHANGE IN : </string>
     <string name="totalEstaciones">Total stations :  </string>
     <string name="totalTransbordos">Total changes :  </string>
     <string name="textPerson">Hey! You are here!</string>
-    <string name="estacionNoAccesible">(Not Accesible)</string>
-    <string name="estacionAccesible">(Accesible)</string>
+    <string name="estacionNoAccesible">(Not Accessible)</string>
+    <string name="estacionAccesible">(Accessible)</string>
     <string name="estacionSinArticulo">Station : </string>
     <string name="errorValidStations">You must choose two valid stations</string>
     <string name="errorValidDisability">You must choose at least one disability option</string>

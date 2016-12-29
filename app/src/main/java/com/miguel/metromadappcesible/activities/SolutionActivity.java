@@ -18,7 +18,7 @@ import android.widget.Button;
 
 import com.miguel.metromadappcesible.code.Conexion;
 
-import org.osmdroid.api.IGeoPoint;
+
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapController;
@@ -28,16 +28,19 @@ import org.osmdroid.views.overlay.Polyline;
 
 import java.util.ArrayList;
 
+
+import static com.miguel.metromadappcesible.activities.MapsActivity.myOpenMapViewMap;
+import static com.miguel.metromadappcesible.activities.MapsActivity.servicio;
 import static com.miguel.metromadappcesible.activities.RoutesActivity.estacionAccesibleOrigen;
 import static com.miguel.metromadappcesible.activities.RoutesActivity.rutaFinal;
 
 public class SolutionActivity extends AppCompatActivity {
-    private MapView myOpenMapView;
-    private MapController myMapController;
+    public static MapView myOpenMapViewMapSolution;
+
     public Location locationGPS;
     public LocationManager locationManager;
-    private LocationListener locationListener;
-    private Marker myPositionMarker;
+    public static Marker myPositionMarkerMapSolution;
+    public static MapController myMapControllerMapSolution;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,25 +48,28 @@ public class SolutionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_solution);
         Button imageButton = (Button) findViewById(R.id.routeDetailsButton);
         imageButton.setBackgroundColor(Color.CYAN);
-        myOpenMapView = (MapView) findViewById(R.id.mapSolution);
-        myOpenMapView.setTileSource(TileSourceFactory.MAPNIK);
-        myOpenMapView.setMultiTouchControls(true);
-        myOpenMapView.setUseDataConnection(true);
-        locationGPS = this.damePuntoNuevo(locationGPS);
+        myOpenMapViewMapSolution = (MapView) findViewById(R.id.mapSolution);
+        myOpenMapViewMapSolution.setTileSource(TileSourceFactory.MAPNIK);
+        myOpenMapViewMapSolution.setMultiTouchControls(true);
+        myOpenMapViewMapSolution.setUseDataConnection(true);
+        myPositionMarkerMapSolution = new Marker(myOpenMapViewMapSolution);
+        //locationGPS = this.damePuntoNuevo(locationGPS);
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        locationGPS = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         GeoPoint origen = new GeoPoint(estacionAccesibleOrigen.getLatitud(), estacionAccesibleOrigen.getLongitud());
-        myMapController = (MapController) myOpenMapView.getController();
-        myMapController.setZoom(17);
-        myMapController.animateTo(origen);
-        myMapController.setCenter(origen);
+        myMapControllerMapSolution = (MapController) myOpenMapViewMapSolution.getController();
+        myMapControllerMapSolution.setZoom(15);
+        myMapControllerMapSolution.animateTo(origen);
+        myMapControllerMapSolution.setCenter(origen);
         this.pintaRuta();
         this.pintaEstaciones();
         GeoPoint punto = new GeoPoint(locationGPS.getLatitude(), locationGPS.getLongitude());
-        myPositionMarker = new Marker(myOpenMapView);
-        myPositionMarker.setPosition(punto);
-        myPositionMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-        myPositionMarker.setIcon(getResources().getDrawable(R.drawable.person));
-        myPositionMarker.setTitle("Hey! You are here!");
-        myOpenMapView.getOverlays().add(myPositionMarker);
+        startService(servicio);
+        myPositionMarkerMapSolution.setPosition(punto);
+        myPositionMarkerMapSolution.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+        myPositionMarkerMapSolution.setIcon(getResources().getDrawable(R.drawable.person));
+        myPositionMarkerMapSolution.setTitle("Hey! You are here!");
+        myOpenMapViewMapSolution.getOverlays().add(myPositionMarkerMapSolution);
 
         imageButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -81,18 +87,24 @@ public class SolutionActivity extends AppCompatActivity {
         startActivity(intent);
         Button imageButton = (Button) findViewById(R.id.routeDetailsButton);
         imageButton.setBackgroundColor(Color.CYAN);
+        stopService(servicio);
     }
 
     public void locateMe(View v) {
+        GeoPoint puntoActual = myPositionMarkerMapSolution.getPosition();
+        myMapControllerMapSolution.setZoom(17);
+        myMapControllerMapSolution.setCenter(puntoActual);
+        myMapControllerMapSolution.animateTo(puntoActual);
+        /*
         locationGPS = this.damePuntoNuevo(locationGPS);
         GeoPoint punto = new GeoPoint(locationGPS.getLatitude(), locationGPS.getLongitude());
-        myMapController = (MapController) myOpenMapView.getController();
-        myPositionMarker.setPosition(punto);
-        myMapController.setZoom(17);
-        myMapController.setCenter(punto);
-        myMapController.animateTo(punto);
+        myMapControllerMapSolution = (MapController) myOpenMapViewMapSolution.getController();
+        myPositionMarkerMapSolution.setPosition(punto);
+        myMapControllerMapSolution.setZoom(15);
+        myMapControllerMapSolution.setCenter(punto);
+        myMapControllerMapSolution.animateTo(punto);*/
     }
-
+/*
     public Location damePuntoNuevo(Location puntoAntiguo) {
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -121,11 +133,12 @@ public class SolutionActivity extends AppCompatActivity {
         locationGPS = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         return locationGPS;
     }
-
+*/
     public void centroMapaOrigen(View v) {
         GeoPoint origen = new GeoPoint(estacionAccesibleOrigen.getLatitud(), estacionAccesibleOrigen.getLongitud());
-        myMapController.setCenter(origen);
-        myMapController.animateTo(origen);
+        myMapControllerMapSolution.setCenter(origen);
+        myMapControllerMapSolution.animateTo(origen);
+        myMapControllerMapSolution.setZoom(15);
     }
 
     private void pintaEstaciones() {
@@ -135,9 +148,9 @@ public class SolutionActivity extends AppCompatActivity {
         String toLine = getResources().getString(R.string.toLine);
         String reciente = estacionAccesibleOrigen.getNombre();
         String descripcionEstacion;
-        Marker estacionOrigen = new Marker(myOpenMapView);
+        Marker estacionOrigen = new Marker(myOpenMapViewMapSolution);
         GeoPoint coordenadasOrigen = new GeoPoint(estacionAccesibleOrigen.getLatitud(), estacionAccesibleOrigen.getLongitud());
-        String descripcionOrigen = estacionSinArticulo +" : " + estacionAccesibleOrigen.getNombre() + "\n";
+        String descripcionOrigen = estacionSinArticulo +" " + estacionAccesibleOrigen.getNombre() + "\n";
         if (estacionAccesibleOrigen.getLinea() == 50) {
             descripcionOrigen = descripcionOrigen + lineas +" : R";
         } else {
@@ -147,11 +160,11 @@ public class SolutionActivity extends AppCompatActivity {
         estacionOrigen.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
         estacionOrigen.setIcon(getResources().getDrawable(R.drawable.metro_mad));
         estacionOrigen.setTitle(descripcionOrigen);
-        myOpenMapView.getOverlays().add(estacionOrigen);
+        myOpenMapViewMapSolution.getOverlays().add(estacionOrigen);
 
         for (int i = 0; i < rutaFinal.size(); i++) {
             Conexion c = (Conexion) rutaFinal.get(i);
-            Marker estacion = new Marker(myOpenMapView);
+            Marker estacion = new Marker(myOpenMapViewMapSolution);
             descripcionEstacion = "";
             GeoPoint coordenadasEstacion = new GeoPoint(0.0, 0.0);
             if (c.getEstacionDestino().getNombre().equals(c.getEstacionOrigen().getNombre())) {
@@ -186,7 +199,7 @@ public class SolutionActivity extends AppCompatActivity {
             estacion.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
             estacion.setIcon(getResources().getDrawable(R.drawable.metro_mad));
             estacion.setTitle(descripcionEstacion);
-            myOpenMapView.getOverlays().add(estacion);
+            myOpenMapViewMapSolution.getOverlays().add(estacion);
         }
     }
 
@@ -221,7 +234,7 @@ public class SolutionActivity extends AppCompatActivity {
             linea.setVisible(true);
             linea.setGeodesic(true);
             linea.setColor(Color.RED);
-            myOpenMapView.getOverlays().add(linea);
+            myOpenMapViewMapSolution.getOverlays().add(linea);
         }
     }
 }

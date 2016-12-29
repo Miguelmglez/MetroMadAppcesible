@@ -2,11 +2,10 @@ package com.miguel.metromadappcesible.activities;
 
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.Typeface;
+
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Html;
+
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 
@@ -16,6 +15,7 @@ import com.miguel.metromadappcesible.code.Conexion;
 
 import static com.miguel.metromadappcesible.activities.RoutesActivity.ESTACION_DESTINO;
 import static com.miguel.metromadappcesible.activities.RoutesActivity.ESTACION_ORIGEN;
+import static com.miguel.metromadappcesible.activities.RoutesActivity.estacionAccesibleDestino;
 import static com.miguel.metromadappcesible.activities.RoutesActivity.estacionAccesibleOrigen;
 import static com.miguel.metromadappcesible.activities.RoutesActivity.estacionDestinoSeleccionada;
 import static com.miguel.metromadappcesible.activities.RoutesActivity.estacionOrigenSeleccionada;
@@ -37,21 +37,20 @@ public class DetailsActivity extends AppCompatActivity {
         textView.setMovementMethod(new ScrollingMovementMethod());
         String infoLinea = getResources().getString(R.string.infoLine);
         String noAccesible = getResources().getString(R.string.noAccesible);
-        String estacionStr = getResources().getString(R.string.estacion);
         String inicio = getResources().getString(R.string.inicio);
         String transbordo = getResources().getString(R.string.transbordo);
         String totalEstaciones = getResources().getString(R.string.totalEstaciones);
         String totalTransbordos = getResources().getString(R.string.totalTransbordos);
-        textViewBetween.append("\n");
+
         textViewBetween.append(ESTACION_ORIGEN.toUpperCase() + " - " + ESTACION_DESTINO.toUpperCase());
-        textViewBetween.append("\n");
         if (!(estacionOrigenSeleccionada.isAccesible())){
-            textAccesible.append(estacionStr + " " + ESTACION_ORIGEN + " " + noAccesible);
+            textAccesible.append(ESTACION_ORIGEN + " " + noAccesible + " "+ estacionAccesibleOrigen.getNombre()+".");
+            textAccesible.append("\n");
             textAccesible.append("\n");
         }
+
         if (!(estacionDestinoSeleccionada.isAccesible())){
-            textAccesible.append("\n");
-            textAccesible.append(estacionStr + " " + ESTACION_DESTINO + " " + noAccesible);
+            textAccesible.append(ESTACION_DESTINO + " " + noAccesible + " "+ estacionAccesibleDestino.getNombre()+".");
             textAccesible.append("\n");
         }
         for (int i = 0; i < rutaFinal.size(); i++) {
@@ -110,13 +109,8 @@ public class DetailsActivity extends AppCompatActivity {
         textView.append(totalTransbordos + " " + transbordos);
         textView.append("\n");
     }
-    public void routes (View v){
-        Intent intent = new Intent(this, RoutesActivity.class);
+    public void map (View v) {
+        Intent intent = new Intent(this, MapsActivity.class);
         startActivity(intent);
     }
-    public void map (View v){
-        this.finish();
-    }
-
-
 }

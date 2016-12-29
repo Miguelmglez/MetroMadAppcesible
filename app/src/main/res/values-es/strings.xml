@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Metro Madrid Appcesible</string>
+    <string name="app_name">METRO MADRID APPCESIBLE</string>
     <string name="button_route">Calcula tu ruta</string>
     <string name="index_title">Metro de Madrid</string>
     <string name="index_title3">Appcesible</string>
@@ -19,7 +19,7 @@
     <string name="tituloEstaciones">"Ruta accesible entre las estaciones: " </string>
     <string name="infoLine">Línea </string>
     <string name="estacion">La estación </string>
-    <string name="noAccesible"> NO es accesible. Se ha recalculado la ruta con la estación accesible más cercana.</string>
+    <string name="noAccesible"> NO es accesible. Estación accesible más cercana </string>
     <string name="inicio">Inicio:</string>
     <string name="transbordo">TRANSBORDO EN : </string>
     <string name="totalEstaciones">Número de estaciones:  </string>

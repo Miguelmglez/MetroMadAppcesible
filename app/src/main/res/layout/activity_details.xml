@@ -12,14 +12,16 @@
     tools:context="com.miguel.metromadappcesible.activities.DetailsActivity">
 
     <TextView
-        android:text="@string/tituloEstaciones"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:id="@+id/textViewBetween2Stations"
-        android:textColor="@android:color/black" />
+        android:textColor="@android:color/black"
+        android:textStyle="normal|bold"
+        android:textAlignment="center"
+        android:textSize="18sp" />
 
     <TextView
         android:layout_width="match_parent"
@@ -31,6 +33,18 @@
         android:textColor="@android:color/holo_red_dark"
         android:textStyle="normal|bold" />
 
+    <Button
+        android:text="@string/buttonNewRoute"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/button4"
+        android:background="@android:color/holo_blue_dark"
+        android:onClick="map (DetailsActivity)"
+        android:layout_weight="1"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -38,30 +52,8 @@
         android:scrollbars="vertical"
         android:textColor="@android:color/black"
         android:layout_below="@+id/textViewIsAccesible"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_above="@+id/button" />
-
-    <Button
-        android:text="@string/buttonNewRoute"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/button4"
-        android:background="@android:color/holo_blue_dark"
-        android:onClick="routes"
-        android:layout_weight="1"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <Button
-        android:text="@string/buttonReturnToMap"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/button"
-        android:onClick="map"
-        android:layout_above="@+id/button4"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/button4" />
 
 </RelativeLayout>
