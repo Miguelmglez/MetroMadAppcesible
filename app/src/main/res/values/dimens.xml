@@ -5,4 +5,5 @@
     <dimen name="textRuta">16dp</dimen>
     <dimen name="margenRadioButton">30dp</dimen>
     <dimen name="paddingRutas">15dp</dimen>
+    <dimen name="heightRoutesButtons">40dp</dimen>
 </resources>

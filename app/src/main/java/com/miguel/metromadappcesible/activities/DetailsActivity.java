@@ -3,12 +3,15 @@ package com.miguel.metromadappcesible.activities;
 
 import android.content.Intent;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import android.text.method.ScrollingMovementMethod;
+import android.view.MotionEvent;
 import android.view.View;
 
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.miguel.metromadappcesible.code.Conexion;
@@ -46,7 +49,9 @@ public class DetailsActivity extends AppCompatActivity {
         if (!(estacionOrigenSeleccionada.isAccesible())){
             textAccesible.append(ESTACION_ORIGEN + " " + noAccesible + " "+ estacionAccesibleOrigen.getNombre()+".");
             textAccesible.append("\n");
-            textAccesible.append("\n");
+            if(!(estacionDestinoSeleccionada.isAccesible())){
+                textAccesible.append("\n");
+            }
         }
 
         if (!(estacionDestinoSeleccionada.isAccesible())){
@@ -108,9 +113,26 @@ public class DetailsActivity extends AppCompatActivity {
         textView.append("\n");
         textView.append(totalTransbordos + " " + transbordos);
         textView.append("\n");
+        Button imageButton = (Button) findViewById(R.id.buttonNewRoute);
+
+        imageButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                Button imageButton = (Button) findViewById(R.id.buttonNewRoute);
+
+                imageButton.setTextColor(Color.WHITE);
+                imageButton.setBackground(getDrawable(R.drawable.shapeonclick));
+
+                return false;
+            }
+        });
     }
     public void map (View v) {
         Intent intent = new Intent(this, MapsActivity.class);
         startActivity(intent);
+        Button imageButton = (Button) findViewById(R.id.buttonNewRoute);
+        imageButton.setBackgroundColor(Color.WHITE);
+        imageButton.setTextColor(getResources().getColor(R.color.colorAccent));
+        imageButton.setBackground(getDrawable(R.drawable.shape));
     }
 }

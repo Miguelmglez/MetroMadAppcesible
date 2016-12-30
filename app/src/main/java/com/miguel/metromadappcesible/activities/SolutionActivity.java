@@ -1,16 +1,12 @@
 package com.miguel.metromadappcesible.activities;
 
 
-import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -29,7 +25,6 @@ import org.osmdroid.views.overlay.Polyline;
 import java.util.ArrayList;
 
 
-import static com.miguel.metromadappcesible.activities.MapsActivity.myOpenMapViewMap;
 import static com.miguel.metromadappcesible.activities.MapsActivity.servicio;
 import static com.miguel.metromadappcesible.activities.RoutesActivity.estacionAccesibleOrigen;
 import static com.miguel.metromadappcesible.activities.RoutesActivity.rutaFinal;
@@ -47,13 +42,12 @@ public class SolutionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_solution);
         Button imageButton = (Button) findViewById(R.id.routeDetailsButton);
-        imageButton.setBackgroundColor(Color.CYAN);
+        String person = getResources().getString(R.string.textPerson);
         myOpenMapViewMapSolution = (MapView) findViewById(R.id.mapSolution);
         myOpenMapViewMapSolution.setTileSource(TileSourceFactory.MAPNIK);
         myOpenMapViewMapSolution.setMultiTouchControls(true);
         myOpenMapViewMapSolution.setUseDataConnection(true);
         myPositionMarkerMapSolution = new Marker(myOpenMapViewMapSolution);
-        //locationGPS = this.damePuntoNuevo(locationGPS);
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         locationGPS = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         GeoPoint origen = new GeoPoint(estacionAccesibleOrigen.getLatitud(), estacionAccesibleOrigen.getLongitud());
@@ -68,14 +62,17 @@ public class SolutionActivity extends AppCompatActivity {
         myPositionMarkerMapSolution.setPosition(punto);
         myPositionMarkerMapSolution.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
         myPositionMarkerMapSolution.setIcon(getResources().getDrawable(R.drawable.person));
-        myPositionMarkerMapSolution.setTitle("Hey! You are here!");
+        myPositionMarkerMapSolution.setTitle(person);
         myOpenMapViewMapSolution.getOverlays().add(myPositionMarkerMapSolution);
 
         imageButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 Button imageButton = (Button) findViewById(R.id.routeDetailsButton);
-                imageButton.setBackgroundColor(Color.RED);
+                imageButton.setTextColor(Color.WHITE);
+
+                imageButton.setBackground(getDrawable(R.drawable.shapeonclick));
+
                 return false;
             }
         });
@@ -86,7 +83,9 @@ public class SolutionActivity extends AppCompatActivity {
         Intent intent = new Intent(this, DetailsActivity.class);
         startActivity(intent);
         Button imageButton = (Button) findViewById(R.id.routeDetailsButton);
-        imageButton.setBackgroundColor(Color.CYAN);
+        imageButton.setBackgroundColor(Color.WHITE);
+        imageButton.setTextColor(getResources().getColor(R.color.colorAccent));
+        imageButton.setBackground(getDrawable(R.drawable.shape));
         stopService(servicio);
     }
 

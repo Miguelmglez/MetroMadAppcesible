@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.CheckBox;
 import android.widget.RadioButton;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.miguel.metromadappcesible.code.Estacion;
@@ -39,8 +40,8 @@ public class RoutesActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_routes);
 
-        text=(AutoCompleteTextView)findViewById(R.id.autoCompleteTextView6);
-        text1= (AutoCompleteTextView)findViewById(R.id.autoCompleteTextView7);
+        text=(AutoCompleteTextView)findViewById(R.id.autoCompleteOrigin);
+        text1= (AutoCompleteTextView)findViewById(R.id.autoCompleteDestination);
         ArrayAdapter adapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,estacionesMetro);
         ArrayAdapter adapter2 = new ArrayAdapter(this,android.R.layout.simple_list_item_1,estacionesMetro);
         text.setAdapter(adapter);
@@ -66,13 +67,13 @@ public class RoutesActivity extends AppCompatActivity {
     public void solution (View v){
         String errorEstaciones = getResources().getString(R.string.errorValidStations);
         String errorDisability = getResources().getString(R.string.errorValidDisability);
-        RadioButton opcionEstaciones = (RadioButton)findViewById(R.id.radioButton2);
+        RadioButton opcionEstaciones = (RadioButton)findViewById(R.id.radioButtonStations);
         ESTACION_ORIGEN = text.getText().toString();
         ESTACION_DESTINO = text1.getText().toString();
-        CheckBox checkBlindness = (CheckBox) findViewById(R.id.checkboxBlindess);
-        CheckBox checkDeafness = (CheckBox) findViewById(R.id.checkboxDeafness);
-        CheckBox checkDisability = (CheckBox) findViewById(R.id.checkboxDisability);
-        if (checkBlindness.isChecked()||checkDeafness.isChecked()||checkDisability.isChecked()) {
+        Switch switchBlindness = (Switch) findViewById(R.id.switchBlindness);
+        Switch switchDeafness = (Switch) findViewById(R.id.switchDeafness);
+        Switch switchWheelChair = (Switch) findViewById(R.id.switchWheelChair);
+        if (switchBlindness.isChecked()||switchDeafness.isChecked()||switchWheelChair.isChecked()) {
             if (estacionesMetro.contains(ESTACION_ORIGEN) && (estacionesMetro.contains(ESTACION_DESTINO))) {
                 estacionOrigenSeleccionada = miMetro.getMapaEstaciones().get(ESTACION_ORIGEN).get(0);
                 estacionDestinoSeleccionada = miMetro.getMapaEstaciones().get(ESTACION_DESTINO).get(0);
@@ -94,5 +95,19 @@ public class RoutesActivity extends AppCompatActivity {
             Toast.makeText(RoutesActivity.this, errorDisability, Toast.LENGTH_LONG).show();
         }
     }
+    public void changeColorSwitchBlindness(View v){
+        Switch switchBlindness = (Switch) findViewById(R.id.switchBlindness);
+        if (switchBlindness.isChecked()){
 
+        }
+
+    }
+    public void changeColorSwitchWheelChair(View v){
+        Switch switchWheelChair = (Switch) findViewById(R.id.switchWheelChair);
+
+    }
+    public void changeColorSwitchDeafness(View v){
+        Switch switchDeafness = (Switch) findViewById(R.id.switchDeafness);
+
+    }
 }

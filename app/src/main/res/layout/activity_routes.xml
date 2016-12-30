@@ -7,191 +7,62 @@
     android:layout_height="match_parent"
     tools:context="com.miguel.metromadappcesible.activities.RoutesActivity"
     android:paddingLeft="@dimen/paddingRutas"
+    android:background="@color/backgroundGray"
     android:paddingRight="@dimen/paddingRutas">
 
-
-    <TextView
-        android:text="@string/destination"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView3"
-        android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textStyle="normal|bold"
-        android:textColor="@android:color/black" />
-
-    <AutoCompleteTextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/autoCompleteTextView7"
-        android:layout_below="@+id/textView3"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textColor="@android:color/black"
-        android:hint="@string/example2"
-        android:textColorLink="@android:color/holo_green_dark"
-        android:textColorHighlight="@android:color/holo_green_dark"
-        android:inputType="textNoSuggestions"
-        android:textCursorDrawable="@android:color/holo_green_dark"
-        android:textSize="18sp" />
 
     <Button
         android:text="@string/buttonGo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/button2"
-        android:layout_marginBottom="38dp"
+        android:id="@+id/buttonGo"
+
         android:visibility="visible"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:onClick="solution" />
+        android:onClick="solution"
+        android:background="@drawable/shape"
+        android:textColor="@color/colorAccent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="20dp"/>
 
-    <AutoCompleteTextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/autoCompleteTextView6"
-        android:textColor="@android:color/black"
-        android:layout_above="@+id/textView3"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="15dp"
-        android:hint="@string/example"
-        android:inputType="textNoSuggestions"
-        android:textColorLink="@android:color/holo_green_dark"
-        android:textCursorDrawable="@android:color/holo_green_dark" />
-
-    <TextView
-        android:text="@string/origin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView"
-        android:textStyle="normal|bold"
-        android:textColor="@android:color/black"
-        android:layout_above="@+id/autoCompleteTextView6"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/checkboxBlindess"
-        android:layout_below="@+id/buttonDisabled"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="24dp"
-        android:textColorLink="@android:color/holo_green_light"
-        android:buttonTint="@android:color/holo_green_dark" />
-
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@mipmap/blindness"
-        android:id="@+id/buttonBlindness"
-        android:background="@android:color/holo_green_light"
-        android:layout_alignTop="@+id/buttonDisabled"
-        android:layout_centerHorizontal="true"
-        android:clickable="false" />
-
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@mipmap/disabled"
-        android:id="@+id/buttonDisabled"
-        android:background="@android:color/holo_green_light"
-        android:layout_marginTop="30dp"
-        android:layout_marginLeft="34dp"
-        android:layout_marginStart="34dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:clickable="false" />
-
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/checkboxDisability"
-        android:layout_alignBaseline="@+id/checkboxBlindess"
-        android:layout_alignBottom="@+id/checkboxBlindess"
-        android:layout_alignRight="@+id/buttonDisabled"
-        android:layout_alignEnd="@+id/buttonDisabled"
-        android:layout_marginRight="7dp"
-        android:layout_marginEnd="7dp"
-        android:textColorHighlight="@android:color/holo_green_light"
-        android:textColorLink="@android:color/holo_green_light"
-        android:buttonTint="@android:color/holo_green_dark"
-        android:checked="true" />
-
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@mipmap/deafness"
-        android:id="@+id/buttonDeafness"
-        android:background="@android:color/holo_green_light"
-        android:layout_alignTop="@+id/buttonBlindness"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="31dp"
-        android:layout_marginEnd="31dp"
-        android:clickable="false" />
-
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/checkboxDeafness"
-        android:layout_alignBaseline="@+id/checkboxBlindess"
-        android:layout_alignBottom="@+id/checkboxBlindess"
-        android:layout_alignLeft="@+id/buttonDeafness"
-        android:layout_alignStart="@+id/buttonDeafness"
-        android:layout_marginLeft="7dp"
-        android:layout_marginStart="7dp"
-        android:textColorLink="@android:color/holo_green_light"
-        android:buttonTint="@android:color/holo_green_dark" />
-
-    <TextView
-        android:text="@string/routeCriteria"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView8"
-        android:layout_below="@+id/autoCompleteTextView7"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:textStyle="normal|bold"
-        android:textColor="@android:color/black"
-        android:paddingTop="20dp" />
 
     <RadioGroup
         android:layout_width="match_parent"
         android:weightSum="1"
-        android:checkedButton="@+id/radioButton"
+        android:checkedButton="@+id/radioButtonChanges"
         android:baselineAligned="false"
         android:orientation="horizontal"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/autoCompleteTextView7"
+        android:background="@drawable/shape"
+
+        android:layout_above="@+id/buttonGo"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="18dp">
+        android:layout_marginBottom="17dp">
 
         <RadioButton
             android:text="@string/radioButton1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/radioButton"
+            android:id="@+id/radioButtonChanges"
             android:checked="true"
             android:visibility="visible"
             android:layout_marginTop="40dp"
-            android:textColorLink="@android:color/holo_green_dark"
+            android:textColorLink="@color/colorAccent"
             android:textSize="@dimen/textRuta"
             android:textStyle="normal|bold"
-            android:textCursorDrawable="@android:color/holo_green_light"
+            android:textCursorDrawable="@color/colorAccent"
 
-            android:buttonTint="@android:color/holo_green_dark"
+            android:buttonTint="@color/colorAccent"
             android:layout_marginRight="10dp" />
 
         <RadioButton
             android:text="@string/radioButton2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/radioButton2"
+            android:id="@+id/radioButtonStations"
             android:visibility="visible"
             android:requiresFadingEdge="vertical"
             android:layout_alignTop="@+id/radioGroup2"
@@ -200,8 +71,116 @@
             android:layout_marginLeft="@dimen/margenRadioButton"
             android:textSize="@dimen/textRuta"
             android:textStyle="normal|bold"
-            android:buttonTint="@android:color/holo_green_dark" />
+            android:buttonTint="@color/colorAccent" />
 
     </RadioGroup>
+
+    <TextView
+        android:minHeight="90dp"
+        android:background="@drawable/shape"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/containerStations"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="25dp" />
+
+    <TextView
+
+        android:minHeight="@dimen/heightRoutesButtons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/containerBlindness"
+        android:background="@drawable/shape"
+
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/containerWheelChair"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:minHeight="@dimen/heightRoutesButtons"
+        android:background="@drawable/shape"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/containerDeafness"
+        android:layout_marginTop="21dp"
+        android:layout_below="@+id/containerBlindness"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:minHeight="@dimen/heightRoutesButtons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape"
+        android:id="@+id/containerWheelChair"
+        android:layout_marginTop="38dp"
+        android:layout_below="@+id/containerStations"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/switchWheelChair"
+        android:checked="true"
+        android:layout_alignBottom="@+id/containerWheelChair"
+        android:layout_alignRight="@+id/buttonGo"
+        android:layout_alignEnd="@+id/buttonGo"
+        android:paddingBottom="0dp"
+        android:layout_marginBottom="7dp" />
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/switchBlindness"
+        android:layout_alignBottom="@+id/containerBlindness"
+        android:layout_alignLeft="@+id/switchWheelChair"
+        android:layout_alignStart="@+id/switchWheelChair"
+        android:layout_marginBottom="7dp" />
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/switchDeafness"
+        android:layout_alignBottom="@+id/containerDeafness"
+        android:layout_alignLeft="@+id/switchBlindness"
+        android:layout_alignStart="@+id/switchBlindness"
+        android:layout_marginBottom="7dp" />
+
+    <AutoCompleteTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/autoCompleteDestination"
+        android:textColor="@android:color/black"
+        android:hint="@string/example2"
+        android:textColorLink="@color/colorAccent"
+        android:textColorHighlight="@color/colorAccent"
+        android:inputType="textNoSuggestions"
+
+        android:textCursorDrawable="@color/colorAccent"
+        android:textSize="18sp"
+
+        android:layout_above="@+id/containerWheelChair"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:paddingLeft="10dp" />
+
+    <AutoCompleteTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/autoCompleteOrigin"
+        android:textColor="@android:color/black"
+
+        android:hint="@string/example"
+
+        android:inputType="textNoSuggestions"
+        android:textColorLink="@color/colorAccent"
+        android:textCursorDrawable="@color/colorAccent"
+
+        android:layout_above="@+id/autoCompleteDestination"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:paddingLeft="10dp" />
 
 </RelativeLayout>

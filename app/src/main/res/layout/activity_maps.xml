@@ -9,6 +9,28 @@
     <org.osmdroid.views.MapView android:id="@+id/map"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+    <AutoCompleteTextView
+        android:hint="@string/lookStation"
+        android:textColor="@android:color/black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColorLink="@color/colorAccent"
+        android:textCursorDrawable="@color/colorAccent"
+        android:background="@drawable/shape"
+        android:id="@+id/autoCompleteTextViewLookStation"
+        android:inputType="textNoSuggestions"
+        android:textSize="18dp"
+        android:paddingLeft="30dp"
+        android:minHeight="48dp"
+        android:minWidth="88dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp"
+        />
+
     <Button
         android:text="@string/button_route"
         android:layout_width="match_parent"
@@ -16,52 +38,43 @@
         android:id="@+id/findRouteButton"
         android:layout_weight="1"
         android:textSize="18sp"
+        android:textColor="@color/colorAccent"
         style="@style/Widget.AppCompat.Button"
-        android:background="@android:color/holo_green_light"
+        android:background="@drawable/shape"
         android:visibility="visible"
         android:onClick="routes"
         android:textStyle="normal|bold"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="20dp"/>
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="@drawable/ic_menu_mylocation"
-        android:layout_marginRight="24dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginBottom="46dp"
+        android:layout_marginRight="14dp"
+        android:layout_marginEnd="14dp"
+        android:layout_marginBottom="24dp"
         android:id="@+id/locationButton"
         android:background="@android:color/transparent"
         android:visibility="visible"
         android:onClick="locateMe"
         android:layout_above="@+id/findRouteButton"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
-
-    <AutoCompleteTextView
-        android:hint="@string/lookStation"
-        android:textColor="@android:color/black"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColorLink="@android:color/holo_green_dark"
-        android:textCursorDrawable="@android:color/holo_green_dark"
-        android:background="#ffffff"
-        android:id="@+id/autoCompleteTextViewLookStation"
-        android:inputType="textNoSuggestions"
-        android:textSize="20sp"
-        android:paddingLeft="30dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignRight="@+id/findRouteButton"
+        android:layout_alignEnd="@+id/findRouteButton" />
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:srcCompat="?android:attr/actionModeWebSearchDrawable"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/imageView" />
+        android:id="@+id/imageView"
+        android:minHeight="48dp"
+        android:layout_alignTop="@+id/autoCompleteTextViewLookStation"
+        android:layout_alignLeft="@+id/autoCompleteTextViewLookStation"
+        android:layout_alignStart="@+id/autoCompleteTextViewLookStation"
+        android:paddingLeft="5dp" />
+
 </RelativeLayout>

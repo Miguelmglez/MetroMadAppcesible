@@ -5,8 +5,8 @@
     <string name="index_title3">Appcesible</string>
     <string name="origin">Origen: </string>
     <string name="destination">Destino: </string>
-    <string name="example">Por ejemplo... Atocha</string>
-    <string name="example2">Por ejemplo... Opera</string>
+    <string name="example">Origen...</string>
+    <string name="example2">Destino...</string>
     <string name="radioButton1">Menos transbordos</string>
     <string name="radioButton2">Menos paradas</string>
     <string name="buttonGo">CALCULAR</string>

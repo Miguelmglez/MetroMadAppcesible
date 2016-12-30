@@ -5,8 +5,8 @@
     <string name="index_title3">Appcessible</string>
     <string name="origin">From: </string>
     <string name="destination">To: </string>
-    <string name="example">For example... Atocha</string>
-    <string name="example2">For example... Opera</string>
+    <string name="example">From...</string>
+    <string name="example2">To...</string>
     <string name="radioButton1">Less changes</string>
     <string name="radioButton2">Less stations</string>
     <string name="buttonGo">GO!</string>
