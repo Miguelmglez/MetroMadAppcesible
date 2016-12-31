@@ -1,12 +1,11 @@
 <resources>
-    <string name="app_name">METRO MADRID APPCESIBLE</string>
+    <string name="app_name">METRO MADRID APPCESSIBLE</string>
     <string name="button_route">Find your route</string>
     <string name="index_title">Metro Madrid</string>
     <string name="index_title3">Appcessible</string>
-    <string name="origin">From: </string>
-    <string name="destination">To: </string>
-    <string name="example">From...</string>
-    <string name="example2">To...</string>
+
+    <string name="example">FROM</string>
+    <string name="example2">TO</string>
     <string name="radioButton1">Less changes</string>
     <string name="radioButton2">Less stations</string>
     <string name="buttonGo">GO!</string>
@@ -15,7 +14,7 @@
     <string name="buttonNewRoute">NEW ROUTE</string>
     <string name="buttonExit">EXIT</string>
     <string name="lookStation">Find a station ...</string>
-    <string name="routeCriteria">Route criteria: </string>
+    <string name="routeCriteria">ROUTE CRITERIA</string>
     <string name="tituloEstaciones">"Accesible route between:" </string>
     <string name="infoLine">Line </string>
     <string name="estacion">Station  </string>
@@ -32,5 +31,6 @@
     <string name="errorValidDisability">You must choose at least one disability option</string>
     <string name="changeStation">Change from line</string>
     <string name="toLine">to line</string>
+    <string name="accesibility">ACCESSIBILITY</string>
 </resources>
 

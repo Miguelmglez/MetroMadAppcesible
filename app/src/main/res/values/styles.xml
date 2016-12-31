@@ -6,6 +6,19 @@
         <item name="colorPrimary">#565555</item>
         <item name="colorPrimaryDark">#2e2e2e</item>
         <item name="colorAccent">@color/colorAccent</item>
-    </style>
 
+
+
+    </style>
+    <style name="switchTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">#565555</item>
+        <item name="colorPrimaryDark">#2e2e2e</item>
+        <item name="colorAccent">@color/switchOn</item>
+        <item name="colorControlActivated">@color/switchOn</item>
+    </style>
+    <style name="CustomActionBar" parent="Base.TextAppearance.AppCompat.Widget.ActionBar.Menu">
+        <item name="android:textAlignment">center</item>
+        <item name="android:layout_gravity">center</item>
+    </style>
 </resources>

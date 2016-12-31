@@ -46,6 +46,7 @@ public class DetailsActivity extends AppCompatActivity {
         String totalTransbordos = getResources().getString(R.string.totalTransbordos);
 
         textViewBetween.append(ESTACION_ORIGEN.toUpperCase() + " - " + ESTACION_DESTINO.toUpperCase());
+        textViewBetween.append("\n");
         if (!(estacionOrigenSeleccionada.isAccesible())){
             textAccesible.append(ESTACION_ORIGEN + " " + noAccesible + " "+ estacionAccesibleOrigen.getNombre()+".");
             textAccesible.append("\n");

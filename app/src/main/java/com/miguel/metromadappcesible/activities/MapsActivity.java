@@ -88,14 +88,18 @@ public class MapsActivity extends AppCompatActivity {
 
 
         locationGPS = this.damePuntoNuevo(locationGPS);
-        GeoPoint punto = new GeoPoint(locationGPS.getLatitude(), locationGPS.getLongitude());
+        GeoPoint punto = new GeoPoint(40.41694,-3.70361);
+        try {
+            punto.setCoords(locationGPS.getLatitude(), locationGPS.getLongitude());
+        }catch (NullPointerException e){
+        }
         myMapControllerMap = (MapController) myOpenMapViewMap.getController();
-        myMapControllerMap.setZoom(17);
+        myMapControllerMap.setZoom(16);
         myMapControllerMap.setCenter(punto);
         myMapControllerMap.animateTo(punto);
         myPositionMarkerMap.setPosition(punto);
         myPositionMarkerMap.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-        myPositionMarkerMap.setIcon(getResources().getDrawable(R.drawable.person));
+        myPositionMarkerMap.setIcon(getResources().getDrawable(R.drawable.circle32));
         myPositionMarkerMap.setTitle(person);
         myOpenMapViewMap.getOverlays().add(myPositionMarkerMap);
 
@@ -191,7 +195,7 @@ public class MapsActivity extends AppCompatActivity {
             }
             estacion.setPosition(coordenadasEstacion);
             estacion.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-            estacion.setIcon(getResources().getDrawable(R.drawable.metro_mad));
+            estacion.setIcon(getResources().getDrawable(R.drawable.locationsign64));
             estacion.setTitle(descripcionEstacion);
             myOpenMapViewMap.getOverlays().add(estacion);
         }

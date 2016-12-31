@@ -3,10 +3,8 @@
     <string name="button_route">Calcula tu ruta</string>
     <string name="index_title">Metro de Madrid</string>
     <string name="index_title3">Appcesible</string>
-    <string name="origin">Origen: </string>
-    <string name="destination">Destino: </string>
-    <string name="example">Origen...</string>
-    <string name="example2">Destino...</string>
+    <string name="example">ORIGEN</string>
+    <string name="example2">DESTINO</string>
     <string name="radioButton1">Menos transbordos</string>
     <string name="radioButton2">Menos paradas</string>
     <string name="buttonGo">CALCULAR</string>
@@ -15,7 +13,7 @@
     <string name="buttonNewRoute">NUEVO TRAYECTO</string>
     <string name="buttonExit">SALIR</string>
     <string name="lookStation">Buscar una estación...</string>
-    <string name="routeCriteria">Criterio de ruta:  </string>
+    <string name="routeCriteria">CRITERIO DE RUTA</string>
     <string name="tituloEstaciones">"Ruta accesible entre las estaciones: " </string>
     <string name="infoLine">Línea </string>
     <string name="estacion">La estación </string>
@@ -32,5 +30,7 @@
     <string name="errorValidDisability">Debes seleccionar al menos un tipo de discapacidad</string>
     <string name="changeStation">Transbordo desde la línea</string>
     <string name="toLine">a la línea</string>
+    <string name="accesibility">ACCESIBILIDAD</string>
+
 </resources>
 

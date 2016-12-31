@@ -2,6 +2,7 @@ package com.miguel.metromadappcesible.activities;
 
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
@@ -52,7 +53,7 @@ public class IndexActivity extends AppCompatActivity {
     }
     private File createFileFromInputStream(InputStream inputStream) {
         try{
-            File f = new File("/mnt/sdcard/metro.xml");
+            File f = new File(getFilesDir(),"metro.xml");
             OutputStream outputStream = new FileOutputStream(f);
             byte buffer[] = new byte[1024];
             int length = 0;

@@ -28,7 +28,7 @@
         android:textColor="@color/colorAccent"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginBottom="20dp"/>
+        android:layout_marginBottom="@dimen/layout_botones"/>
 
     <ImageButton
         android:layout_width="wrap_content"
