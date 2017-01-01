@@ -25,7 +25,8 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="@dimen/layout_botones"
-        android:textStyle="normal|bold" />
+        android:textStyle="normal|bold"
+        android:textSize="18sp" />
 
     <TextView
         android:minHeight="90dp"

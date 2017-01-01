@@ -4,6 +4,7 @@ package com.miguel.metromadappcesible.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -11,8 +12,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.miguel.metromadappcesible.code.Conexion;
+import com.miguel.metromadappcesible.code.Estacion;
 
 
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
@@ -21,6 +24,8 @@ import org.osmdroid.views.MapController;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.views.overlay.Polyline;
+import org.osmdroid.views.overlay.infowindow.InfoWindow;
+import org.osmdroid.views.overlay.infowindow.MarkerInfoWindow;
 
 import java.util.ArrayList;
 
@@ -160,7 +165,7 @@ public class SolutionActivity extends AppCompatActivity {
         estacionOrigen.setIcon(getResources().getDrawable(R.drawable.metro_mad));
         estacionOrigen.setTitle(descripcionOrigen);
         myOpenMapViewMapSolution.getOverlays().add(estacionOrigen);
-
+        Marker aux = estacionOrigen;
         for (int i = 0; i < rutaFinal.size(); i++) {
             Conexion c = (Conexion) rutaFinal.get(i);
             Marker estacion = new Marker(myOpenMapViewMapSolution);
@@ -172,6 +177,9 @@ public class SolutionActivity extends AppCompatActivity {
                 descripcionEstacion = estacionSinArticulo+" " + c.getEstacionOrigen().getNombre().toUpperCase() + "\n";
                 descripcionEstacion = descripcionEstacion + "\n" + change +" " + auxAnterior.getEstacionDestino().getLinea() + " "+toLine+" " + auxSiguiente.getEstacionOrigen().getLinea();
                 coordenadasEstacion.setCoords(c.getEstacionOrigen().getLatitud(), c.getEstacionOrigen().getLongitud());
+                if (aux.getPosition()==coordenadasEstacion) {
+                    myOpenMapViewMapSolution.getOverlays().remove(aux);
+                }
             } else {
                 if (reciente.equals(c.getEstacionOrigen().getNombre())) {
                     descripcionEstacion = estacionSinArticulo+" " + c.getEstacionDestino().getNombre().toUpperCase() + "\n";
@@ -197,8 +205,10 @@ public class SolutionActivity extends AppCompatActivity {
             estacion.setPosition(coordenadasEstacion);
             estacion.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
             estacion.setIcon(getResources().getDrawable(R.drawable.metro_mad));
+
             estacion.setTitle(descripcionEstacion);
             myOpenMapViewMapSolution.getOverlays().add(estacion);
+            aux = estacion;
         }
     }
 
@@ -229,14 +239,65 @@ public class SolutionActivity extends AppCompatActivity {
             puntos.add(punto1);
             puntos.add(punto2);
             linea.setPoints(puntos);
-            linea.setWidth(20);
+            linea.setWidth(10);
             linea.setVisible(true);
             linea.setGeodesic(true);
+            switch (c.getEstacionOrigen().getLinea()){
+                case 1:
+                    linea.setColor(Color.RED);
+                   break;
+                case 2:
+                    linea.setColor(Color.RED);
+                    break;
+                case 3:
+                    linea.setColor(Color.RED);
+                    break;
+                case 4:
+                    linea.setColor(Color.RED);
+                    break;
+                case 5:
+                    linea.setColor(Color.RED);
+                    break;
+                case 6:
+                    linea.setColor(Color.RED);
+                    break;
+                case 7:
+                    linea.setColor(Color.RED);
+                    break;
+                case 8:
+                    linea.setColor(Color.RED);
+                    break;
+                case 9:
+                    linea.setColor(Color.RED);
+                    break;
+                case 10:
+                    linea.setColor(Color.RED);
+                    break;
+                case 11:
+                    linea.setColor(Color.RED);
+                    break;
+                case 12:
+                    linea.setColor(Color.RED);
+                    break;
+                case 50:
+                    linea.setColor(Color.RED);
+                    break;
+                }
             linea.setColor(Color.RED);
             myOpenMapViewMapSolution.getOverlays().add(linea);
         }
     }
-}
+    public Drawable pintaLinea(Estacion e){
+        Drawable linea  = getResources().getDrawable(R.drawable.metro_mad) ;
+        switch (e.getLinea()){
+
+
+        }
+        return linea;
+        }
+
+    }
+
 
 
 

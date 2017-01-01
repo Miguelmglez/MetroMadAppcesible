@@ -9,7 +9,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="@drawable/planometromadridesquematico_opt"
+    android:background="@color/colorAccent"
     tools:context=".MainActivity">
 
     <TextView
@@ -19,7 +19,7 @@
         android:layout_marginBottom="87dp"
         android:id="@+id/textView2"
         android:textSize="44sp"
-        android:textColor="@android:color/black"
+        android:textColor="@android:color/white"
         android:textAlignment="center"
         android:fontFamily="sans-serif"
         android:textStyle="normal|bold"
@@ -28,17 +28,6 @@
         android:layout_centerHorizontal="true"
         android:backgroundTint="@android:color/transparent" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageView2"
-        android:clickable="true"
-        android:onClick="map"
-        app:srcCompat="@drawable/facebook512"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:contextClickable="true" />
-
     <TextView
         android:text="@string/index_title"
         android:layout_width="wrap_content"
@@ -46,7 +35,7 @@
         android:id="@+id/titulo"
         android:layout_weight="1"
         android:fontFamily="sans-serif"
-        android:textColor="@android:color/black"
+        android:textColor="@android:color/white"
         android:textStyle="normal|bold"
         android:textSize="44sp"
         android:textAlignment="center"

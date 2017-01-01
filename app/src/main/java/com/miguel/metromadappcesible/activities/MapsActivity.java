@@ -53,7 +53,7 @@ public class MapsActivity extends AppCompatActivity {
     private AutoCompleteTextView textEstacion;
     public static ArrayList<String> estacionesMetro = miMetro.getListaNombreEstaciones();
     public static Intent servicio;
-
+    GeoPoint punto = new GeoPoint(40.41694,-3.70361);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,7 +88,7 @@ public class MapsActivity extends AppCompatActivity {
 
 
         locationGPS = this.damePuntoNuevo(locationGPS);
-        GeoPoint punto = new GeoPoint(40.41694,-3.70361);
+
         try {
             punto.setCoords(locationGPS.getLatitude(), locationGPS.getLongitude());
         }catch (NullPointerException e){
@@ -99,7 +99,7 @@ public class MapsActivity extends AppCompatActivity {
         myMapControllerMap.animateTo(punto);
         myPositionMarkerMap.setPosition(punto);
         myPositionMarkerMap.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-        myPositionMarkerMap.setIcon(getResources().getDrawable(R.drawable.circle32));
+        myPositionMarkerMap.setIcon(getResources().getDrawable(R.drawable.person));
         myPositionMarkerMap.setTitle(person);
         myOpenMapViewMap.getOverlays().add(myPositionMarkerMap);
 
@@ -206,6 +206,7 @@ public class MapsActivity extends AppCompatActivity {
         GeoPoint coordenadasEstacionSeleccionada = new GeoPoint(estacionSeleccionada.getLatitud(), estacionSeleccionada.getLongitud());
         myMapControllerMap.setCenter(coordenadasEstacionSeleccionada);
         myMapControllerMap.animateTo(coordenadasEstacionSeleccionada);
+        myMapControllerMap.setZoom(18);
     }
 
 }

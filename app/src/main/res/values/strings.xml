@@ -21,14 +21,14 @@
     <string name="noAccesible">   is NOT accessible. Nearest accessible station </string>
     <string name="inicio">Start:</string>
     <string name="transbordo">CHANGE IN : </string>
-    <string name="totalEstaciones">Total stations :  </string>
-    <string name="totalTransbordos">Total changes :  </string>
+    <string name="totalEstaciones">Stations :  </string>
+    <string name="totalTransbordos">Changes :  </string>
     <string name="textPerson">Hey! You are here!</string>
     <string name="estacionNoAccesible">(Not Accessible)</string>
     <string name="estacionAccesible">(Accessible)</string>
     <string name="estacionSinArticulo">Station : </string>
     <string name="errorValidStations">You must choose two valid stations</string>
-    <string name="errorValidDisability">You must choose at least one disability option</string>
+    <string name="errorValidDisability">You must choose at least one accessibility option</string>
     <string name="changeStation">Change from line</string>
     <string name="toLine">to line</string>
     <string name="accesibility">ACCESSIBILITY</string>

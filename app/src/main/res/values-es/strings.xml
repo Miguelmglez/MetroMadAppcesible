@@ -20,14 +20,14 @@
     <string name="noAccesible"> NO es accesible. Estación accesible más cercana </string>
     <string name="inicio">Inicio:</string>
     <string name="transbordo">TRANSBORDO EN : </string>
-    <string name="totalEstaciones">Número de estaciones:  </string>
-    <string name="totalTransbordos">Número de transbordos:  </string>
+    <string name="totalEstaciones">Estaciones :  </string>
+    <string name="totalTransbordos">Transbordos :  </string>
     <string name="textPerson">¡Estás aquí!</string>
     <string name="estacionNoAccesible">(No Accesible)</string>
     <string name="estacionAccesible">(Accesible)</string>
     <string name="estacionSinArticulo">Estación : </string>
     <string name="errorValidStations">Debes seleccionar dos estaciones válidas</string>
-    <string name="errorValidDisability">Debes seleccionar al menos un tipo de discapacidad</string>
+    <string name="errorValidDisability">Debes seleccionar al menos un tipo de accesibilidad</string>
     <string name="changeStation">Transbordo desde la línea</string>
     <string name="toLine">a la línea</string>
     <string name="accesibility">ACCESIBILIDAD</string>

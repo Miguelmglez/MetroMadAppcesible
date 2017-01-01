@@ -57,6 +57,7 @@
         app:srcCompat="?android:attr/actionModeWebSearchDrawable"
         android:id="@+id/imageView"
         android:minHeight="48dp"
+        android:textSize="18sp"
         android:layout_alignTop="@+id/autoCompleteTextViewLookStation"
         android:layout_alignLeft="@+id/autoCompleteTextViewLookStation"
         android:layout_alignStart="@+id/autoCompleteTextViewLookStation"
@@ -65,7 +66,7 @@
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/circle48"
+        app:srcCompat="@drawable/ic_menu_mylocation"
         android:layout_marginRight="9dp"
         android:layout_marginEnd="9dp"
         android:layout_marginBottom="12dp"
