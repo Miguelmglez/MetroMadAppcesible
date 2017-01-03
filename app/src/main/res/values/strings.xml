@@ -31,5 +31,6 @@
     <string name="accesibility">ACCESSIBILITY</string>
     <string name="index">OPEN</string>
     <string name="permission">Metro Madrid Appcessible needs this permission to work</string>
+    <string name="errorSameStations">Origin and destination cannot be the same station</string>
 </resources>
 

@@ -21,17 +21,10 @@ public class Conexion implements EdgeFactory<Estacion,Conexion> {
         return estacionOrigen;
     }
 
-    public void setEstacionOrigen(Estacion estacionOrigen) {
-        this.estacionOrigen = estacionOrigen;
-    }
-
     public Estacion getEstacionDestino() {
         return estacionDestino;
     }
 
-    public void setEstacionDestino(Estacion estacionDestino) {
-        this.estacionDestino = estacionDestino;
-    }
     /**
      * Creates a new edge whose endpoints are the specified source and target vertices.
      *

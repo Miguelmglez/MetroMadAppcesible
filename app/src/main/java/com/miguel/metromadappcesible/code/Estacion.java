@@ -11,14 +11,6 @@ public class Estacion{
     double latitud,longitud;
     boolean accesible;
 
-    public Estacion(){
-        this.linea =0;
-        this.nombre= "Vacío";
-        this.latitud=0.0;
-        this.longitud=0.0;
-
-    }
-
     public Estacion(int linea, String nombre, double latitud, double longitud, boolean accesible) {
         this.linea = linea;
         this.nombre = nombre;
@@ -51,16 +43,9 @@ public class Estacion{
         return this.accesible;
     }
 
-    public Estacion getEstacionAnterior() {
-            return this.estacionAnterior;
-    }
 
     public void setEstacionAnterior(Estacion estacionAnterior) {
         this.estacionAnterior = estacionAnterior;
-    }
-
-    public Estacion getEstacionSiguiente() {
-        return this.estacionSiguiente;
     }
 
     public void setEstacionSiguiente(Estacion estacionSiguiente) {

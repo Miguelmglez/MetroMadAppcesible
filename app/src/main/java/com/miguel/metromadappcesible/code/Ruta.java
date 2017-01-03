@@ -19,15 +19,8 @@ public class Ruta {
         return ruta;
     }
 
-    protected void setRuta(ArrayList<Estacion> ruta) {
-        this.ruta = ruta;
-    }
-
     protected int getTransbordos() {
         return transbordos;
     }
 
-    protected void setTransbordos(int transbordos) {
-        this.transbordos = transbordos;
-    }
 }

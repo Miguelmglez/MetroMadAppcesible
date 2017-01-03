@@ -88,6 +88,7 @@ public class RoutesActivity extends AppCompatActivity {
     public void solution (View v){
         String errorEstaciones = getResources().getString(R.string.errorValidStations);
         String errorDisability = getResources().getString(R.string.errorValidDisability);
+        String errorSameStations =getResources().getString(R.string.errorSameStations);
         RadioButton opcionEstaciones = (RadioButton)findViewById(R.id.radioButtonStations);
         ESTACION_ORIGEN = text.getText().toString();
         ESTACION_DESTINO = text1.getText().toString();
@@ -98,6 +99,7 @@ public class RoutesActivity extends AppCompatActivity {
         buttonGo.setBackgroundColor(Color.WHITE);
         buttonGo.setTextColor(getResources().getColor(R.color.colorAccent,null));
         buttonGo.setBackground(getDrawable(R.drawable.shape));
+        if (!ESTACION_ORIGEN.equals(ESTACION_DESTINO)){
         if (switchBlindness.isChecked()||switchDeafness.isChecked()||switchWheelChair.isChecked()) {
             if (estacionesMetro.contains(ESTACION_ORIGEN) && (estacionesMetro.contains(ESTACION_DESTINO))) {
                 estacionOrigenSeleccionada = miMetro.getMapaEstaciones().get(ESTACION_ORIGEN).get(0);
@@ -119,6 +121,10 @@ public class RoutesActivity extends AppCompatActivity {
         }
         else{
             Toast.makeText(RoutesActivity.this, errorDisability, Toast.LENGTH_LONG).show();
+        }
+    }
+        else{
+            Toast.makeText(RoutesActivity.this, errorSameStations, Toast.LENGTH_LONG).show();
         }
     }
 }

@@ -6,11 +6,10 @@ import android.content.Intent;
 
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.media.Image;
+
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -57,8 +56,8 @@ public class DetailsActivity extends AppCompatActivity {
         String noAccesible = getResources().getString(R.string.noAccesible);
         String totalEstaciones = getResources().getString(R.string.totalEstaciones);
         String totalTransbordos = getResources().getString(R.string.totalTransbordos);
-        String nombreEstacion = "";
-        Drawable iconoEstacion = null;
+        String nombreEstacion;
+        Drawable iconoEstacion;
 
         textViewBetween.append(ESTACION_ORIGEN.toUpperCase() + " - " + ESTACION_DESTINO.toUpperCase());
         if (!(estacionOrigenSeleccionada.isAccesible())){

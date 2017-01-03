@@ -4,18 +4,18 @@ package com.miguel.metromadappcesible.activities;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
+
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.provider.ContactsContract;
+
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 
+import com.miguel.metromadappcesible.LocationListenerService;
 import com.miguel.metromadappcesible.code.Conexion;
 import com.miguel.metromadappcesible.code.Estacion;
 
@@ -26,13 +26,10 @@ import org.osmdroid.views.MapController;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.views.overlay.Polyline;
-import org.osmdroid.views.overlay.infowindow.InfoWindow;
-import org.osmdroid.views.overlay.infowindow.MarkerInfoWindow;
 
 import java.util.ArrayList;
 
 
-import static com.miguel.metromadappcesible.activities.MapsActivity.servicio;
 import static com.miguel.metromadappcesible.activities.RoutesActivity.estacionAccesibleDestino;
 import static com.miguel.metromadappcesible.activities.RoutesActivity.estacionAccesibleOrigen;
 import static com.miguel.metromadappcesible.activities.RoutesActivity.rutaFinal;
@@ -45,6 +42,7 @@ public class SolutionActivity extends AppCompatActivity {
     public static Marker myPositionMarkerMapSolution;
     public static MapController myMapControllerMapSolution;
     GeoPoint punto = new GeoPoint(40.41694,-3.70361);
+    public Intent servicio;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +53,7 @@ public class SolutionActivity extends AppCompatActivity {
         ImageButton stationButton = (ImageButton) findViewById(R.id.locationStationButton);
         positionButton.setImageDrawable(getDrawable(R.drawable.position));
         stationButton.setImageDrawable(getDrawable(R.drawable.position_station_1));
+        servicio = new Intent(this,LocationListenerService.class);
         startService(servicio);
         myOpenMapViewMapSolution = (MapView) findViewById(R.id.mapSolution);
         myOpenMapViewMapSolution.setTileSource(TileSourceFactory.MAPNIK);
@@ -62,8 +61,8 @@ public class SolutionActivity extends AppCompatActivity {
         myOpenMapViewMapSolution.setUseDataConnection(true);
         myPositionMarkerMapSolution = new Marker(myOpenMapViewMapSolution);
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
         locationGPS = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+        locationGPS = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         GeoPoint origen = new GeoPoint(estacionAccesibleOrigen.getLatitud(), estacionAccesibleOrigen.getLongitud());
         myMapControllerMapSolution = (MapController) myOpenMapViewMapSolution.getController();
         myMapControllerMapSolution.setZoom(15);

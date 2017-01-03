@@ -30,5 +30,6 @@
     <string name="accesibility">ACCESIBILIDAD</string>
     <string name="index">ABRIR</string>
     <string name="permission">Metro de Madrid Appcesible necesita éste permiso para funcionar</string>
+    <string name="errorSameStations">La estación origen y destino no pueden ser iguales</string>
 </resources>
 
