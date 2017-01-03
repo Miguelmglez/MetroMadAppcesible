@@ -15,7 +15,7 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/arrow2"
+        app:srcCompat="@drawable/logo_app"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:id="@+id/imageView2"
@@ -36,9 +36,9 @@
         android:textAlignment="center"
         android:background="@android:color/background_light"
         android:backgroundTint="@android:color/transparent"
+        android:layout_marginTop="27dp"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="50dp" />
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -52,8 +52,21 @@
         android:textStyle="normal|bold"
         android:background="@android:color/background_light"
         android:backgroundTint="@android:color/transparent"
+        android:layout_marginBottom="25dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="56dp" />
+        android:layout_centerHorizontal="true" />
 
+    <Button
+        android:text="@string/index"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/buttonOpen"
+        android:background="@drawable/shape"
+        android:textStyle="normal|bold"
+        android:textSize="18sp"
+        android:minWidth="150dp"
+        android:textColor="@color/colorAccent"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:onClick="map" />
 </RelativeLayout>

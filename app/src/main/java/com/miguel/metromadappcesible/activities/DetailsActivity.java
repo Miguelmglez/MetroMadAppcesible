@@ -75,7 +75,13 @@ public class DetailsActivity extends AppCompatActivity {
 
         nombreEstacion = estacionAccesibleOrigen.getNombre();
         reciente = estacionAccesibleOrigen.getNombre();
-        iconoEstacion = dameIconoLinea(estacionAccesibleOrigen);
+        Conexion aux = (Conexion) rutaFinal.get(0);
+        if (aux.getEstacionOrigen().equals(estacionAccesibleOrigen.getNombre())){
+            iconoEstacion = dameIconoLinea(aux.getEstacionOrigen());
+        }
+        else{
+            iconoEstacion = dameIconoLinea(aux.getEstacionDestino());
+        }
         EstacionConIcono estacionOrigen = new EstacionConIcono(iconoEstacion, nombreEstacion);
         listaEstaciones.add(estacionOrigen);
         for (int i = 0; i < rutaFinal.size(); i++) {
@@ -84,7 +90,7 @@ public class DetailsActivity extends AppCompatActivity {
                 this.transbordos++;
                 reciente = c.getEstacionDestino().getNombre();
                 nombreEstacion = c.getEstacionDestino().getNombre();
-                iconoEstacion = dameIconoLinea(c.getEstacionDestino());
+                iconoEstacion = getDrawable(R.drawable.trans);
             } else {
                 if (reciente.equals(c.getEstacionOrigen().getNombre())) {
                     reciente = c.getEstacionDestino().getNombre();
@@ -125,11 +131,11 @@ public class DetailsActivity extends AppCompatActivity {
         startActivity(intent);
         Button imageButton = (Button) findViewById(R.id.buttonNewRoute);
         imageButton.setBackgroundColor(Color.WHITE);
-        imageButton.setTextColor(getResources().getColor(R.color.colorAccent));
+        imageButton.setTextColor(getResources().getColor(R.color.colorAccent,null));
         imageButton.setBackground(getDrawable(R.drawable.shape));
     }
 
- class ListAdapter extends ArrayAdapter<EstacionConIcono> {
+ public class ListAdapter extends ArrayAdapter<EstacionConIcono> {
 
     public ListAdapter(Context context, int textViewResourceId) {
         super(context, textViewResourceId);
@@ -168,46 +174,46 @@ public class DetailsActivity extends AppCompatActivity {
 
 
     public Drawable dameIconoLinea (Estacion e){
-        Drawable icono  = getResources().getDrawable(R.drawable.metro_mad,null) ;
+        Drawable icono  = getResources().getDrawable(R.drawable.estacioncirculo,null) ;
         switch (e.getLinea()){
             case 1:
-                icono = getResources().getDrawable(R.drawable.metro_mad,null) ;
+                icono = getResources().getDrawable(R.drawable.linea1,null) ;
                 break;
             case 2:
-                icono = getResources().getDrawable(R.drawable.metro_mad,null) ;
+                icono = getResources().getDrawable(R.drawable.linea2,null) ;
                 break;
             case 3:
-                icono = getResources().getDrawable(R.drawable.metro_mad,null) ;
+                icono = getResources().getDrawable(R.drawable.linea3,null) ;
                 break;
             case 4:
-                icono = getResources().getDrawable(R.drawable.metro_mad,null) ;
+                icono = getResources().getDrawable(R.drawable.linea4,null) ;
                 break;
             case 5:
-                icono = getResources().getDrawable(R.drawable.metro_mad,null) ;
+                icono = getResources().getDrawable(R.drawable.linea5,null) ;
                 break;
             case 6:
-                icono = getResources().getDrawable(R.drawable.metro_mad,null) ;
+                icono = getResources().getDrawable(R.drawable.linea6,null) ;
                 break;
             case 7:
-                icono = getResources().getDrawable(R.drawable.metro_mad,null) ;
+                icono = getResources().getDrawable(R.drawable.linea7,null) ;
                 break;
             case 8:
-                icono = getResources().getDrawable(R.drawable.metro_mad,null) ;
+                icono = getResources().getDrawable(R.drawable.linea8,null) ;
                 break;
             case 9:
-                icono = getResources().getDrawable(R.drawable.metro_mad,null) ;
+                icono = getResources().getDrawable(R.drawable.linea9,null) ;
                 break;
             case 10:
-                icono = getResources().getDrawable(R.drawable.metro_mad,null) ;
+                icono = getResources().getDrawable(R.drawable.linea10,null) ;
                 break;
             case 11:
-                icono = getResources().getDrawable(R.drawable.metro_mad,null) ;
+                icono = getResources().getDrawable(R.drawable.linea11,null) ;
                 break;
             case 12:
-                icono = getResources().getDrawable(R.drawable.metro_mad,null) ;
+                icono = getResources().getDrawable(R.drawable.linea12,null) ;
                 break;
             case 50:
-                icono = getResources().getDrawable(R.drawable.metro_mad,null) ;
+                icono = getResources().getDrawable(R.drawable.linea_r,null) ;
                 break;
         }
         return icono;

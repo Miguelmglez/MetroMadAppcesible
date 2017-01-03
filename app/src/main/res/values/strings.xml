@@ -10,16 +10,13 @@
     <string name="radioButton2">Less stations</string>
     <string name="buttonGo">GO!</string>
     <string name="buttonRouteDetails">Route details</string>
-    <string name="buttonReturnToMap">RETURN TO MAP</string>
     <string name="buttonNewRoute">NEW ROUTE</string>
-    <string name="buttonExit">EXIT</string>
     <string name="lookStation">Find a station ...</string>
     <string name="routeCriteria">ROUTE CRITERIA</string>
     <string name="tituloEstaciones">"Accesible route between:" </string>
     <string name="infoLine">Line </string>
     <string name="estacion">Station  </string>
     <string name="noAccesible">   is NOT accessible. Nearest accessible station </string>
-    <string name="inicio">Start:</string>
     <string name="transbordo">CHANGE IN : </string>
     <string name="totalEstaciones">Stations :  </string>
     <string name="totalTransbordos">Changes :  </string>
@@ -32,5 +29,7 @@
     <string name="changeStation">Change from line</string>
     <string name="toLine">to line</string>
     <string name="accesibility">ACCESSIBILITY</string>
+    <string name="index">OPEN</string>
+    <string name="permission">Metro Madrid Appcessible needs this permission to work</string>
 </resources>
 

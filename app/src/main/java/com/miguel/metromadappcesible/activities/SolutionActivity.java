@@ -8,10 +8,12 @@ import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.miguel.metromadappcesible.code.Conexion;
@@ -48,6 +50,11 @@ public class SolutionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_solution);
         Button imageButton = (Button) findViewById(R.id.routeDetailsButton);
         String person = getResources().getString(R.string.textPerson);
+        ImageButton positionButton = (ImageButton) findViewById(R.id.locateMeButton);
+        ImageButton stationButton = (ImageButton) findViewById(R.id.locationStationButton);
+        positionButton.setImageDrawable(getDrawable(R.drawable.position));
+        stationButton.setImageDrawable(getDrawable(R.drawable.position_station_1));
+
         myOpenMapViewMapSolution = (MapView) findViewById(R.id.mapSolution);
         myOpenMapViewMapSolution.setTileSource(TileSourceFactory.MAPNIK);
         myOpenMapViewMapSolution.setMultiTouchControls(true);
@@ -66,7 +73,7 @@ public class SolutionActivity extends AppCompatActivity {
         startService(servicio);
         myPositionMarkerMapSolution.setPosition(punto);
         myPositionMarkerMapSolution.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-        myPositionMarkerMapSolution.setIcon(getResources().getDrawable(R.drawable.person));
+        myPositionMarkerMapSolution.setIcon(getResources().getDrawable(R.drawable.person_ball,null));
         myPositionMarkerMapSolution.setTitle(person);
         myOpenMapViewMapSolution.getOverlays().add(myPositionMarkerMapSolution);
 
@@ -99,6 +106,10 @@ public class SolutionActivity extends AppCompatActivity {
         myMapControllerMapSolution.setZoom(17);
         myMapControllerMapSolution.setCenter(puntoActual);
         myMapControllerMapSolution.animateTo(puntoActual);
+        ImageButton positionButton = (ImageButton) findViewById(R.id.locateMeButton);
+        ImageButton stationButton = (ImageButton) findViewById(R.id.locationStationButton);
+        positionButton.setImageDrawable(getDrawable(R.drawable.position_pressed));
+        stationButton.setImageDrawable(getDrawable(R.drawable.position_station_1));
         /*
         locationGPS = this.damePuntoNuevo(locationGPS);
         GeoPoint punto = new GeoPoint(locationGPS.getLatitude(), locationGPS.getLongitude());
@@ -143,6 +154,10 @@ public class SolutionActivity extends AppCompatActivity {
         myMapControllerMapSolution.setCenter(origen);
         myMapControllerMapSolution.animateTo(origen);
         myMapControllerMapSolution.setZoom(15);
+        ImageButton positionButton = (ImageButton) findViewById(R.id.locateMeButton);
+        ImageButton stationButton = (ImageButton) findViewById(R.id.locationStationButton);
+        positionButton.setImageDrawable(getDrawable(R.drawable.position));
+        stationButton.setImageDrawable(getDrawable(R.drawable.position_station_pressed));
     }
 
     private void pintaEstaciones() {
@@ -162,7 +177,7 @@ public class SolutionActivity extends AppCompatActivity {
         }
         estacionOrigen.setPosition(coordenadasOrigen);
         estacionOrigen.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-        estacionOrigen.setIcon(getResources().getDrawable(R.drawable.metro_mad));
+        estacionOrigen.setIcon(getResources().getDrawable(R.drawable.estacion,null));
         estacionOrigen.setTitle(descripcionOrigen);
         myOpenMapViewMapSolution.getOverlays().add(estacionOrigen);
         Marker aux = estacionOrigen;
@@ -185,9 +200,9 @@ public class SolutionActivity extends AppCompatActivity {
                     descripcionEstacion = estacionSinArticulo+" " + c.getEstacionDestino().getNombre().toUpperCase() + "\n";
                     coordenadasEstacion.setCoords(c.getEstacionDestino().getLatitud(), c.getEstacionDestino().getLongitud());
                     if (c.getEstacionDestino().getLinea() == 50) {
-                        descripcionEstacion = descripcionEstacion + lineas +" : R";
+                        descripcionEstacion = descripcionEstacion +"\n" + lineas +" : R";
                     } else {
-                        descripcionEstacion = descripcionEstacion + lineas +" : " + c.getEstacionDestino().getLinea();
+                        descripcionEstacion = descripcionEstacion +"\n" + lineas +" : " + c.getEstacionDestino().getLinea();
                     }
                     reciente = c.getEstacionDestino().getNombre();
 
@@ -195,17 +210,21 @@ public class SolutionActivity extends AppCompatActivity {
                     descripcionEstacion = estacionSinArticulo+" " + c.getEstacionOrigen().getNombre().toUpperCase() + "\n";
                     coordenadasEstacion.setCoords(c.getEstacionOrigen().getLatitud(), c.getEstacionOrigen().getLongitud());
                     if (c.getEstacionOrigen().getLinea() == 50) {
-                        descripcionEstacion = descripcionEstacion + lineas +" : R";
+                        descripcionEstacion = descripcionEstacion +"\n"+ lineas +" : R";
                     } else {
-                        descripcionEstacion = descripcionEstacion + lineas +" : " + c.getEstacionOrigen().getLinea();
+                        descripcionEstacion = descripcionEstacion +"\n"+ lineas +" : " + c.getEstacionOrigen().getLinea();
                     }
                     reciente = c.getEstacionOrigen().getNombre();
                 }
             }
             estacion.setPosition(coordenadasEstacion);
             estacion.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-            estacion.setIcon(getResources().getDrawable(R.drawable.metro_mad));
-
+            if (i == rutaFinal.size()-1){
+                estacion.setIcon(getResources().getDrawable(R.drawable.estacion, null));
+            }
+            else {
+                estacion.setIcon(getResources().getDrawable(R.drawable.estacioncirculo, null));
+            }
             estacion.setTitle(descripcionEstacion);
             myOpenMapViewMapSolution.getOverlays().add(estacion);
             aux = estacion;
@@ -241,60 +260,52 @@ public class SolutionActivity extends AppCompatActivity {
             linea.setPoints(puntos);
             linea.setWidth(10);
             linea.setVisible(true);
-            linea.setGeodesic(true);
+           // linea.setGeodesic(true);
             switch (c.getEstacionOrigen().getLinea()){
                 case 1:
-                    linea.setColor(Color.RED);
+                    linea.setColor(getResources().getColor(R.color.colorLinea1,null));
                    break;
                 case 2:
-                    linea.setColor(Color.RED);
+                    linea.setColor(getResources().getColor(R.color.colorLinea2,null));
                     break;
                 case 3:
-                    linea.setColor(Color.RED);
+                    linea.setColor(getResources().getColor(R.color.colorLinea3,null));
                     break;
                 case 4:
-                    linea.setColor(Color.RED);
+                    linea.setColor(getResources().getColor(R.color.colorLinea4,null));
                     break;
                 case 5:
-                    linea.setColor(Color.RED);
+                    linea.setColor(getResources().getColor(R.color.colorLinea5,null));
                     break;
                 case 6:
-                    linea.setColor(Color.RED);
+                    linea.setColor(getResources().getColor(R.color.colorLinea6,null));
                     break;
                 case 7:
-                    linea.setColor(Color.RED);
+                    linea.setColor(getResources().getColor(R.color.colorLinea7,null));
                     break;
                 case 8:
-                    linea.setColor(Color.RED);
+                    linea.setColor(getResources().getColor(R.color.colorLinea8,null));
                     break;
                 case 9:
-                    linea.setColor(Color.RED);
+                    linea.setColor(getResources().getColor(R.color.colorLinea9,null));
                     break;
                 case 10:
-                    linea.setColor(Color.RED);
+                    linea.setColor(getResources().getColor(R.color.colorLinea10,null));
                     break;
                 case 11:
-                    linea.setColor(Color.RED);
+                    linea.setColor(getResources().getColor(R.color.colorLinea11,null));
                     break;
                 case 12:
-                    linea.setColor(Color.RED);
+                    linea.setColor(getResources().getColor(R.color.colorLinea12,null));
                     break;
                 case 50:
-                    linea.setColor(Color.RED);
+                    linea.setColor(getResources().getColor(R.color.colorLineaR,null));
                     break;
                 }
-            linea.setColor(Color.RED);
             myOpenMapViewMapSolution.getOverlays().add(linea);
         }
     }
-    public Drawable pintaLinea(Estacion e){
-        Drawable linea  = getResources().getDrawable(R.drawable.metro_mad) ;
-        switch (e.getLinea()){
 
-
-        }
-        return linea;
-        }
 
     }
 

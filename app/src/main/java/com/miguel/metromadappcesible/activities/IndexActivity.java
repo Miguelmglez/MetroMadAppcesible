@@ -6,11 +6,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.miguel.metromadappcesible.code.Metro;
@@ -34,6 +37,7 @@ public class IndexActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_index);
+        Button open = (Button) findViewById(R.id.buttonOpen);
         AssetManager am = getAssets();
         InputStream inputStream = null;
         try {
@@ -47,9 +51,17 @@ public class IndexActivity extends AppCompatActivity {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION},1);
         }else {
-            Intent intent = new Intent(IndexActivity.this, MapsActivity.class);
-            startActivity(intent);
+
         }
+        open.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                Button open= (Button) findViewById(R.id.buttonOpen);
+                open.setTextColor(Color.WHITE);
+                open.setBackground(getDrawable(R.drawable.shapeonclick));
+                return false;
+            }
+        });
     }
     private File createFileFromInputStream(InputStream inputStream) {
         try{
@@ -65,28 +77,26 @@ public class IndexActivity extends AppCompatActivity {
             inputStream.close();
             return f;
         }catch (IOException e) {
-            //Logging exception
+
         }
         return null;
     }
     public void map (View v){
         Intent intent = new Intent(IndexActivity.this, MapsActivity.class);
         startActivity(intent);
+        Button open= (Button) findViewById(R.id.buttonOpen);
+        open.setTextColor(getResources().getColor(R.color.colorAccent,null));
+        open.setBackground(getDrawable(R.drawable.shape));
     }
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        String permission = getResources().getString(R.string.permission);
         switch (requestCode) {
             case 1: {
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // permission was granted, yay! Do the
-                    // contacts-related task you need to do.
-                    Intent intent = new Intent(IndexActivity.this, MapsActivity.class);
-                    startActivity(intent);
-                } else {
-                    // permission denied, boo! Disable the
-                    // functionality that depends on this permission.
-                    Toast.makeText(IndexActivity.this, "Metro Madrid Appcesible needs this permission to work.", Toast.LENGTH_LONG).show();
 
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                } else {
+                    Toast.makeText(IndexActivity.this, permission, Toast.LENGTH_LONG).show();
                     Intent intent = new Intent(IndexActivity.this, MainActivity.class);
                     startActivity(intent);
                 }
@@ -102,7 +112,6 @@ public class IndexActivity extends AppCompatActivity {
         Intent thisIntent = this.getIntent();
         thisIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         this.finish();
-
     }
 
 }

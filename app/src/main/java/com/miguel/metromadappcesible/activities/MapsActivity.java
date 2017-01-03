@@ -13,20 +13,30 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 
-import android.support.v4.app.ActivityCompat;
+
 import android.support.v7.app.AppCompatActivity;
 
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 
 import com.miguel.metromadappcesible.LocationListenerService;
 import com.miguel.metromadappcesible.code.Estacion;
+import com.miguel.metromadappcesible.code.EstacionConIcono;
 
 
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
@@ -35,12 +45,14 @@ import org.osmdroid.views.MapController;
 import org.osmdroid.views.MapView;
 
 import org.osmdroid.views.overlay.Marker;
-
+import org.osmdroid.views.overlay.infowindow.InfoWindow;
 
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.miguel.metromadappcesible.activities.IndexActivity.miMetro;
+;
 
 
 public class MapsActivity extends AppCompatActivity {
@@ -54,12 +66,15 @@ public class MapsActivity extends AppCompatActivity {
     public static ArrayList<String> estacionesMetro = miMetro.getListaNombreEstaciones();
     public static Intent servicio;
     GeoPoint punto = new GeoPoint(40.41694,-3.70361);
+    public static ArrayList<EstacionConIcono> listaEstaciones = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         String person = getResources().getString(R.string.textPerson);
         Button imageButton = (Button) findViewById(R.id.findRouteButton);
+        ImageButton locationButton = (ImageButton) findViewById(R.id.locationButton);
+        locationButton.setImageDrawable(getDrawable(R.drawable.position));
         myOpenMapViewMap = (MapView) findViewById(R.id.map);
         myOpenMapViewMap.setTileSource(TileSourceFactory.MAPNIK);
         myOpenMapViewMap.setUseDataConnection(true);
@@ -87,7 +102,7 @@ public class MapsActivity extends AppCompatActivity {
         startService(servicio);
 
 
-        locationGPS = this.damePuntoNuevo(locationGPS);
+        locationGPS = this.damePuntoNuevo();
 
         try {
             punto.setCoords(locationGPS.getLatitude(), locationGPS.getLongitude());
@@ -99,7 +114,7 @@ public class MapsActivity extends AppCompatActivity {
         myMapControllerMap.animateTo(punto);
         myPositionMarkerMap.setPosition(punto);
         myPositionMarkerMap.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-        myPositionMarkerMap.setIcon(getResources().getDrawable(R.drawable.person));
+        myPositionMarkerMap.setIcon(getResources().getDrawable(R.drawable.person_ball));
         myPositionMarkerMap.setTitle(person);
         myOpenMapViewMap.getOverlays().add(myPositionMarkerMap);
 
@@ -111,10 +126,18 @@ public class MapsActivity extends AppCompatActivity {
 
                 imageButton.setTextColor(Color.WHITE);
                 imageButton.setBackground(getDrawable(R.drawable.shapeonclick));
-
                 return false;
             }
         });
+        locationButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                ImageButton locationButton = (ImageButton) findViewById(R.id.locationButton);
+                locationButton.setImageDrawable(getDrawable(R.drawable.position_pressed));
+                return false;
+            }
+        });
+
 
     }
 
@@ -123,7 +146,7 @@ public class MapsActivity extends AppCompatActivity {
         startActivity(intent);
         Button imageButton = (Button) findViewById(R.id.findRouteButton);
         imageButton.setBackgroundColor(Color.WHITE);
-        imageButton.setTextColor(getResources().getColor(R.color.colorAccent));
+        imageButton.setTextColor(getResources().getColor(R.color.colorAccent,null));
         imageButton.setBackground(getDrawable(R.drawable.shape));
         stopService(servicio);
     }
@@ -133,15 +156,12 @@ public class MapsActivity extends AppCompatActivity {
         myMapControllerMap.setZoom(17);
         myMapControllerMap.setCenter(puntoActual);
         myMapControllerMap.animateTo(puntoActual);
+        ImageButton locationButton = (ImageButton) findViewById(R.id.locationButton);
+        locationButton.setImageDrawable(getDrawable(R.drawable.position));
     }
 
-    private Location damePuntoNuevo(Location puntoAntiguo) {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return puntoAntiguo;
-        }
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return puntoAntiguo;
-        }
+    private Location damePuntoNuevo() {
+
 
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 200, 1, new LocationListener() {
             @Override
@@ -169,8 +189,9 @@ public class MapsActivity extends AppCompatActivity {
         String estacionNoAccesible = getResources().getString(R.string.estacionNoAccesible);
         String estacionAccesible = getResources().getString(R.string.estacionAccesible);
         String estacionSinArticulo = getResources().getString(R.string.estacionSinArticulo);
+
         for (int i = 0; i < miMetro.getListaNombreEstaciones().size(); i++) {
-            Marker estacion = new Marker(myOpenMapViewMap);
+            final Marker estacion = new Marker(myOpenMapViewMap);
             String nombreEstacion = miMetro.getListaNombreEstaciones().get(i);
             ArrayList<Estacion> correspondencias = miMetro.getMapaEstaciones().get(nombreEstacion);
             GeoPoint coordenadasEstacion = new GeoPoint(correspondencias.get(0).getLatitud(), correspondencias.get(0).getLongitud());
@@ -195,12 +216,11 @@ public class MapsActivity extends AppCompatActivity {
             }
             estacion.setPosition(coordenadasEstacion);
             estacion.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-            estacion.setIcon(getResources().getDrawable(R.drawable.locationsign64));
+            estacion.setIcon(getResources().getDrawable(R.drawable.estacion));
             estacion.setTitle(descripcionEstacion);
             myOpenMapViewMap.getOverlays().add(estacion);
         }
     }
-
     private void focusOnStation(AdapterView.OnItemClickListener v, String estacion) {
         Estacion estacionSeleccionada = miMetro.getMapaEstaciones().get(estacion).get(0);
         GeoPoint coordenadasEstacionSeleccionada = new GeoPoint(estacionSeleccionada.getLatitud(), estacionSeleccionada.getLongitud());
@@ -208,5 +228,4 @@ public class MapsActivity extends AppCompatActivity {
         myMapControllerMap.animateTo(coordenadasEstacionSeleccionada);
         myMapControllerMap.setZoom(18);
     }
-
 }

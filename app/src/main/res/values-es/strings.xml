@@ -9,16 +9,13 @@
     <string name="radioButton2">Menos paradas</string>
     <string name="buttonGo">CALCULAR</string>
     <string name="buttonRouteDetails">Detalles de la ruta</string>
-    <string name="buttonReturnToMap">VOLVER AL MAPA</string>
     <string name="buttonNewRoute">NUEVO TRAYECTO</string>
-    <string name="buttonExit">SALIR</string>
     <string name="lookStation">Buscar una estación...</string>
     <string name="routeCriteria">CRITERIO DE RUTA</string>
     <string name="tituloEstaciones">"Ruta accesible entre las estaciones: " </string>
     <string name="infoLine">Línea </string>
     <string name="estacion">La estación </string>
     <string name="noAccesible"> NO es accesible. Estación accesible más cercana </string>
-    <string name="inicio">Inicio:</string>
     <string name="transbordo">TRANSBORDO EN : </string>
     <string name="totalEstaciones">Estaciones :  </string>
     <string name="totalTransbordos">Transbordos :  </string>
@@ -31,6 +28,7 @@
     <string name="changeStation">Transbordo desde la línea</string>
     <string name="toLine">a la línea</string>
     <string name="accesibility">ACCESIBILIDAD</string>
-
+    <string name="index">ABRIR</string>
+    <string name="permission">Metro de Madrid Appcesible necesita éste permiso para funcionar</string>
 </resources>
 

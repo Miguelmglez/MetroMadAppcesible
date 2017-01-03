@@ -33,14 +33,14 @@
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_menu_compass"
+        app:srcCompat="@drawable/position_station_1"
         android:layout_marginRight="12dp"
         android:layout_marginEnd="12dp"
         android:layout_marginBottom="17dp"
-        android:id="@+id/locationButton"
+        android:id="@+id/locationStationButton"
         android:background="@android:color/transparent"
         android:visibility="visible"
-        android:onClick="locateMe"
+        android:onClick="centroMapaOrigen"
         android:layout_above="@+id/routeDetailsButton"
         android:layout_alignRight="@+id/routeDetailsButton"
         android:layout_alignEnd="@+id/routeDetailsButton" />
@@ -48,12 +48,12 @@
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_menu_mylocation"
-        android:id="@+id/imageButton"
+        app:srcCompat="@drawable/position"
+        android:id="@+id/locateMeButton"
         android:background="@android:color/transparent"
-        android:onClick="centroMapaOrigen"
-        android:layout_above="@+id/locationButton"
-        android:layout_alignLeft="@+id/locationButton"
-        android:layout_alignStart="@+id/locationButton"
-        android:layout_marginBottom="13dp" />
+        android:onClick="locateMe"
+        android:layout_marginBottom="19dp"
+        android:layout_above="@+id/locationStationButton"
+        android:layout_alignLeft="@+id/locationStationButton"
+        android:layout_alignStart="@+id/locationStationButton" />
 </RelativeLayout>
