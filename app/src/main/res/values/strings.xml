@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">METRO MADRID APPCESSIBLE</string>
+    <string name="app_name">Metro Madrid Appcessible</string>
     <string name="button_route">Find your route</string>
     <string name="index_title">Metro Madrid</string>
     <string name="index_title3">Appcessible</string>
@@ -11,7 +11,7 @@
     <string name="buttonGo">GO!</string>
     <string name="buttonRouteDetails">Route details</string>
     <string name="buttonNewRoute">NEW ROUTE</string>
-    <string name="lookStation">Find a station ...</string>
+    <string name="lookStation">Locate a station ...</string>
     <string name="routeCriteria">ROUTE CRITERIA</string>
     <string name="tituloEstaciones">"Accesible route between:" </string>
     <string name="infoLine">Line </string>

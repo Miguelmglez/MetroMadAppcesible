@@ -33,6 +33,7 @@ import java.util.ArrayList;
 
 
 import static com.miguel.metromadappcesible.activities.MapsActivity.servicio;
+import static com.miguel.metromadappcesible.activities.RoutesActivity.estacionAccesibleDestino;
 import static com.miguel.metromadappcesible.activities.RoutesActivity.estacionAccesibleOrigen;
 import static com.miguel.metromadappcesible.activities.RoutesActivity.rutaFinal;
 
@@ -43,7 +44,7 @@ public class SolutionActivity extends AppCompatActivity {
     public LocationManager locationManager;
     public static Marker myPositionMarkerMapSolution;
     public static MapController myMapControllerMapSolution;
-
+    GeoPoint punto = new GeoPoint(40.41694,-3.70361);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,14 +55,15 @@ public class SolutionActivity extends AppCompatActivity {
         ImageButton stationButton = (ImageButton) findViewById(R.id.locationStationButton);
         positionButton.setImageDrawable(getDrawable(R.drawable.position));
         stationButton.setImageDrawable(getDrawable(R.drawable.position_station_1));
-
+        startService(servicio);
         myOpenMapViewMapSolution = (MapView) findViewById(R.id.mapSolution);
         myOpenMapViewMapSolution.setTileSource(TileSourceFactory.MAPNIK);
         myOpenMapViewMapSolution.setMultiTouchControls(true);
         myOpenMapViewMapSolution.setUseDataConnection(true);
         myPositionMarkerMapSolution = new Marker(myOpenMapViewMapSolution);
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        locationGPS = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+        locationGPS = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
         GeoPoint origen = new GeoPoint(estacionAccesibleOrigen.getLatitud(), estacionAccesibleOrigen.getLongitud());
         myMapControllerMapSolution = (MapController) myOpenMapViewMapSolution.getController();
         myMapControllerMapSolution.setZoom(15);
@@ -69,8 +71,8 @@ public class SolutionActivity extends AppCompatActivity {
         myMapControllerMapSolution.setCenter(origen);
         this.pintaRuta();
         this.pintaEstaciones();
-        GeoPoint punto = new GeoPoint(locationGPS.getLatitude(), locationGPS.getLongitude());
-        startService(servicio);
+
+
         myPositionMarkerMapSolution.setPosition(punto);
         myPositionMarkerMapSolution.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
         myPositionMarkerMapSolution.setIcon(getResources().getDrawable(R.drawable.person_ball,null));
@@ -110,45 +112,9 @@ public class SolutionActivity extends AppCompatActivity {
         ImageButton stationButton = (ImageButton) findViewById(R.id.locationStationButton);
         positionButton.setImageDrawable(getDrawable(R.drawable.position_pressed));
         stationButton.setImageDrawable(getDrawable(R.drawable.position_station_1));
-        /*
-        locationGPS = this.damePuntoNuevo(locationGPS);
-        GeoPoint punto = new GeoPoint(locationGPS.getLatitude(), locationGPS.getLongitude());
-        myMapControllerMapSolution = (MapController) myOpenMapViewMapSolution.getController();
-        myPositionMarkerMapSolution.setPosition(punto);
-        myMapControllerMapSolution.setZoom(15);
-        myMapControllerMapSolution.setCenter(punto);
-        myMapControllerMapSolution.animateTo(punto);*/
+
     }
-/*
-    public Location damePuntoNuevo(Location puntoAntiguo) {
-        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return puntoAntiguo;
-        }
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return puntoAntiguo;
-        }
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, new LocationListener() {
-            @Override
-            public void onLocationChanged(Location location) {
-            }
 
-            @Override
-            public void onStatusChanged(String provider, int status, Bundle extras) {
-            }
-
-            @Override
-            public void onProviderEnabled(String provider) {
-            }
-
-            @Override
-            public void onProviderDisabled(String provider) {
-            }
-        });
-        locationGPS = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        return locationGPS;
-    }
-*/
     public void centroMapaOrigen(View v) {
         GeoPoint origen = new GeoPoint(estacionAccesibleOrigen.getLatitud(), estacionAccesibleOrigen.getLongitud());
         myMapControllerMapSolution.setCenter(origen);
@@ -159,21 +125,31 @@ public class SolutionActivity extends AppCompatActivity {
         positionButton.setImageDrawable(getDrawable(R.drawable.position));
         stationButton.setImageDrawable(getDrawable(R.drawable.position_station_pressed));
     }
-
     private void pintaEstaciones() {
         String estacionSinArticulo = getResources().getString(R.string.estacionSinArticulo);
         String lineas = getResources().getString(R.string.infoLine);
         String change = getResources().getString(R.string.changeStation);
         String toLine = getResources().getString(R.string.toLine);
+        Conexion auxConexion = (Conexion) rutaFinal.get(0);
         String reciente = estacionAccesibleOrigen.getNombre();
         String descripcionEstacion;
         Marker estacionOrigen = new Marker(myOpenMapViewMapSolution);
         GeoPoint coordenadasOrigen = new GeoPoint(estacionAccesibleOrigen.getLatitud(), estacionAccesibleOrigen.getLongitud());
         String descripcionOrigen = estacionSinArticulo +" " + estacionAccesibleOrigen.getNombre() + "\n";
-        if (estacionAccesibleOrigen.getLinea() == 50) {
-            descripcionOrigen = descripcionOrigen + lineas +" : R";
-        } else {
-            descripcionOrigen = descripcionOrigen + lineas +" : " + estacionAccesibleOrigen.getLinea();
+        if (auxConexion.getEstacionOrigen().getNombre().equals(reciente)) {
+
+            if (auxConexion.getEstacionOrigen().getLinea() == 50) {
+                descripcionOrigen = descripcionOrigen + "\n" + lineas + " : R";
+            } else {
+                descripcionOrigen = descripcionOrigen + "\n" + lineas + " : " + auxConexion.getEstacionOrigen().getLinea();
+            }
+        }
+        else{
+            if (auxConexion.getEstacionDestino().getLinea() == 50) {
+                descripcionOrigen = descripcionOrigen + "\n" + lineas + " : R";
+            } else {
+                descripcionOrigen = descripcionOrigen + "\n" + lineas + " : " + auxConexion.getEstacionDestino().getLinea();
+            }
         }
         estacionOrigen.setPosition(coordenadasOrigen);
         estacionOrigen.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
@@ -190,8 +166,18 @@ public class SolutionActivity extends AppCompatActivity {
                 Conexion auxAnterior = (Conexion) rutaFinal.get(i - 1);
                 Conexion auxSiguiente = (Conexion) rutaFinal.get(i + 1);
                 descripcionEstacion = estacionSinArticulo+" " + c.getEstacionOrigen().getNombre().toUpperCase() + "\n";
-                descripcionEstacion = descripcionEstacion + "\n" + change +" " + auxAnterior.getEstacionDestino().getLinea() + " "+toLine+" " + auxSiguiente.getEstacionOrigen().getLinea();
-                coordenadasEstacion.setCoords(c.getEstacionOrigen().getLatitud(), c.getEstacionOrigen().getLongitud());
+                if (auxAnterior.getEstacionDestino().getLinea()!=50 && auxSiguiente.getEstacionOrigen().getLinea()!=50) {
+                    descripcionEstacion = descripcionEstacion + "\n" + change + " " + auxAnterior.getEstacionDestino().getLinea() + " " + toLine + " " + auxSiguiente.getEstacionOrigen().getLinea();
+                }
+                else {
+                    if (auxAnterior.getEstacionDestino().getLinea()==50){
+                        descripcionEstacion = descripcionEstacion + "\n" + change + " " + "R" + " " + toLine + " " + auxSiguiente.getEstacionOrigen().getLinea();
+                    }
+                    if (auxSiguiente.getEstacionOrigen().getLinea()==50){
+                        descripcionEstacion = descripcionEstacion + "\n" + change + " " + auxAnterior.getEstacionDestino().getLinea() + " " + toLine + " " + "R";
+                    }
+                }
+                    coordenadasEstacion.setCoords(c.getEstacionOrigen().getLatitud(), c.getEstacionOrigen().getLongitud());
                 if (aux.getPosition()==coordenadasEstacion) {
                     myOpenMapViewMapSolution.getOverlays().remove(aux);
                 }
@@ -219,7 +205,7 @@ public class SolutionActivity extends AppCompatActivity {
             }
             estacion.setPosition(coordenadasEstacion);
             estacion.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-            if (i == rutaFinal.size()-1){
+            if (reciente.equals(estacionAccesibleDestino.getNombre())){
                 estacion.setIcon(getResources().getDrawable(R.drawable.estacion, null));
             }
             else {
@@ -258,50 +244,95 @@ public class SolutionActivity extends AppCompatActivity {
             puntos.add(punto1);
             puntos.add(punto2);
             linea.setPoints(puntos);
-            linea.setWidth(10);
+            linea.setWidth(15);
             linea.setVisible(true);
-           // linea.setGeodesic(true);
-            switch (c.getEstacionOrigen().getLinea()){
-                case 1:
-                    linea.setColor(getResources().getColor(R.color.colorLinea1,null));
-                   break;
-                case 2:
-                    linea.setColor(getResources().getColor(R.color.colorLinea2,null));
-                    break;
-                case 3:
-                    linea.setColor(getResources().getColor(R.color.colorLinea3,null));
-                    break;
-                case 4:
-                    linea.setColor(getResources().getColor(R.color.colorLinea4,null));
-                    break;
-                case 5:
-                    linea.setColor(getResources().getColor(R.color.colorLinea5,null));
-                    break;
-                case 6:
-                    linea.setColor(getResources().getColor(R.color.colorLinea6,null));
-                    break;
-                case 7:
-                    linea.setColor(getResources().getColor(R.color.colorLinea7,null));
-                    break;
-                case 8:
-                    linea.setColor(getResources().getColor(R.color.colorLinea8,null));
-                    break;
-                case 9:
-                    linea.setColor(getResources().getColor(R.color.colorLinea9,null));
-                    break;
-                case 10:
-                    linea.setColor(getResources().getColor(R.color.colorLinea10,null));
-                    break;
-                case 11:
-                    linea.setColor(getResources().getColor(R.color.colorLinea11,null));
-                    break;
-                case 12:
-                    linea.setColor(getResources().getColor(R.color.colorLinea12,null));
-                    break;
-                case 50:
-                    linea.setColor(getResources().getColor(R.color.colorLineaR,null));
-                    break;
+            if (c.getEstacionOrigen().getNombre().equals(c.getEstacionDestino().getNombre())){
+               Estacion aux = ((Conexion) rutaFinal.get(i)).getEstacionOrigen();
+                switch (aux.getLinea()){
+                    case 1:
+                        linea.setColor(getResources().getColor(R.color.colorLinea1,null));
+                        break;
+                    case 2:
+                        linea.setColor(getResources().getColor(R.color.colorLinea2,null));
+                        break;
+                    case 3:
+                        linea.setColor(getResources().getColor(R.color.colorLinea3,null));
+                        break;
+                    case 4:
+                        linea.setColor(getResources().getColor(R.color.colorLinea4,null));
+                        break;
+                    case 5:
+                        linea.setColor(getResources().getColor(R.color.colorLinea5,null));
+                        break;
+                    case 6:
+                        linea.setColor(getResources().getColor(R.color.colorLinea6,null));
+                        break;
+                    case 7:
+                        linea.setColor(getResources().getColor(R.color.colorLinea7,null));
+                        break;
+                    case 8:
+                        linea.setColor(getResources().getColor(R.color.colorLinea8,null));
+                        break;
+                    case 9:
+                        linea.setColor(getResources().getColor(R.color.colorLinea9,null));
+                        break;
+                    case 10:
+                        linea.setColor(getResources().getColor(R.color.colorLinea10,null));
+                        break;
+                    case 11:
+                        linea.setColor(getResources().getColor(R.color.colorLinea11,null));
+                        break;
+                    case 12:
+                        linea.setColor(getResources().getColor(R.color.colorLinea12,null));
+                        break;
+                    case 50:
+                        linea.setColor(getResources().getColor(R.color.colorLineaR,null));
+                        break;
                 }
+            }
+            else {
+                switch (c.getEstacionOrigen().getLinea()) {
+                    case 1:
+                        linea.setColor(getResources().getColor(R.color.colorLinea1, null));
+                        break;
+                    case 2:
+                        linea.setColor(getResources().getColor(R.color.colorLinea2, null));
+                        break;
+                    case 3:
+                        linea.setColor(getResources().getColor(R.color.colorLinea3, null));
+                        break;
+                    case 4:
+                        linea.setColor(getResources().getColor(R.color.colorLinea4, null));
+                        break;
+                    case 5:
+                        linea.setColor(getResources().getColor(R.color.colorLinea5, null));
+                        break;
+                    case 6:
+                        linea.setColor(getResources().getColor(R.color.colorLinea6, null));
+                        break;
+                    case 7:
+                        linea.setColor(getResources().getColor(R.color.colorLinea7, null));
+                        break;
+                    case 8:
+                        linea.setColor(getResources().getColor(R.color.colorLinea8, null));
+                        break;
+                    case 9:
+                        linea.setColor(getResources().getColor(R.color.colorLinea9, null));
+                        break;
+                    case 10:
+                        linea.setColor(getResources().getColor(R.color.colorLinea10, null));
+                        break;
+                    case 11:
+                        linea.setColor(getResources().getColor(R.color.colorLinea11, null));
+                        break;
+                    case 12:
+                        linea.setColor(getResources().getColor(R.color.colorLinea12, null));
+                        break;
+                    case 50:
+                        linea.setColor(getResources().getColor(R.color.colorLineaR, null));
+                        break;
+                }
+            }
             myOpenMapViewMapSolution.getOverlays().add(linea);
         }
     }

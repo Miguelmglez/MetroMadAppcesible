@@ -3,15 +3,18 @@ package com.miguel.metromadappcesible.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.RadioButton;
 import android.widget.Switch;
@@ -24,6 +27,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 import static com.miguel.metromadappcesible.activities.IndexActivity.miMetro;
+
 
 
 public class RoutesActivity extends AppCompatActivity {
@@ -42,9 +46,10 @@ public class RoutesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_routes);
-
+        Button buttonGo = (Button) findViewById(R.id.buttonGo);
         text=(AutoCompleteTextView)findViewById(R.id.autoCompleteOrigin);
         text1= (AutoCompleteTextView)findViewById(R.id.autoCompleteDestination);
+
         ArrayAdapter adapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,estacionesMetro);
         ArrayAdapter adapter2 = new ArrayAdapter(this,android.R.layout.simple_list_item_1,estacionesMetro);
         text.setAdapter(adapter);
@@ -53,8 +58,10 @@ public class RoutesActivity extends AppCompatActivity {
 
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+                text.setCursorVisible(true);
                 InputMethodManager in = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 in.hideSoftInputFromWindow(arg1.getApplicationWindowToken(), 0);
+
             }
         });
         text1.setAdapter(adapter2);
@@ -62,8 +69,19 @@ public class RoutesActivity extends AppCompatActivity {
         text1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+                text.setCursorVisible(true);
                 InputMethodManager in = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 in.hideSoftInputFromWindow(arg1.getApplicationWindowToken(), 0);
+            }
+        });
+        buttonGo.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                Button buttonGo = (Button) findViewById(R.id.buttonGo);
+
+                buttonGo.setTextColor(Color.WHITE);
+                buttonGo.setBackground(getDrawable(R.drawable.shapeonclick));
+                return false;
             }
         });
     }
@@ -76,6 +94,10 @@ public class RoutesActivity extends AppCompatActivity {
         Switch switchBlindness = (Switch) findViewById(R.id.switchBlindness);
         Switch switchDeafness = (Switch) findViewById(R.id.switchDeafness);
         Switch switchWheelChair = (Switch) findViewById(R.id.switchWheelChair);
+        Button buttonGo = (Button) findViewById(R.id.buttonGo);
+        buttonGo.setBackgroundColor(Color.WHITE);
+        buttonGo.setTextColor(getResources().getColor(R.color.colorAccent,null));
+        buttonGo.setBackground(getDrawable(R.drawable.shape));
         if (switchBlindness.isChecked()||switchDeafness.isChecked()||switchWheelChair.isChecked()) {
             if (estacionesMetro.contains(ESTACION_ORIGEN) && (estacionesMetro.contains(ESTACION_DESTINO))) {
                 estacionOrigenSeleccionada = miMetro.getMapaEstaciones().get(ESTACION_ORIGEN).get(0);
@@ -90,6 +112,7 @@ public class RoutesActivity extends AppCompatActivity {
                 rutaFinal = miMetro.calcularCaminoDefinitivo(estacionOrigenSeleccionada, estacionDestinoSeleccionada, transbordos);
                 Intent intent = new Intent(this, SolutionActivity.class);
                 startActivity(intent);
+
             } else {
                 Toast.makeText(RoutesActivity.this, errorEstaciones, Toast.LENGTH_LONG).show();
             }
@@ -97,20 +120,5 @@ public class RoutesActivity extends AppCompatActivity {
         else{
             Toast.makeText(RoutesActivity.this, errorDisability, Toast.LENGTH_LONG).show();
         }
-    }
-    public void changeColorSwitchBlindness(View v){
-        Switch switchBlindness = (Switch) findViewById(R.id.switchBlindness);
-        if (switchBlindness.isChecked()){
-
-        }
-
-    }
-    public void changeColorSwitchWheelChair(View v){
-        Switch switchWheelChair = (Switch) findViewById(R.id.switchWheelChair);
-
-    }
-    public void changeColorSwitchDeafness(View v){
-        Switch switchDeafness = (Switch) findViewById(R.id.switchDeafness);
-
     }
 }

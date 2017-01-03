@@ -66,7 +66,7 @@ public class MapsActivity extends AppCompatActivity {
     public static ArrayList<String> estacionesMetro = miMetro.getListaNombreEstaciones();
     public static Intent servicio;
     GeoPoint punto = new GeoPoint(40.41694,-3.70361);
-    public static ArrayList<EstacionConIcono> listaEstaciones = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

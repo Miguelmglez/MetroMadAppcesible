@@ -6,5 +6,5 @@
     <dimen name="margenRadioButton">30dp</dimen>
     <dimen name="paddingRutas">15dp</dimen>
     <dimen name="heightRoutesButtons">40dp</dimen>
-    <dimen name="layout_botones">20dp</dimen>
+    <dimen name="layout_botones">35dp</dimen>
 </resources>

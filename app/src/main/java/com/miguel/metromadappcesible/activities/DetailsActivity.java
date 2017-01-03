@@ -39,14 +39,14 @@ import static com.miguel.metromadappcesible.activities.RoutesActivity.rutaFinal;
 
 
 public class DetailsActivity extends AppCompatActivity {
-    public static int transbordos =0 ;
+
     public String reciente;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
-
+        int transbordos =0 ;
         TextView textViewBetween = (TextView) findViewById(R.id.textViewBetween2Stations);
         TextView textAccesible = (TextView) findViewById(R.id.textViewIsAccesible);
         ArrayList<EstacionConIcono> listaEstaciones = new ArrayList<>();
@@ -86,11 +86,13 @@ public class DetailsActivity extends AppCompatActivity {
         listaEstaciones.add(estacionOrigen);
         for (int i = 0; i < rutaFinal.size(); i++) {
             Conexion c = (Conexion) rutaFinal.get(i);
+            Boolean eraTransbordo = false;
             if (c.getEstacionDestino().getNombre().equals(c.getEstacionOrigen().getNombre())) {
-                this.transbordos++;
+                transbordos++;
                 reciente = c.getEstacionDestino().getNombre();
                 nombreEstacion = c.getEstacionDestino().getNombre();
                 iconoEstacion = getDrawable(R.drawable.trans);
+                eraTransbordo = true;
             } else {
                 if (reciente.equals(c.getEstacionOrigen().getNombre())) {
                     reciente = c.getEstacionDestino().getNombre();
@@ -104,6 +106,19 @@ public class DetailsActivity extends AppCompatActivity {
             }
             EstacionConIcono estacion = new EstacionConIcono(iconoEstacion, nombreEstacion);
             listaEstaciones.add(estacion);
+            if (eraTransbordo){
+                Conexion conexionAux = (Conexion) rutaFinal.get(i+1);
+                if (reciente.equals(conexionAux.getEstacionOrigen().getNombre())){
+                    iconoEstacion = dameIconoLinea(conexionAux.getEstacionOrigen());
+                    nombreEstacion = reciente;
+                }
+                if (reciente.equals(conexionAux.getEstacionDestino().getNombre())){
+                    iconoEstacion = dameIconoLinea(conexionAux.getEstacionDestino());
+                    nombreEstacion = reciente;
+                }
+                EstacionConIcono estacionSiguiente = new EstacionConIcono(iconoEstacion, nombreEstacion);
+                listaEstaciones.add(estacionSiguiente);
+            }
         }
         ListAdapter adapter = new ListAdapter(this, R.layout.row, listaEstaciones);
         lista.setAdapter(adapter);
