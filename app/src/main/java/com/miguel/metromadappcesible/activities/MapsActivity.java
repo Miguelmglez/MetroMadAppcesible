@@ -34,7 +34,12 @@ import java.util.ArrayList;
 import static com.miguel.metromadappcesible.activities.IndexActivity.miMetro;
 
 
-
+/**
+ * Created by Miguel Maroto González on 8-12-16.
+ *
+ * Clase que representa la actividad que representa la pantalla acrivity_maps.xml
+ *
+ */
 public class MapsActivity extends AppCompatActivity {
 
     public Location locationGPS;
@@ -46,7 +51,15 @@ public class MapsActivity extends AppCompatActivity {
     public static ArrayList<String> estacionesMetro = miMetro.getListaNombreEstaciones();
     public Intent servicio;
     GeoPoint punto = new GeoPoint(40.41694,-3.70361);
-
+    /**
+     * Método que se ejecuta cuando se crea una instancia de esta actividad.
+     *
+     * Inicializa el mapa
+     * Inicializa el servicio de localización
+     * Pinta las estaciones en el mapa
+     * Pinta el icono con la posición del usuario
+     * Añade la funcionalidad al campo superior para localizar una estación en el mapa
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,7 +107,7 @@ public class MapsActivity extends AppCompatActivity {
         myMapControllerMap.animateTo(punto);
         myPositionMarkerMap.setPosition(punto);
         myPositionMarkerMap.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-        myPositionMarkerMap.setIcon(getResources().getDrawable(R.drawable.person_ball));
+        myPositionMarkerMap.setIcon(getResources().getDrawable(R.drawable.person_ball,null));
         myPositionMarkerMap.setTitle(person);
         myOpenMapViewMap.getOverlays().add(myPositionMarkerMap);
 
@@ -118,7 +131,11 @@ public class MapsActivity extends AppCompatActivity {
             }
         });
     }
-
+    /**
+     * Método que se ejecuta para crear una instancia de la clase RoutesActivity.
+     *
+     * Para el servicio de localización.
+     */
     public void routes(View v) {
         Intent intent = new Intent(this, RoutesActivity.class);
         startActivity(intent);
@@ -128,7 +145,9 @@ public class MapsActivity extends AppCompatActivity {
         imageButton.setBackground(getDrawable(R.drawable.shape));
         stopService(servicio);
     }
-
+    /**
+     * Método que se ejecuta para posicionar en el centro del mapa la ubicación del usuario
+     */
     public void locateMe(View v) {
         GeoPoint puntoActual = myPositionMarkerMap.getPosition();
         myMapControllerMap.setZoom(17);
@@ -137,11 +156,12 @@ public class MapsActivity extends AppCompatActivity {
         ImageButton locationButton = (ImageButton) findViewById(R.id.locationButton);
         locationButton.setImageDrawable(getDrawable(R.drawable.position));
     }
-
+    /**
+     * Método auxiliar para tomar el primer valor de la localización del usuario
+     */
     private Location damePuntoNuevo() {
 
-
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 200, 1, new LocationListener() {
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 3000, 2, new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
             }
@@ -161,7 +181,9 @@ public class MapsActivity extends AppCompatActivity {
         locationGPS = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         return locationGPS;
     }
-
+    /**
+     * Método auxiliar para pintar las estaciones en el mapa, añadiendo su descripción al icono.
+     */
     private void pintaEstaciones() {
         String lineas = getResources().getString(R.string.infoLine);
         String estacionNoAccesible = getResources().getString(R.string.estacionNoAccesible);
@@ -199,6 +221,9 @@ public class MapsActivity extends AppCompatActivity {
             myOpenMapViewMap.getOverlays().add(estacion);
         }
     }
+    /**
+     * Método para posicionar el centro del mapa en la estación introducida por el usuario.
+     */
     private void focusOnStation(AdapterView.OnItemClickListener v, String estacion) {
         Estacion estacionSeleccionada = miMetro.getMapaEstaciones().get(estacion).get(0);
         GeoPoint coordenadasEstacionSeleccionada = new GeoPoint(estacionSeleccionada.getLatitud(), estacionSeleccionada.getLongitud());

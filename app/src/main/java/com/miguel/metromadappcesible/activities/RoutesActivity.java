@@ -5,9 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -15,10 +13,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.RadioButton;
 import android.widget.Switch;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.miguel.metromadappcesible.code.Estacion;
@@ -28,7 +24,12 @@ import java.util.LinkedList;
 
 import static com.miguel.metromadappcesible.activities.IndexActivity.miMetro;
 
-
+/**
+ * Created by Miguel Maroto González on 8-12-16.
+ *
+ * Clase que representa la actividad que representa la pantalla acrivity_routes.xml
+ *
+ */
 
 public class RoutesActivity extends AppCompatActivity {
     public static AutoCompleteTextView text,text1;
@@ -42,7 +43,9 @@ public class RoutesActivity extends AppCompatActivity {
     public static Estacion estacionAccesibleOrigen;
     public static Estacion estacionAccesibleDestino;
 
-
+    /**
+     * Método que se ejecuta cuando se crea una instancia de esta actividad.
+     */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_routes);
@@ -85,10 +88,15 @@ public class RoutesActivity extends AppCompatActivity {
             }
         });
     }
+    /**
+     * Método que calcula la ruta accesible entre las dos estaciones introducidas dependiendo de los criterios de ruta
+     * marcados por el usuario.
+     */
     public void solution (View v){
         String errorEstaciones = getResources().getString(R.string.errorValidStations);
         String errorDisability = getResources().getString(R.string.errorValidDisability);
         String errorSameStations =getResources().getString(R.string.errorSameStations);
+        String errorNoExisteRuta =getResources().getString(R.string.errorNoExisteRuta);
         RadioButton opcionEstaciones = (RadioButton)findViewById(R.id.radioButtonStations);
         ESTACION_ORIGEN = text.getText().toString();
         ESTACION_DESTINO = text1.getText().toString();
@@ -112,8 +120,13 @@ public class RoutesActivity extends AppCompatActivity {
                 estacionAccesibleOrigen = miMetro.accesibleList(estacionOrigenSeleccionada, new LinkedList(), new ArrayList<Estacion>()).get(0);
                 estacionAccesibleDestino = miMetro.accesibleList(estacionDestinoSeleccionada, new LinkedList(), new ArrayList<Estacion>()).get(0);
                 rutaFinal = miMetro.calcularCaminoDefinitivo(estacionOrigenSeleccionada, estacionDestinoSeleccionada, transbordos);
-                Intent intent = new Intent(this, SolutionActivity.class);
-                startActivity(intent);
+                if (rutaFinal.size()!=0) {
+                    Intent intent = new Intent(this, SolutionActivity.class);
+                    startActivity(intent);
+                }
+                else{
+                    Toast.makeText(RoutesActivity.this, errorNoExisteRuta, Toast.LENGTH_LONG).show();
+                }
 
             } else {
                 Toast.makeText(RoutesActivity.this, errorEstaciones, Toast.LENGTH_LONG).show();

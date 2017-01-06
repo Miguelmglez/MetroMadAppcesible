@@ -31,5 +31,6 @@
     <string name="index">ABRIR</string>
     <string name="permission">Metro de Madrid Appcesible necesita éste permiso para funcionar</string>
     <string name="errorSameStations">La estación origen y destino no pueden ser iguales</string>
+    <string name="errorNoExisteRuta">No existe una ruta accesible entre las estaciones seleccionadas</string>
 </resources>
 

@@ -1,7 +1,18 @@
 package com.miguel.metromadappcesible.code;
 
 /**
- * Created by MMG on 18-10-16.
+ * Created by Miguel Maroto González on 18-10-16.
+ *
+ * Esta clase representa las Estaciones del metro de madrid.
+ * Atributos:
+ * linea: Representa el número de la línea a la que pertenece la estación.
+ * nombre: Representa el nombre de la estación.
+ * estacionAnterior: Representa el objeto estación que precede al objeto dado.
+ * estacionSiguiente: Representa el objeto estación posterior al objeto dado.
+ * latitud: Representa el valor de latitud de la estación.
+ * longitud: Representa el valor de longitud de la estación.
+ * accesible: Representa el valor de accesibilidad de la estación.
+ *
  */
 
 public class Estacion{
@@ -10,7 +21,9 @@ public class Estacion{
     Estacion estacionAnterior,estacionSiguiente = null;
     double latitud,longitud;
     boolean accesible;
-
+    /**
+     * Constructor
+     */
     public Estacion(int linea, String nombre, double latitud, double longitud, boolean accesible) {
         this.linea = linea;
         this.nombre = nombre;

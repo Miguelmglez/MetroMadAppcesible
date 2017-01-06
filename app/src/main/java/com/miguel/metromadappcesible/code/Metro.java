@@ -8,7 +8,19 @@ import java.util.HashMap;
 import java.util.LinkedList;
 
 /**
- * Created by MMG on 18-10-16.
+ * Created by Miguel Maroto González on 18-10-16.
+ *
+ * Clase que representa el Metro con el que trabaja la aplicación, objeto generado a partir de los datos del fichero /assets/metro.xml
+ *
+ * después de ser parseado por la clase Parser
+ *
+ * mapaEstaciones: Mapa con clave nombre de la estación y valor, una lista de estaciones que representan todas las correspondencias
+ * de la estación.
+ *
+ * grafoEstaciones: Multigrafo no dirigido que contiene los nodos (estaciones) y sus conexiones.
+ *
+ * listaNombreEstaciones: Lista que contiene los nombres de las estaciones, sin repeticiones.
+ *
  */
 
 public class Metro {
@@ -17,7 +29,9 @@ public class Metro {
     Multigraph<Estacion, Conexion> grafoEstaciones;
     ArrayList<String> listaNombreEstaciones = new ArrayList<>();
 
-
+    /**
+     * Constructor
+     */
     public Metro() {
         this.mapaEstaciones = new HashMap<String, ArrayList<Estacion>>() {
         };
@@ -32,7 +46,9 @@ public class Metro {
         return listaNombreEstaciones;
     }
 
-
+    /**
+     * Método que añade una estación al grafo, al mapa y a la lista.
+     */
     protected Estacion aniadirEstacion(Estacion e) {
         this.grafoEstaciones.addVertex(e);
         if (this.mapaEstaciones.containsKey(e.getNombre())) {
@@ -45,7 +61,9 @@ public class Metro {
         }
         return e;
     }
-
+    /**
+     * Método que coloca la estación anterior a la estación actual.
+     */
     private Estacion aniadirAnterior(Estacion anterior, Estacion actual) {
         if (anterior.getLinea() == actual.getLinea()) {
             actual.setEstacionAnterior(anterior);
@@ -57,7 +75,9 @@ public class Metro {
         }
         return anterior;
     }
-
+    /**
+     * Método que coloca la estación siguiente a la estación actual.
+     */
     private Estacion aniadirSiguiente(Estacion siguiente, Estacion actual) {
         if (siguiente.getLinea() == actual.getLinea()) {
             actual.setEstacionSiguiente(siguiente);
@@ -66,7 +86,9 @@ public class Metro {
         }
         return siguiente;
     }
-
+    /**
+     * Método que llama a los métodos aniadirAnterior y aniadirSiguiente para ordenar las estaciones.
+     */
     protected void aniadirContiguas(ArrayList<Estacion> listaEstaciones) {
         for (int i = 0; i < listaEstaciones.size(); i++) {
             if (listaEstaciones.get(i) != null && i + 1 < listaEstaciones.size()) {
@@ -77,7 +99,9 @@ public class Metro {
             }
         }
     }
-
+    /**
+     * Método que resuelve la particularidad de las líneas 12 y 6, que son circulares, conectando el principio con el final de la línea
+     */
     protected void completarContiguas() {
         ArrayList<Estacion> puertaDelSurLista = this.mapaEstaciones.get("Puerta del Sur");
         int aux = 0;
@@ -95,7 +119,9 @@ public class Metro {
         this.aniadirAnterior(lucero, laguna);
         this.aniadirSiguiente(laguna, lucero);
     }
-
+    /**
+     * Método conecta las correspondencias de cada estación en caso de cumplir con el requisito de accesibilidad.
+     */
     protected void aniadirCorrespondencias(ArrayList<Estacion> listaEstaciones) {
         for (int i = 0; i < listaEstaciones.size(); i++) {
             ArrayList<Estacion> e = this.mapaEstaciones.get(listaEstaciones.get(i).getNombre());
@@ -113,7 +139,9 @@ public class Metro {
             }
         }
     }
-
+    /**
+     * Método que devuelve una lista de estaciones accesibles dada una estación.
+     */
     public ArrayList<Estacion> accesibleList(Estacion estacion, LinkedList estacionesContiguas, ArrayList<Estacion> visitadas) {
         ArrayList<Estacion> resultado = new ArrayList<>();
         ArrayList<Estacion> correspondencias = this.mapaEstaciones.get(estacion.getNombre());
@@ -143,10 +171,16 @@ public class Metro {
         }
         return resultado;
     }
-
+    /**
+     * Método que calcula mediante el algoritmo de Dijkstra el camino más corto entre las estaciones recibidas.
+     *
+     * Recibe una lista de estaciones accesibles origen y una lista de estaciones accesibles destino.
+     *
+     * Evaluándo la mejor opción (Camino con menos transbordos o Con menos estaciones) según haya seleccionado el usuario.
+     */
     protected ArrayList mejorCamino(ArrayList<Estacion> listaEstacionesOrigen, ArrayList<Estacion> listaEstacionesDestino, boolean transbordos) {
         ArrayList resultadoRuta = new ArrayList();
-        ArrayList aux = new ArrayList();
+        ArrayList aux;
         ArrayList <Ruta> rutas =  new ArrayList<>();
         Ruta auxTransbordos = new Ruta(null,0);
         for (int i = 0; i < listaEstacionesOrigen.size(); i++) {
@@ -191,6 +225,11 @@ public class Metro {
         }
         return resultadoRuta;
     }
+    /**
+     * Método que recibe una estación origen, una estación destino y una opción de ruta (menos transbordos o menos estaciones)
+     *
+     * y devuelve la ruta final accesible entre las dos estaciones con el criterio de ruta seleccionado por el usuario.
+     */
     public ArrayList calcularCaminoDefinitivo (Estacion origen, Estacion destino, boolean transbordos){
         ArrayList<Estacion> visitadasOrigen = new ArrayList<>();
         ArrayList<Estacion> visitadasDestino = new ArrayList<>();

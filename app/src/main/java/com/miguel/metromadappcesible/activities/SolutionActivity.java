@@ -34,6 +34,12 @@ import static com.miguel.metromadappcesible.activities.RoutesActivity.estacionAc
 import static com.miguel.metromadappcesible.activities.RoutesActivity.estacionAccesibleOrigen;
 import static com.miguel.metromadappcesible.activities.RoutesActivity.rutaFinal;
 
+/**
+ * Created by Miguel Maroto González on 8-12-16.
+ *
+ * Clase que representa la actividad que representa la pantalla acrivity_solution.xml
+ *
+ */
 public class SolutionActivity extends AppCompatActivity {
     public static MapView myOpenMapViewMapSolution;
 
@@ -44,6 +50,14 @@ public class SolutionActivity extends AppCompatActivity {
     GeoPoint punto = new GeoPoint(40.41694,-3.70361);
     public Intent servicio;
     @Override
+    /**
+     * Método que se ejecuta cuando se crea una instancia de esta actividad.
+     *
+     * Inicializa el mapa
+     * Inicializa el servicio de localización
+     * Pinta las estaciones de la ruta calculada en el mapa
+     * Pinta el icono con la posición del usuario
+     */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_solution);
@@ -91,7 +105,11 @@ public class SolutionActivity extends AppCompatActivity {
         });
 
     }
-
+    /**
+     * Método que se ejecuta para crear una instancia de la clase DetailsActivity.
+     *
+     * Para el servicio de localización.
+     */
     public void details(View v) {
         Intent intent = new Intent(this, DetailsActivity.class);
         startActivity(intent);
@@ -101,7 +119,9 @@ public class SolutionActivity extends AppCompatActivity {
         imageButton.setBackground(getDrawable(R.drawable.shape));
         stopService(servicio);
     }
-
+    /**
+     * Método que se ejecuta para posicionar en el centro del mapa la ubicación del usuario
+     */
     public void locateMe(View v) {
         GeoPoint puntoActual = myPositionMarkerMapSolution.getPosition();
         myMapControllerMapSolution.setZoom(17);
@@ -113,7 +133,9 @@ public class SolutionActivity extends AppCompatActivity {
         stationButton.setImageDrawable(getDrawable(R.drawable.position_station_1));
 
     }
-
+    /**
+     * Método para posicionar el centro del mapa en la estación origen de la ruta.
+     */
     public void centroMapaOrigen(View v) {
         GeoPoint origen = new GeoPoint(estacionAccesibleOrigen.getLatitud(), estacionAccesibleOrigen.getLongitud());
         myMapControllerMapSolution.setCenter(origen);
@@ -124,6 +146,10 @@ public class SolutionActivity extends AppCompatActivity {
         positionButton.setImageDrawable(getDrawable(R.drawable.position));
         stationButton.setImageDrawable(getDrawable(R.drawable.position_station_pressed));
     }
+
+    /**
+     * Método auxiliar para pintar las estaciones de la ruta en el mapa, añadiendo su descripción al icono.
+     */
     private void pintaEstaciones() {
         String estacionSinArticulo = getResources().getString(R.string.estacionSinArticulo);
         String lineas = getResources().getString(R.string.infoLine);
@@ -215,7 +241,9 @@ public class SolutionActivity extends AppCompatActivity {
             aux = estacion;
         }
     }
-
+    /**
+     * Método auxiliar para pintar las líneas que conectan las estaciones de la ruta según el color de la línea.
+     */
     public void pintaRuta() {
         for (int i = 0; i < rutaFinal.size(); i++) {
             Conexion c = (Conexion) rutaFinal.get(i);

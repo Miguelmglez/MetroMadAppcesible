@@ -36,11 +36,25 @@ import static com.miguel.metromadappcesible.activities.RoutesActivity.estacionDe
 import static com.miguel.metromadappcesible.activities.RoutesActivity.estacionOrigenSeleccionada;
 import static com.miguel.metromadappcesible.activities.RoutesActivity.rutaFinal;
 
-
+/**
+ * Created by Miguel Maroto González on 8-12-16.
+ *
+ * Clase que representa la actividad que representa la pantalla acrivity_details.xml
+ *
+ */
 public class DetailsActivity extends AppCompatActivity {
 
     public String reciente;
-
+    /**
+     * Método que se ejecuta cuando se crea una instancia de esta actividad.
+     *
+     * Escribe la información relativa a la ruta:
+     * Nombre de la ruta
+     * Información sobre estaciones y transbordos
+     * Información sobre accesibilidad de las estaciones seleccionadas
+     * Rellena la lista con objetos EstacionConIcono de las estaciones de la ruta calculada
+     *
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -140,6 +154,9 @@ public class DetailsActivity extends AppCompatActivity {
             }
         });
     }
+    /**
+     * Método que se ejecuta para crear una instancia de la clase MapsActivity.
+     */
     public void map (View v) {
         Intent intent = new Intent(this, MapsActivity.class);
         startActivity(intent);
@@ -148,7 +165,9 @@ public class DetailsActivity extends AppCompatActivity {
         imageButton.setTextColor(getResources().getColor(R.color.colorAccent,null));
         imageButton.setBackground(getDrawable(R.drawable.shape));
     }
-
+    /**
+     * Método auxiliar para pintar la lista de estaciones de manera customizada.
+     */
  public class ListAdapter extends ArrayAdapter<EstacionConIcono> {
 
     public ListAdapter(Context context, int textViewResourceId) {
@@ -186,7 +205,9 @@ public class DetailsActivity extends AppCompatActivity {
     }
 }
 
-
+    /**
+     * Método auxiliar que devuelve el icono a pintar según la línea de la estación introducida.
+     */
     public Drawable dameIconoLinea (Estacion e){
         Drawable icono  = getResources().getDrawable(R.drawable.estacioncirculo,null) ;
         switch (e.getLinea()){

@@ -4,14 +4,23 @@ package com.miguel.metromadappcesible.code;
 import org.jgrapht.EdgeFactory;
 
 /**
- * Created by MMG on 15-11-16.
+ * Created by Miguel Maroto González on 15-11-16.
+ *
+ * Esta clase es necesaria para crear conexiones dentro del grafo.
+ * Se compone de dos atributos:
+ *
+ * estacionOrigen : Tipo estación, será un nodo de la conexión.
+ * estacionDestino : Tipo estación, será un nodo de la conexión.
+ *
  */
 
 public class Conexion implements EdgeFactory<Estacion,Conexion> {
 
     Estacion estacionOrigen,estacionDestino;
 
-
+    /**
+     * Constructor
+     */
     public Conexion(Estacion estacionOrigen, Estacion estacionDestino) {
         this.estacionOrigen = estacionOrigen;
         this.estacionDestino = estacionDestino;

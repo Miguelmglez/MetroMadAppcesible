@@ -32,5 +32,6 @@
     <string name="index">OPEN</string>
     <string name="permission">Metro Madrid Appcessible needs this permission to work</string>
     <string name="errorSameStations">Origin and destination cannot be the same station</string>
+    <string name="errorNoExisteRuta">Does not exist an accesible route between selected stations</string>
 </resources>
 

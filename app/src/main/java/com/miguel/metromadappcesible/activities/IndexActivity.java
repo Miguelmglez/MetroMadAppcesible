@@ -29,11 +29,24 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
 import java.net.URLConnection;
-
+/**
+ * Created by Miguel Maroto González on 8-12-16.
+ *
+ * Clase que representa la actividad que representa la pantalla acrivity_index.xml
+ *
+ */
 public class IndexActivity extends AppCompatActivity {
     public static Metro miMetro;
     public IndexActivity() throws IOException {
     }
+
+    /**
+     * Método que se ejecuta cuando se crea una instancia de esta actividad.
+     *
+     * Crea un objeto tipo Metro a partir de llamar a Parser.java
+     *
+     * Comprueba si la aplicación tiene permisos de localización. En caso de no tenerlos los solicita.
+     */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_index);
@@ -63,6 +76,9 @@ public class IndexActivity extends AppCompatActivity {
             }
         });
     }
+    /**
+     * Método auxiliar que crea el archivo metro.xml a partir del archivo /assets/metro.xml y lo almacena en el dispositivo.
+     */
     private File createFileFromInputStream(InputStream inputStream) {
         try{
             File f = new File(getFilesDir(),"metro.xml");
@@ -81,6 +97,10 @@ public class IndexActivity extends AppCompatActivity {
         }
         return null;
     }
+    /**
+     * Método que se ejecuta para crear una instancia de la clase MapsActivity.
+
+     */
     public void map (View v){
         Intent intent = new Intent(IndexActivity.this, MapsActivity.class);
         startActivity(intent);
@@ -88,6 +108,10 @@ public class IndexActivity extends AppCompatActivity {
         open.setTextColor(getResources().getColor(R.color.colorAccent,null));
         open.setBackground(getDrawable(R.drawable.shape));
     }
+    /**
+     * Método que comprueba si se ha concedido el permiso de localización y lo vuelve a pedir en caso de haberse concedido
+     * lanzando un mensaje Toast al usuario.
+     */
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         String permission = getResources().getString(R.string.permission);
         switch (requestCode) {

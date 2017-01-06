@@ -13,10 +13,23 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.miguel.metromadappcesible.activities.R;
+
+/**
+ * Created by Miguel Maroto González on 19-12-16.
+ *
+ * Clase que representa la actividad que representa la pantalla acrivity_main.xml
+ *
+ */
 
 public class MainActivity extends AppCompatActivity {
-
+    /**
+     * Método que se ejecuta cuando se crea una instancia de esta actividad.
+     *
+     * Comprueba si la aplicación tiene permisos de almacenamiento. En caso de no tenerlos los solicita.
+     *
+     * En caso afirmativo crea una instancia de IndexActivity
+     *
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +53,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
+    /**
+     * Método que comprueba si se ha concedido el permiso de almacenamiento y lo vuelve a pedir en caso de haberse concedido
+     *
+     * lanzando un mensaje Toast al usuario.
+     *
+     * En caso afirmativo crea una instancia de IndexActivity
+     */
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         String permission = getResources().getString(R.string.permission);
@@ -60,6 +79,9 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+    /**
+     * Método que se ejecuta para crear una instancia de la clase MapsActivity.
+     */
     public void map (View v){
         Intent intent = new Intent(MainActivity.this, MapsActivity.class);
         startActivity(intent);

@@ -1,32 +1,33 @@
 package com.miguel.metromadappcesible;
 
-import android.app.IntentService;
+
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
-import android.widget.Toast;
 
 import org.osmdroid.util.GeoPoint;
-
-
-import static com.miguel.metromadappcesible.activities.MapsActivity.myMapControllerMap;
 
 import static com.miguel.metromadappcesible.activities.MapsActivity.myOpenMapViewMap;
 import static com.miguel.metromadappcesible.activities.MapsActivity.myPositionMarkerMap;
 import static com.miguel.metromadappcesible.activities.SolutionActivity.myOpenMapViewMapSolution;
 import static com.miguel.metromadappcesible.activities.SolutionActivity.myPositionMarkerMapSolution;
 
+/**
+ * Created by Miguel Maroto González on 28-12-16.
+ *
+ * Servicio que se ejecuta en background y actualiza la posición en el mapa del usuario.
+ *
+ */
 public class LocationListenerService extends Service {
     private static final String TAG = "SERVICE LOCATION";
     private LocationManager mLocationManager = null;
-    private static final int LOCATION_INTERVAL = 1000;
-    private static final float LOCATION_DISTANCE = 1;
+    private static final int LOCATION_INTERVAL = 3000;
+    private static final float LOCATION_DISTANCE = 2;
 
     private class LocationListener implements android.location.LocationListener
     {

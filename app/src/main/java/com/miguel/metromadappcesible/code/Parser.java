@@ -13,12 +13,14 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 
 /**
- * Created by MMG on 21-10-16.
+ * Created by Miguel Maroto González on 21-10-16.
+ *
+ * Clase necesaria para realizar el parseo del documento /assets/metro.xml que contiene la información relativa
+ * a la estaciones del metro de Madrid. A partir de este parseo se van a construir el grafo, las estaciones y las conexiones.
+ *
  */
 
 public class Parser {
-
-
 
         public Metro parsearMetro(File xml){
             Metro metroMadrid = new Metro();
