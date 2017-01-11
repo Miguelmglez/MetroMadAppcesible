@@ -19,9 +19,7 @@
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:id="@+id/imageView2"
-        android:background="@android:color/transparent"
-        android:clickable="true"
-        android:onClick="map" />
+        android:background="@android:color/transparent" />
 
     <TextView
         android:text="@string/index_title"
