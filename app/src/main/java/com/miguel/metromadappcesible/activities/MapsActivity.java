@@ -51,6 +51,7 @@ public class MapsActivity extends AppCompatActivity {
     public static ArrayList<String> estacionesMetro = miMetro.getListaNombreEstaciones();
     public Intent servicio;
     GeoPoint punto = new GeoPoint(40.41694,-3.70361);
+
     /**
      * Método que se ejecuta cuando se crea una instancia de esta actividad.
      *
@@ -65,6 +66,7 @@ public class MapsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         String person = getResources().getString(R.string.textPerson);
+        final String hintText = getResources().getString(R.string.lookStation);
         Button imageButton = (Button) findViewById(R.id.findRouteButton);
         ImageButton locationButton = (ImageButton) findViewById(R.id.locationButton);
         locationButton.setImageDrawable(getDrawable(R.drawable.position));
@@ -74,17 +76,19 @@ public class MapsActivity extends AppCompatActivity {
         myOpenMapViewMap.setMultiTouchControls(true);
 
         myPositionMarkerMap = new Marker(myOpenMapViewMap);
-        servicio = new Intent(this,LocationListenerService.class);
+        servicio = new Intent(this, LocationListenerService.class);
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         locationGPS = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
         textEstacion = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextViewLookStation);
+        textEstacion.setCursorVisible(false);
         ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, estacionesMetro);
         textEstacion.setAdapter(adapter);
         textEstacion.setThreshold(1);
         textEstacion.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+                textEstacion.setCursorVisible(false);
                 InputMethodManager in = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 in.hideSoftInputFromWindow(arg1.getApplicationWindowToken(), 0);
                 String estacion = textEstacion.getText().toString();
@@ -99,7 +103,7 @@ public class MapsActivity extends AppCompatActivity {
 
         try {
             punto.setCoords(locationGPS.getLatitude(), locationGPS.getLongitude());
-        }catch (NullPointerException e){
+        } catch (NullPointerException e) {
         }
         myMapControllerMap = (MapController) myOpenMapViewMap.getController();
         myMapControllerMap.setZoom(16);
@@ -107,7 +111,7 @@ public class MapsActivity extends AppCompatActivity {
         myMapControllerMap.animateTo(punto);
         myPositionMarkerMap.setPosition(punto);
         myPositionMarkerMap.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-        myPositionMarkerMap.setIcon(getResources().getDrawable(R.drawable.person_ball,null));
+        myPositionMarkerMap.setIcon(getResources().getDrawable(R.drawable.person_ball, null));
         myPositionMarkerMap.setTitle(person);
         myOpenMapViewMap.getOverlays().add(myPositionMarkerMap);
 
@@ -119,6 +123,8 @@ public class MapsActivity extends AppCompatActivity {
 
                 imageButton.setTextColor(Color.WHITE);
                 imageButton.setBackground(getDrawable(R.drawable.shapeonclick));
+                textEstacion.setHint(hintText);
+                textEstacion.setCursorVisible(false);
                 return false;
             }
         });
@@ -127,6 +133,25 @@ public class MapsActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 ImageButton locationButton = (ImageButton) findViewById(R.id.locationButton);
                 locationButton.setImageDrawable(getDrawable(R.drawable.position_pressed));
+                textEstacion.setHint(hintText);
+                textEstacion.setCursorVisible(false);
+                return false;
+            }
+        });
+
+        textEstacion.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                textEstacion.setHint("");
+                textEstacion.setCursorVisible(true);
+                return false;
+            }
+        });
+        myOpenMapViewMap.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                textEstacion.setHint(hintText);
+                textEstacion.setCursorVisible(false);
                 return false;
             }
         });
@@ -139,6 +164,7 @@ public class MapsActivity extends AppCompatActivity {
     public void routes(View v) {
         Intent intent = new Intent(this, RoutesActivity.class);
         startActivity(intent);
+
         Button imageButton = (Button) findViewById(R.id.findRouteButton);
         imageButton.setBackgroundColor(Color.WHITE);
         imageButton.setTextColor(getResources().getColor(R.color.colorAccent,null));

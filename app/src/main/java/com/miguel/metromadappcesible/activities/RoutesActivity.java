@@ -52,7 +52,10 @@ public class RoutesActivity extends AppCompatActivity {
         Button buttonGo = (Button) findViewById(R.id.buttonGo);
         text=(AutoCompleteTextView)findViewById(R.id.autoCompleteOrigin);
         text1= (AutoCompleteTextView)findViewById(R.id.autoCompleteDestination);
-
+        final String hintText = getResources().getString(R.string.example);
+        final String hintText2 = getResources().getString(R.string.example2);
+        text.setCursorVisible(false);
+        text1.setCursorVisible(false);
         ArrayAdapter adapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,estacionesMetro);
         ArrayAdapter adapter2 = new ArrayAdapter(this,android.R.layout.simple_list_item_1,estacionesMetro);
         text.setAdapter(adapter);
@@ -61,7 +64,7 @@ public class RoutesActivity extends AppCompatActivity {
 
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-                text.setCursorVisible(true);
+                text.setCursorVisible(false);
                 InputMethodManager in = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 in.hideSoftInputFromWindow(arg1.getApplicationWindowToken(), 0);
 
@@ -72,7 +75,7 @@ public class RoutesActivity extends AppCompatActivity {
         text1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-                text.setCursorVisible(true);
+                text.setCursorVisible(false);
                 InputMethodManager in = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 in.hideSoftInputFromWindow(arg1.getApplicationWindowToken(), 0);
             }
@@ -84,6 +87,27 @@ public class RoutesActivity extends AppCompatActivity {
 
                 buttonGo.setTextColor(Color.WHITE);
                 buttonGo.setBackground(getDrawable(R.drawable.shapeonclick));
+                return false;
+            }
+        });
+
+        text.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                text.setHint("");
+                text.setCursorVisible(true);
+                text1.setCursorVisible(false);
+                text1.setHint(hintText2);
+                return false;
+            }
+        });
+        text1.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                text1.setHint("");
+                text1.setCursorVisible(true);
+                text.setCursorVisible(false);
+                text.setHint(hintText);
                 return false;
             }
         });
