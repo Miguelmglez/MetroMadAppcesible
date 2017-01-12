@@ -75,7 +75,7 @@ public class RoutesActivity extends AppCompatActivity {
         text1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-                text.setCursorVisible(false);
+                text1.setCursorVisible(false);
                 InputMethodManager in = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 in.hideSoftInputFromWindow(arg1.getApplicationWindowToken(), 0);
             }
