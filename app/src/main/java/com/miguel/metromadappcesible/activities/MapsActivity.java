@@ -120,7 +120,6 @@ public class MapsActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 Button imageButton = (Button) findViewById(R.id.findRouteButton);
-
                 imageButton.setTextColor(Color.WHITE);
                 imageButton.setBackground(getDrawable(R.drawable.shapeonclick));
                 textEstacion.setHint(hintText);
