@@ -88,11 +88,11 @@ public class MapsActivity extends AppCompatActivity {
         textEstacion.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-                textEstacion.setCursorVisible(false);
                 InputMethodManager in = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 in.hideSoftInputFromWindow(arg1.getApplicationWindowToken(), 0);
                 String estacion = textEstacion.getText().toString();
                 focusOnStation(this, estacion);
+                textEstacion.setCursorVisible(false);
             }
         });
         this.pintaEstaciones();
