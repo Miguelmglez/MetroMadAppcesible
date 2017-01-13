@@ -13,8 +13,8 @@ import android.graphics.drawable.Drawable;
  */
 
 public class EstacionConIcono {
-    Drawable iconoLinea;
-    String descripcionEstacion;
+    private Drawable iconoLinea;
+    private String descripcionEstacion;
     /**
      * Constructor
      */

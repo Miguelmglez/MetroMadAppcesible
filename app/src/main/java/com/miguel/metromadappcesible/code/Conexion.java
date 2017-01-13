@@ -16,7 +16,7 @@ import org.jgrapht.EdgeFactory;
 
 public class Conexion implements EdgeFactory<Estacion,Conexion> {
 
-    Estacion estacionOrigen,estacionDestino;
+   private Estacion estacionOrigen,estacionDestino;
 
     /**
      * Constructor

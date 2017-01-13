@@ -13,8 +13,8 @@ import java.util.ArrayList;
  */
 
 public class Ruta {
-    ArrayList<Estacion> ruta;
-    int transbordos;
+    private ArrayList<Estacion> ruta;
+    private int transbordos;
     /**
      * Constructor
      */
@@ -23,11 +23,11 @@ public class Ruta {
         this.transbordos = transbordos;
     }
 
-    protected ArrayList<Estacion> getRuta() {
+    public ArrayList<Estacion> getRuta() {
         return ruta;
     }
 
-    protected int getTransbordos() {
+    public int getTransbordos() {
         return transbordos;
     }
 

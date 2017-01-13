@@ -25,9 +25,9 @@ import java.util.LinkedList;
 
 public class Metro {
 
-    HashMap<String, ArrayList<Estacion>> mapaEstaciones;
-    Multigraph<Estacion, Conexion> grafoEstaciones;
-    ArrayList<String> listaNombreEstaciones = new ArrayList<>();
+    private HashMap<String, ArrayList<Estacion>> mapaEstaciones;
+    private Multigraph<Estacion, Conexion> grafoEstaciones;
+    private ArrayList<String> listaNombreEstaciones = new ArrayList<>();
 
     /**
      * Constructor
@@ -49,7 +49,7 @@ public class Metro {
     /**
      * Método que añade una estación al grafo, al mapa y a la lista.
      */
-    protected Estacion aniadirEstacion(Estacion e) {
+    public Estacion aniadirEstacion(Estacion e) {
         this.grafoEstaciones.addVertex(e);
         if (this.mapaEstaciones.containsKey(e.getNombre())) {
             this.mapaEstaciones.get(e.getNombre()).add(e);
@@ -89,7 +89,7 @@ public class Metro {
     /**
      * Método que llama a los métodos aniadirAnterior y aniadirSiguiente para ordenar las estaciones.
      */
-    protected void aniadirContiguas(ArrayList<Estacion> listaEstaciones) {
+    public void aniadirContiguas(ArrayList<Estacion> listaEstaciones) {
         for (int i = 0; i < listaEstaciones.size(); i++) {
             if (listaEstaciones.get(i) != null && i + 1 < listaEstaciones.size()) {
                 aniadirSiguiente(listaEstaciones.get(i + 1), listaEstaciones.get(i));
@@ -102,7 +102,7 @@ public class Metro {
     /**
      * Método que resuelve la particularidad de las líneas 12 y 6, que son circulares, conectando el principio con el final de la línea
      */
-    protected void completarContiguas() {
+    public void completarContiguas() {
         ArrayList<Estacion> puertaDelSurLista = this.mapaEstaciones.get("Puerta del Sur");
         int aux = 0;
         for (int i = 0; i < puertaDelSurLista.size(); i++) {
@@ -122,7 +122,7 @@ public class Metro {
     /**
      * Método conecta las correspondencias de cada estación en caso de cumplir con el requisito de accesibilidad.
      */
-    protected void aniadirCorrespondencias(ArrayList<Estacion> listaEstaciones) {
+    public void aniadirCorrespondencias(ArrayList<Estacion> listaEstaciones) {
         for (int i = 0; i < listaEstaciones.size(); i++) {
             ArrayList<Estacion> e = this.mapaEstaciones.get(listaEstaciones.get(i).getNombre());
             if (e.size() > 1) {
@@ -130,7 +130,7 @@ public class Metro {
                     Estacion origen = e.get(j);
                     for (int x = 0; x < e.size(); x++) {
                         Estacion destino = e.get(x);
-                        if (origen != destino && (origen.accesible && destino.accesible)) {
+                        if (origen != destino && (origen.isAccesible() && destino.isAccesible())) {
                             Conexion c = new Conexion(origen, destino);
                             this.grafoEstaciones.addEdge(origen, destino, c);
                         }
@@ -147,11 +147,11 @@ public class Metro {
         ArrayList<Estacion> correspondencias = this.mapaEstaciones.get(estacion.getNombre());
         for (int i = 0; i < correspondencias.size(); i++) {
             if (!visitadas.contains(correspondencias.get(i))) {
-                if (correspondencias.get(i).estacionAnterior != null) {
-                    estacionesContiguas.addLast(correspondencias.get(i).estacionAnterior);
+                if (correspondencias.get(i).getEstacionAnterior()!= null) {
+                    estacionesContiguas.addLast(correspondencias.get(i).getEstacionAnterior());
                 }
-                if (correspondencias.get(i).estacionSiguiente != null) {
-                    estacionesContiguas.addLast(correspondencias.get(i).estacionSiguiente);
+                if (correspondencias.get(i).getEstacionSiguiente() != null) {
+                    estacionesContiguas.addLast(correspondencias.get(i).getEstacionSiguiente());
                 }
                 if (correspondencias.get(i).isAccesible()) {
                     resultado.add(correspondencias.get(i));
@@ -178,7 +178,7 @@ public class Metro {
      *
      * Evaluándo la mejor opción (Camino con menos transbordos o Con menos estaciones) según haya seleccionado el usuario.
      */
-    protected ArrayList mejorCamino(ArrayList<Estacion> listaEstacionesOrigen, ArrayList<Estacion> listaEstacionesDestino, boolean transbordos) {
+    public ArrayList mejorCamino(ArrayList<Estacion> listaEstacionesOrigen, ArrayList<Estacion> listaEstacionesDestino, boolean transbordos) {
         ArrayList resultadoRuta = new ArrayList();
         ArrayList aux;
         ArrayList <Ruta> rutas =  new ArrayList<>();

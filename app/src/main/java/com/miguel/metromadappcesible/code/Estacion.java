@@ -16,11 +16,12 @@ package com.miguel.metromadappcesible.code;
  */
 
 public class Estacion{
-    int linea;
-    String nombre;
-    Estacion estacionAnterior,estacionSiguiente = null;
-    double latitud,longitud;
-    boolean accesible;
+    private int linea;
+    private String nombre;
+    private Estacion estacionAnterior = null;
+    private Estacion estacionSiguiente = null;
+    private double latitud,longitud;
+    private boolean accesible;
     /**
      * Constructor
      */
@@ -56,6 +57,13 @@ public class Estacion{
         return this.accesible;
     }
 
+    public Estacion getEstacionAnterior() {
+        return estacionAnterior;
+    }
+
+    public Estacion getEstacionSiguiente() {
+        return estacionSiguiente;
+    }
 
     public void setEstacionAnterior(Estacion estacionAnterior) {
         this.estacionAnterior = estacionAnterior;

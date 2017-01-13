@@ -26,8 +26,8 @@ import static com.miguel.metromadappcesible.activities.SolutionActivity.myPositi
 public class LocationListenerService extends Service {
     private static final String TAG = "SERVICE LOCATION";
     private LocationManager mLocationManager = null;
-    private static final int LOCATION_INTERVAL = 3000;
-    private static final float LOCATION_DISTANCE = 2;
+    private static final int LOCATION_INTERVAL = 1000;
+    private static final float LOCATION_DISTANCE = 1;
 
     private class LocationListener implements android.location.LocationListener
     {
