@@ -28,13 +28,15 @@ import com.miguel.metromadappcesible.code.EstacionConIcono;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.miguel.metromadappcesible.activities.RoutesActivity.ESTACION_DESTINO;
-import static com.miguel.metromadappcesible.activities.RoutesActivity.ESTACION_ORIGEN;
-import static com.miguel.metromadappcesible.activities.RoutesActivity.estacionAccesibleDestino;
-import static com.miguel.metromadappcesible.activities.RoutesActivity.estacionAccesibleOrigen;
-import static com.miguel.metromadappcesible.activities.RoutesActivity.estacionDestinoSeleccionada;
-import static com.miguel.metromadappcesible.activities.RoutesActivity.estacionOrigenSeleccionada;
-import static com.miguel.metromadappcesible.activities.RoutesActivity.rutaFinal;
+
+import static com.miguel.metromadappcesible.activities.RoutesActivity.getEstacionAccesibleDestino;
+import static com.miguel.metromadappcesible.activities.RoutesActivity.getEstacionAccesibleOrigen;
+import static com.miguel.metromadappcesible.activities.RoutesActivity.getEstacionDestino;
+import static com.miguel.metromadappcesible.activities.RoutesActivity.getEstacionDestinoSeleccionada;
+import static com.miguel.metromadappcesible.activities.RoutesActivity.getEstacionOrigen;
+import static com.miguel.metromadappcesible.activities.RoutesActivity.getEstacionOrigenSeleccionada;
+import static com.miguel.metromadappcesible.activities.RoutesActivity.getRutaFinal;
+
 
 /**
  * Created by Miguel Maroto González on 8-12-16.
@@ -44,7 +46,7 @@ import static com.miguel.metromadappcesible.activities.RoutesActivity.rutaFinal;
  */
 public class DetailsActivity extends AppCompatActivity {
 
-    public String reciente;
+    private String reciente;
     /**
      * Método que se ejecuta cuando se crea una instancia de esta actividad.
      *
@@ -73,23 +75,23 @@ public class DetailsActivity extends AppCompatActivity {
         String nombreEstacion;
         Drawable iconoEstacion;
 
-        textViewBetween.append(ESTACION_ORIGEN.toUpperCase() + " - " + ESTACION_DESTINO.toUpperCase());
-        if (!(estacionOrigenSeleccionada.isAccesible())){
+        textViewBetween.append(getEstacionOrigen().toUpperCase() + " - " + getEstacionDestino().toUpperCase());
+        if (!(getEstacionOrigenSeleccionada().isAccesible())){
             textAccesible.append("\n");
-            textAccesible.append(ESTACION_ORIGEN + " " + noAccesible + " "+ estacionAccesibleOrigen.getNombre()+".");
+            textAccesible.append(getEstacionOrigen() + " " + noAccesible + " "+ getEstacionAccesibleOrigen().getNombre()+".");
             textAccesible.append("\n");
         }
-        if (!(estacionDestinoSeleccionada.isAccesible())){
+        if (!(getEstacionDestinoSeleccionada().isAccesible())){
             textAccesible.append("\n");
-            textAccesible.append(ESTACION_DESTINO + " " + noAccesible + " "+ estacionAccesibleDestino.getNombre()+".");
+            textAccesible.append(getEstacionDestino() + " " + noAccesible + " "+ getEstacionAccesibleDestino().getNombre()+".");
             textAccesible.append("\n");
         }
 
 
-        nombreEstacion = estacionAccesibleOrigen.getNombre();
-        reciente = estacionAccesibleOrigen.getNombre();
-        Conexion aux = (Conexion) rutaFinal.get(0);
-        if (aux.getEstacionOrigen().equals(estacionAccesibleOrigen.getNombre())){
+        nombreEstacion = getEstacionAccesibleOrigen().getNombre();
+        reciente = getEstacionAccesibleOrigen().getNombre();
+        Conexion aux = (Conexion) getRutaFinal().get(0);
+        if (aux.getEstacionOrigen().getNombre().equals(getEstacionAccesibleOrigen().getNombre())){
             iconoEstacion = dameIconoLinea(aux.getEstacionOrigen());
         }
         else{
@@ -97,8 +99,8 @@ public class DetailsActivity extends AppCompatActivity {
         }
         EstacionConIcono estacionOrigen = new EstacionConIcono(iconoEstacion, nombreEstacion);
         listaEstaciones.add(estacionOrigen);
-        for (int i = 0; i < rutaFinal.size(); i++) {
-            Conexion c = (Conexion) rutaFinal.get(i);
+        for (int i = 0; i < getRutaFinal().size(); i++) {
+            Conexion c = (Conexion) getRutaFinal().get(i);
             Boolean eraTransbordo = false;
             if (c.getEstacionDestino().getNombre().equals(c.getEstacionOrigen().getNombre())) {
                 transbordos++;
@@ -120,7 +122,7 @@ public class DetailsActivity extends AppCompatActivity {
             EstacionConIcono estacion = new EstacionConIcono(iconoEstacion, nombreEstacion);
             listaEstaciones.add(estacion);
             if (eraTransbordo){
-                Conexion conexionAux = (Conexion) rutaFinal.get(i+1);
+                Conexion conexionAux = (Conexion) getRutaFinal().get(i+1);
                 if (reciente.equals(conexionAux.getEstacionOrigen().getNombre())){
                     iconoEstacion = dameIconoLinea(conexionAux.getEstacionOrigen());
                     nombreEstacion = reciente;
@@ -168,7 +170,7 @@ public class DetailsActivity extends AppCompatActivity {
     /**
      * Método auxiliar para pintar la lista de estaciones de manera customizada.
      */
- public class ListAdapter extends ArrayAdapter<EstacionConIcono> {
+ private class ListAdapter extends ArrayAdapter<EstacionConIcono> {
 
     public ListAdapter(Context context, int textViewResourceId) {
         super(context, textViewResourceId);

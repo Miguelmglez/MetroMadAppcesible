@@ -30,9 +30,11 @@ import org.osmdroid.views.overlay.Polyline;
 import java.util.ArrayList;
 
 
-import static com.miguel.metromadappcesible.activities.RoutesActivity.estacionAccesibleDestino;
-import static com.miguel.metromadappcesible.activities.RoutesActivity.estacionAccesibleOrigen;
-import static com.miguel.metromadappcesible.activities.RoutesActivity.rutaFinal;
+
+import static com.miguel.metromadappcesible.activities.RoutesActivity.getEstacionAccesibleDestino;
+import static com.miguel.metromadappcesible.activities.RoutesActivity.getEstacionAccesibleOrigen;
+import static com.miguel.metromadappcesible.activities.RoutesActivity.getRutaFinal;
+
 
 /**
  * Created by Miguel Maroto González on 8-12-16.
@@ -42,13 +44,12 @@ import static com.miguel.metromadappcesible.activities.RoutesActivity.rutaFinal;
  */
 public class SolutionActivity extends AppCompatActivity {
     public static MapView myOpenMapViewMapSolution;
-
-    public Location locationGPS;
-    public LocationManager locationManager;
+    private Location locationGPS;
+    private LocationManager locationManager;
     public static Marker myPositionMarkerMapSolution;
-    public static MapController myMapControllerMapSolution;
-    GeoPoint punto = new GeoPoint(40.41694,-3.70361);
-    public Intent servicio;
+    private static MapController myMapControllerMapSolution;
+    private GeoPoint punto = new GeoPoint(40.41694,-3.70361);
+    private Intent servicio;
     @Override
     /**
      * Método que se ejecuta cuando se crea una instancia de esta actividad.
@@ -77,7 +78,7 @@ public class SolutionActivity extends AppCompatActivity {
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         locationGPS = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
         locationGPS = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        GeoPoint origen = new GeoPoint(estacionAccesibleOrigen.getLatitud(), estacionAccesibleOrigen.getLongitud());
+        GeoPoint origen = new GeoPoint(getEstacionAccesibleOrigen().getLatitud(), getEstacionAccesibleOrigen().getLongitud());
         myMapControllerMapSolution = (MapController) myOpenMapViewMapSolution.getController();
         myMapControllerMapSolution.setZoom(15);
         myMapControllerMapSolution.animateTo(origen);
@@ -115,7 +116,7 @@ public class SolutionActivity extends AppCompatActivity {
         startActivity(intent);
         Button imageButton = (Button) findViewById(R.id.routeDetailsButton);
         imageButton.setBackgroundColor(Color.WHITE);
-        imageButton.setTextColor(getResources().getColor(R.color.colorAccent));
+        imageButton.setTextColor(getResources().getColor(R.color.colorAccent,null));
         imageButton.setBackground(getDrawable(R.drawable.shape));
         stopService(servicio);
     }
@@ -137,7 +138,7 @@ public class SolutionActivity extends AppCompatActivity {
      * Método para posicionar el centro del mapa en la estación origen de la ruta.
      */
     public void centroMapaOrigen(View v) {
-        GeoPoint origen = new GeoPoint(estacionAccesibleOrigen.getLatitud(), estacionAccesibleOrigen.getLongitud());
+        GeoPoint origen = new GeoPoint(getEstacionAccesibleOrigen().getLatitud(), getEstacionAccesibleOrigen().getLongitud());
         myMapControllerMapSolution.setCenter(origen);
         myMapControllerMapSolution.animateTo(origen);
         myMapControllerMapSolution.setZoom(15);
@@ -155,12 +156,12 @@ public class SolutionActivity extends AppCompatActivity {
         String lineas = getResources().getString(R.string.infoLine);
         String change = getResources().getString(R.string.changeStation);
         String toLine = getResources().getString(R.string.toLine);
-        Conexion auxConexion = (Conexion) rutaFinal.get(0);
-        String reciente = estacionAccesibleOrigen.getNombre();
+        Conexion auxConexion = (Conexion) getRutaFinal().get(0);
+        String reciente = getEstacionAccesibleOrigen().getNombre();
         String descripcionEstacion;
         Marker estacionOrigen = new Marker(myOpenMapViewMapSolution);
-        GeoPoint coordenadasOrigen = new GeoPoint(estacionAccesibleOrigen.getLatitud(), estacionAccesibleOrigen.getLongitud());
-        String descripcionOrigen = estacionSinArticulo +" " + estacionAccesibleOrigen.getNombre() + "\n";
+        GeoPoint coordenadasOrigen = new GeoPoint(getEstacionAccesibleOrigen().getLatitud(), getEstacionAccesibleOrigen().getLongitud());
+        String descripcionOrigen = estacionSinArticulo +" " + getEstacionAccesibleOrigen().getNombre() + "\n";
         if (auxConexion.getEstacionOrigen().getNombre().equals(reciente)) {
 
             if (auxConexion.getEstacionOrigen().getLinea() == 50) {
@@ -182,14 +183,14 @@ public class SolutionActivity extends AppCompatActivity {
         estacionOrigen.setTitle(descripcionOrigen);
         myOpenMapViewMapSolution.getOverlays().add(estacionOrigen);
         Marker aux = estacionOrigen;
-        for (int i = 0; i < rutaFinal.size(); i++) {
-            Conexion c = (Conexion) rutaFinal.get(i);
+        for (int i = 0; i < getRutaFinal().size(); i++) {
+            Conexion c = (Conexion) getRutaFinal().get(i);
             Marker estacion = new Marker(myOpenMapViewMapSolution);
             descripcionEstacion = "";
             GeoPoint coordenadasEstacion = new GeoPoint(0.0, 0.0);
             if (c.getEstacionDestino().getNombre().equals(c.getEstacionOrigen().getNombre())) {
-                Conexion auxAnterior = (Conexion) rutaFinal.get(i - 1);
-                Conexion auxSiguiente = (Conexion) rutaFinal.get(i + 1);
+                Conexion auxAnterior = (Conexion) getRutaFinal().get(i - 1);
+                Conexion auxSiguiente = (Conexion) getRutaFinal().get(i + 1);
                 descripcionEstacion = estacionSinArticulo+" " + c.getEstacionOrigen().getNombre().toUpperCase() + "\n";
                 if (auxAnterior.getEstacionDestino().getLinea()!=50 && auxSiguiente.getEstacionOrigen().getLinea()!=50) {
                     descripcionEstacion = descripcionEstacion + "\n" + change + " " + auxAnterior.getEstacionDestino().getLinea() + " " + toLine + " " + auxSiguiente.getEstacionOrigen().getLinea();
@@ -230,7 +231,7 @@ public class SolutionActivity extends AppCompatActivity {
             }
             estacion.setPosition(coordenadasEstacion);
             estacion.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-            if (reciente.equals(estacionAccesibleDestino.getNombre())){
+            if (reciente.equals(getEstacionAccesibleDestino().getNombre())){
                 estacion.setIcon(getResources().getDrawable(R.drawable.estacion, null));
             }
             else {
@@ -244,16 +245,16 @@ public class SolutionActivity extends AppCompatActivity {
     /**
      * Método auxiliar para pintar las líneas que conectan las estaciones de la ruta según el color de la línea.
      */
-    public void pintaRuta() {
-        for (int i = 0; i < rutaFinal.size(); i++) {
-            Conexion c = (Conexion) rutaFinal.get(i);
+    private void pintaRuta() {
+        for (int i = 0; i < getRutaFinal().size(); i++) {
+            Conexion c = (Conexion) getRutaFinal().get(i);
             Polyline linea = new Polyline();
             ArrayList<GeoPoint> puntos = new ArrayList();
             GeoPoint punto1 = new GeoPoint(c.getEstacionOrigen().getLatitud(), c.getEstacionOrigen().getLongitud());
             GeoPoint punto2 = new GeoPoint(c.getEstacionDestino().getLatitud(), c.getEstacionDestino().getLongitud());
             if (c.getEstacionOrigen().getNombre().equals(c.getEstacionDestino().getNombre())) {
-                Conexion auxAnterior = (Conexion) rutaFinal.get(i-1);
-                Conexion auxSiguiente = (Conexion) rutaFinal.get(i+1);
+                Conexion auxAnterior = (Conexion) getRutaFinal().get(i-1);
+                Conexion auxSiguiente = (Conexion) getRutaFinal().get(i+1);
                 if (auxAnterior.getEstacionOrigen().getNombre().equals(c.getEstacionOrigen().getNombre())){
                     punto1.setCoords(auxAnterior.getEstacionOrigen().getLatitud(),auxAnterior.getEstacionOrigen().getLongitud());
                 }
@@ -274,7 +275,7 @@ public class SolutionActivity extends AppCompatActivity {
             linea.setWidth(15);
             linea.setVisible(true);
             if (c.getEstacionOrigen().getNombre().equals(c.getEstacionDestino().getNombre())){
-               Estacion aux = ((Conexion) rutaFinal.get(i)).getEstacionOrigen();
+               Estacion aux = ((Conexion) getRutaFinal().get(i)).getEstacionOrigen();
                 switch (aux.getLinea()){
                     case 1:
                         linea.setColor(getResources().getColor(R.color.colorLinea1,null));

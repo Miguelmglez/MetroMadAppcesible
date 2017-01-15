@@ -32,16 +32,44 @@ import static com.miguel.metromadappcesible.activities.IndexActivity.miMetro;
  */
 
 public class RoutesActivity extends AppCompatActivity {
-    public static AutoCompleteTextView text,text1;
-    ArrayList<String> estacionesMetro = miMetro.getListaNombreEstaciones();
-    public static boolean transbordos = true;
-    public static String ESTACION_ORIGEN ;
-    public static String ESTACION_DESTINO;
-    public static Estacion estacionOrigenSeleccionada;
-    public static Estacion estacionDestinoSeleccionada;
-    public static ArrayList rutaFinal;
-    public static Estacion estacionAccesibleOrigen;
-    public static Estacion estacionAccesibleDestino;
+    private AutoCompleteTextView text,text1;
+    private ArrayList<String> estacionesMetro = miMetro.getListaNombreEstaciones();
+    private static boolean transbordos = true;
+    private static String ESTACION_ORIGEN ;
+    private static String ESTACION_DESTINO;
+    private static Estacion estacionOrigenSeleccionada;
+    private static Estacion estacionDestinoSeleccionada;
+    private static ArrayList rutaFinal;
+    private static Estacion estacionAccesibleOrigen;
+    private static Estacion estacionAccesibleDestino;
+
+    public static String getEstacionOrigen() {
+        return ESTACION_ORIGEN;
+    }
+
+    public static String getEstacionDestino() {
+        return ESTACION_DESTINO;
+    }
+
+    public static Estacion getEstacionOrigenSeleccionada() {
+        return estacionOrigenSeleccionada;
+    }
+
+    public static Estacion getEstacionDestinoSeleccionada() {
+        return estacionDestinoSeleccionada;
+    }
+
+    public static ArrayList getRutaFinal() {
+        return rutaFinal;
+    }
+
+    public static Estacion getEstacionAccesibleOrigen() {
+        return estacionAccesibleOrigen;
+    }
+
+    public static Estacion getEstacionAccesibleDestino() {
+        return estacionAccesibleDestino;
+    }
 
     /**
      * Método que se ejecuta cuando se crea una instancia de esta actividad.
@@ -137,9 +165,9 @@ public class RoutesActivity extends AppCompatActivity {
                 estacionOrigenSeleccionada = miMetro.getMapaEstaciones().get(ESTACION_ORIGEN).get(0);
                 estacionDestinoSeleccionada = miMetro.getMapaEstaciones().get(ESTACION_DESTINO).get(0);
                 if (opcionEstaciones.isChecked()) {
-                    this.transbordos = false;
+                    transbordos = false;
                 } else {
-                    this.transbordos = true;
+                    transbordos = true;
                 }
                 estacionAccesibleOrigen = miMetro.accesibleList(estacionOrigenSeleccionada, new LinkedList(), new ArrayList<Estacion>()).get(0);
                 estacionAccesibleDestino = miMetro.accesibleList(estacionDestinoSeleccionada, new LinkedList(), new ArrayList<Estacion>()).get(0);

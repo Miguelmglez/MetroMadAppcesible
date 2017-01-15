@@ -42,15 +42,15 @@ import static com.miguel.metromadappcesible.activities.IndexActivity.miMetro;
  */
 public class MapsActivity extends AppCompatActivity {
 
-    public Location locationGPS;
-    public LocationManager locationManager;
+    private Location locationGPS;
+    private LocationManager locationManager;
     public static MapView myOpenMapViewMap;
-    public static MapController myMapControllerMap;
+    private static MapController myMapControllerMap;
     public static Marker myPositionMarkerMap;
     private AutoCompleteTextView textEstacion;
-    public static ArrayList<String> estacionesMetro = miMetro.getListaNombreEstaciones();
-    public Intent servicio;
-    GeoPoint punto = new GeoPoint(40.41694,-3.70361);
+    private static ArrayList<String> estacionesMetro = miMetro.getListaNombreEstaciones();
+    private Intent servicio;
+    private GeoPoint punto = new GeoPoint(40.41694,-3.70361);
 
     /**
      * Método que se ejecuta cuando se crea una instancia de esta actividad.
@@ -241,7 +241,7 @@ public class MapsActivity extends AppCompatActivity {
             }
             estacion.setPosition(coordenadasEstacion);
             estacion.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-            estacion.setIcon(getResources().getDrawable(R.drawable.estacion));
+            estacion.setIcon(getResources().getDrawable(R.drawable.estacion,null));
             estacion.setTitle(descripcionEstacion);
             myOpenMapViewMap.getOverlays().add(estacion);
         }
