@@ -124,6 +124,7 @@ public class MapsActivity extends AppCompatActivity {
                 imageButton.setBackground(getDrawable(R.drawable.shapeonclick));
                 textEstacion.setHint(hintText);
                 textEstacion.setCursorVisible(false);
+                textEstacion.setText("");
                 return false;
             }
         });
@@ -133,6 +134,7 @@ public class MapsActivity extends AppCompatActivity {
                 ImageButton locationButton = (ImageButton) findViewById(R.id.locationButton);
                 locationButton.setImageDrawable(getDrawable(R.drawable.position_pressed));
                 textEstacion.setHint(hintText);
+                textEstacion.setText("");
                 textEstacion.setCursorVisible(false);
                 return false;
             }
@@ -150,6 +152,7 @@ public class MapsActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 textEstacion.setHint(hintText);
+                textEstacion.setText("");
                 textEstacion.setCursorVisible(false);
                 return false;
             }

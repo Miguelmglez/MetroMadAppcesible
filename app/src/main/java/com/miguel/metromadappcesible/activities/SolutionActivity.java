@@ -98,9 +98,21 @@ public class SolutionActivity extends AppCompatActivity {
             public boolean onTouch(View v, MotionEvent event) {
                 Button imageButton = (Button) findViewById(R.id.routeDetailsButton);
                 imageButton.setTextColor(Color.WHITE);
-
                 imageButton.setBackground(getDrawable(R.drawable.shapeonclick));
-
+                ImageButton positionButton = (ImageButton) findViewById(R.id.locateMeButton);
+                ImageButton stationButton = (ImageButton) findViewById(R.id.locationStationButton);
+                positionButton.setImageDrawable(getDrawable(R.drawable.position));
+                stationButton.setImageDrawable(getDrawable(R.drawable.position_station_1));
+                return false;
+            }
+        });
+        myOpenMapViewMapSolution.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                ImageButton positionButton = (ImageButton) findViewById(R.id.locateMeButton);
+                ImageButton stationButton = (ImageButton) findViewById(R.id.locationStationButton);
+                positionButton.setImageDrawable(getDrawable(R.drawable.position));
+                stationButton.setImageDrawable(getDrawable(R.drawable.position_station_1));
                 return false;
             }
         });
