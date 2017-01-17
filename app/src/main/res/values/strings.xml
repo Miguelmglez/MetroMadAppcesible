@@ -11,7 +11,7 @@
     <string name="buttonGo">GO!</string>
     <string name="buttonRouteDetails">Route details</string>
     <string name="buttonNewRoute">NEW ROUTE</string>
-    <string name="lookStation">Locate a station ...</string>
+    <string name="lookStation">Locate a station...</string>
     <string name="routeCriteria">ROUTE CRITERIA</string>
     <string name="tituloEstaciones">"Accesible route between:" </string>
     <string name="infoLine">Line </string>

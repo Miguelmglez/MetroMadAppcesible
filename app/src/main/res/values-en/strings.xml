@@ -11,12 +11,12 @@
     <string name="buttonGo">GO!</string>
     <string name="buttonRouteDetails">Route details</string>
     <string name="buttonNewRoute">NEW ROUTE</string>
-    <string name="lookStation">Locate a station ...</string>
+    <string name="lookStation">Locate a station...</string>
     <string name="routeCriteria">ROUTE CRITERIA</string>
     <string name="tituloEstaciones">"Accesible route between:" </string>
     <string name="infoLine">Line </string>
     <string name="estacion">Station  </string>
-    <string name="noAccesible">  is NOT accesible. Nearest accessible station </string>
+    <string name="noAccesible">  is NOT accessible. Nearest accessible station </string>
     <string name="transbordo">CHANGE IN : </string>
     <string name="totalEstaciones">Stations :  </string>
     <string name="totalTransbordos">Changes :  </string>
