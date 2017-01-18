@@ -191,12 +191,13 @@ public class SolutionActivity extends AppCompatActivity {
         }
         estacionOrigen.setPosition(coordenadasOrigen);
         estacionOrigen.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-        estacionOrigen.setIcon(getResources().getDrawable(R.drawable.estacion,null));
+        estacionOrigen.setIcon(getResources().getDrawable(R.drawable.estacion_origen,null));
         estacionOrigen.setTitle(descripcionOrigen);
         myOpenMapViewMapSolution.getOverlays().add(estacionOrigen);
         Marker aux = estacionOrigen;
         for (int i = 0; i < getRutaFinal().size(); i++) {
             Conexion c = (Conexion) getRutaFinal().get(i);
+            boolean transbordo = false;
             Marker estacion = new Marker(myOpenMapViewMapSolution);
             descripcionEstacion = "";
             GeoPoint coordenadasEstacion = new GeoPoint(0.0, 0.0);
@@ -206,8 +207,10 @@ public class SolutionActivity extends AppCompatActivity {
                 descripcionEstacion = estacionSinArticulo+" " + c.getEstacionOrigen().getNombre().toUpperCase() + "\n";
                 if (auxAnterior.getEstacionDestino().getLinea()!=50 && auxSiguiente.getEstacionOrigen().getLinea()!=50) {
                     descripcionEstacion = descripcionEstacion + "\n" + change + " " + auxAnterior.getEstacionDestino().getLinea() + " " + toLine + " " + auxSiguiente.getEstacionOrigen().getLinea();
+                    transbordo = true;
                 }
                 else {
+                    transbordo = false;
                     if (auxAnterior.getEstacionDestino().getLinea()==50){
                         descripcionEstacion = descripcionEstacion + "\n" + change + " " + "R" + " " + toLine + " " + auxSiguiente.getEstacionOrigen().getLinea();
                     }
@@ -247,7 +250,20 @@ public class SolutionActivity extends AppCompatActivity {
                 estacion.setIcon(getResources().getDrawable(R.drawable.estacion, null));
             }
             else {
-                estacion.setIcon(getResources().getDrawable(R.drawable.estacioncirculo, null));
+                if (transbordo){
+                    estacion.setIcon(getResources().getDrawable(R.drawable.trans_fondo, null));
+                }
+                else{
+                    if (getRutaFinal().get(i+1)!= null){
+                        Conexion siguienteTransbordo = (Conexion) getRutaFinal().get(i+1);
+                        if (siguienteTransbordo.getEstacionDestino().getNombre().equals(siguienteTransbordo.getEstacionOrigen().getNombre())){
+                            estacion.setIcon(getResources().getDrawable(R.drawable.aux_point, null));
+                        }
+                        else{
+                            estacion.setIcon(getResources().getDrawable(R.drawable.estacioncirculo, null));
+                        }
+                    }
+                }
             }
             estacion.setTitle(descripcionEstacion);
             myOpenMapViewMapSolution.getOverlays().add(estacion);

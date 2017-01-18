@@ -6,7 +6,7 @@
 
     <string name="example">FROM</string>
     <string name="example2">TO</string>
-    <string name="radioButton1">Less changes</string>
+    <string name="radioButton1">Less transfers</string>
     <string name="radioButton2">Less stations</string>
     <string name="buttonGo">GO!</string>
     <string name="buttonRouteDetails">Route details</string>
@@ -19,14 +19,14 @@
     <string name="noAccesible">  is NOT accessible. Nearest accessible station </string>
     <string name="transbordo">CHANGE IN : </string>
     <string name="totalEstaciones">Stations :  </string>
-    <string name="totalTransbordos">Changes :  </string>
+    <string name="totalTransbordos">Transfers :  </string>
     <string name="textPerson">Hey! You are here!</string>
     <string name="estacionNoAccesible">(Not Accessible)</string>
     <string name="estacionAccesible">(Accessible)</string>
     <string name="estacionSinArticulo">Station : </string>
     <string name="errorValidStations">You must choose two valid stations</string>
     <string name="errorValidDisability">You must choose at least one accessibility option</string>
-    <string name="changeStation">Change from line</string>
+    <string name="changeStation">Transfer from line</string>
     <string name="toLine">to line</string>
     <string name="accesibility">ACCESSIBILITY</string>
     <string name="index">OPEN</string>
